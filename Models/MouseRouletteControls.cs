@@ -11,7 +11,7 @@ namespace RouletteBot.Models
 
     public class MouseRouletteControls : IRouletteControls
     {
-        static int delay = 180;
+        static int delay = 180; // TODO: Configuration file
 
         static int gridLocationX = 815;
         static int gridLocationY = 600;

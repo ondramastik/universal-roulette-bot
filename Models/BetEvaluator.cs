@@ -71,7 +71,7 @@ namespace RouletteBot.Models
 
             int[] lastThree = numbers.Skip(Math.Max(0, numbers.Count() - 3)).ToArray();
 
-            if (lastThree[0] != 0 && isRed(lastThree[0]) != isRed(lastThree[1]) && isRed(lastThree[1]) == isRed(lastThree[2]))
+            if (lastThree.Where(number => number == 0).Count() == 0 && isRed(lastThree[0]) != isRed(lastThree[1]) && isRed(lastThree[1]) == isRed(lastThree[2]))
             {
                 return new Bet[1] { new ColorBet(!isRed(lastThree[2])) };
 
@@ -96,7 +96,7 @@ namespace RouletteBot.Models
             if (isRed(lastFive[0]) != isRed(lastFive[1])
                 && isRed(lastFive[1]) != isRed(lastFive[2])
                 && isRed(lastFive[2]) != isRed(lastFive[3])
-                && isRed(lastFive[3]) != isRed(lastFive[4]))
+                && isRed(lastFive[3]) != isRed(lastFive[4]) && lastFive[4] != 0)
             {
                 return new Bet[1] { new ColorBet(!isRed(lastFive[4])) };
             } else return new Bet[0];
