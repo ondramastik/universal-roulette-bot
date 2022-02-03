@@ -33,27 +33,31 @@ namespace Universal_roulette_bot
                 Thread.CurrentThread.IsBackground = true;
 
                 var numbers = new List<int>();
-                int counter = 0;
-                while (counter < 500)
+                int counter = 1;
+                while (true)
                 {
                     int number = readNumber();
 
                 if (game.isRoundReady())
                 {
-                        numbers.Add(number);
-                        if(numbers.Count > 12)
-                        {
-                            numbers = numbers.Skip(1).ToList();
-                        }
 
-                        this.numbersView.Invoke((MethodInvoker)delegate
+                        if (number >= 0)
                         {
-                            this.numbersView.Text = string.Join(", ", numbers);
-                        });
+                            numbers.Add(number);
+                            if (numbers.Count > 12)
+                            {
+                                numbers = numbers.Skip(1).ToList();
+                            }
+
+                            this.numbersView.Invoke((MethodInvoker)delegate
+                            {
+                                this.numbersView.Text = "round " + counter + ", " + string.Join(", ", numbers);
+                            });
+                        }
                         game.playRound(number);
+                        counter++;
                     }
 
-                    counter++;
                     Thread.Sleep(300);
                 }
             }).Start();
@@ -81,6 +85,7 @@ namespace Universal_roulette_bot
                 }
                 catch (Exception ex)
                 {
+                    /* For some reason 4 is the only number that wont get recoginzed */
                     return 4;
                 }
             }

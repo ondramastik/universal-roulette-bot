@@ -18,6 +18,7 @@ namespace Universal_roulette_bot.Models
             bets.AddRange(getColorsSwitchingBet(numbers));
             bets.AddRange(getAfterZeroBet(numbers));
             bets.AddRange(getSixLinesBet(numbers));
+            bets.AddRange(getSixLinesBet(numbers, true));
 
 
             return bets.ToArray();
@@ -103,9 +104,9 @@ namespace Universal_roulette_bot.Models
             int[] lastFive = numbers.Skip(Math.Max(0, numbers.Count() - 5)).ToArray();
 
             if (isRed(lastFive[0]) != isRed(lastFive[1])
-                && !isRed(lastFive[1]) != isRed(lastFive[2])
-                && !isRed(lastFive[2]) != isRed(lastFive[3])
-                && !isRed(lastFive[3]) != isRed(lastFive[4]))
+                && isRed(lastFive[1]) != isRed(lastFive[2])
+                && isRed(lastFive[2]) != isRed(lastFive[3])
+                && isRed(lastFive[3]) != isRed(lastFive[4]))
             {
                 Bet bet = new Bet();
 
@@ -116,17 +117,79 @@ namespace Universal_roulette_bot.Models
 
         }
 
-        private Bet[] getSixLinesBet(int[] numbers)
+        private Bet[] getSixLinesBet(int[] numbers, bool secondTry = false)
         {
             if (numbers.Length < 5) return new Bet[0];
             var grid = RouletteConstants.getNumbersGrid();
 
 
-            int[] lastFive = numbers.Skip(Math.Max(0, numbers.Count() - 5)).ToArray();
-            List<Point> indexes = new List<Point>();
+            int[] lastFive;
+            if(!secondTry)
+            {
+                lastFive = numbers.Skip(Math.Max(0, numbers.Count() - 5)).ToArray();
+            }
+            else if(numbers.Length > 5)
+            {
+                int[] lastSix = numbers.Skip(numbers.Count() - 6).ToArray();
+
+                var idxs = findIndexes(lastSix.Skip(lastSix.Count() - 2).ToArray());
+                
+                if(idxs[0].X == idxs[1].X || idxs[0].X - 1 == idxs[1].X  || idxs[0].X + 1 == idxs[1].X)
+                {
+                    return new Bet[0];
+                }
+
+                lastFive = lastSix.Take(5).ToArray();
+            }
+            else return new Bet[0];
+
+            List<Point> indexes = findIndexes(lastFive);
+
+            Point last = indexes.Last();
+            for(int i = 0; i < indexes.Count - 1; i++)
+            {
+                if (indexes[i].X == last.X || indexes[i].X == last.X + 1 || indexes[i].X == last.X - 1)
+                {
+                    return new Bet[0];
+                }
+            }
 
 
-            foreach (int number in lastFive)
+            Bet bet = new Bet();
+            bet.betSixline(last.X);
+
+
+            if(!secondTry)
+            {
+                int beforeLast = lastFive[3];
+                for (int i = last.X - 1; i <= last.X + 1; i++)
+                {
+                    if (i >= 0 && i < grid[0].Length)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            if (grid[j][i] % 10 == beforeLast % 10)
+                            {
+                                bet.betNumber(grid[j][i]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return new Bet[] { bet };
+
+
+        }
+
+        private List<Point> findIndexes(int[] numbers)
+        {
+            var grid = RouletteConstants.getNumbersGrid();
+
+            var indexes = new List<Point>();
+
+            foreach (int number in numbers)
             {
                 for (int y = 0; y < grid.Length; y++)
                 {
@@ -140,42 +203,7 @@ namespace Universal_roulette_bot.Models
                 }
             }
 
-            Point last = indexes.Last();
-            foreach (Point point in indexes)
-            {
-                if (last != point)
-                {
-                    if (point.X == last.X || point.X + 1 == last.X || point.X - 1 == last.X)
-                    {
-                        return new Bet[0];
-                    }
-                }
-            }
-
-
-            Bet bet = new Bet();
-            bet.betSixline(last.X);
-
-
-            int beforeLast = lastFive[3];
-            for(int i = last.X - 1; i <= last.X + 1; i++)
-            {
-                if(i >= 0 && i < grid[0].Length)
-                {
-                    for(int j = 0; j < 3; j++)
-                    {
-                        if(grid[j][i] % 10 == beforeLast % 10)
-                        {
-                            bet.betNumber(grid[j][i]);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            return new Bet[] { bet };
-
-
+            return indexes;
         }
 
         private bool isRed(int number)

@@ -11,7 +11,7 @@ namespace Universal_roulette_bot.Models
 
     public class MouseRouletteControls : IRouletteControls
     {
-        static int delay = 250;
+        static int delay = 180;
 
         static int gridLocationX = 815;
         static int gridLocationY = 600;
@@ -43,7 +43,7 @@ namespace Universal_roulette_bot.Models
 
             for(int y = 0; y < grid.Length; y++)
             {
-                for (int x = 0; x < grid[y].Length; x++)
+                for (int x = y == 1 ? 0 : 1; x < grid[y].Length; x++)
                 {
                     if(grid[y][x] == value)
                     {
@@ -52,7 +52,7 @@ namespace Universal_roulette_bot.Models
 
                         WinAPI.MouseMove(middleONumberLocationX, middleONumberLocationY);
                         Thread.Sleep(delay);
-                        WinAPI.MouseClick("left");
+                        click(amount);
                     }
                 }
             }
@@ -65,15 +65,15 @@ namespace Universal_roulette_bot.Models
             if(red)
             {
                 WinAPI.MouseMove(locationOfRedButtonX, locationOfRedButtonY);
-                Thread.Sleep(delay);
-                WinAPI.MouseClick("left");
             }
             else
             {
                 WinAPI.MouseMove(locationOfBlackButtonX, locationOfBlackButtonY);
-                Thread.Sleep(delay);
-                WinAPI.MouseClick("left");
             }
+
+            Thread.Sleep(delay);
+            click(amount);
+
             return true;
         }
 
@@ -86,7 +86,7 @@ namespace Universal_roulette_bot.Models
         {
             WinAPI.MouseMove(gridLocationX + (columnIndex * numberTileWidth), locationOfSixlineY);
             Thread.Sleep(delay);
-            WinAPI.MouseClick("left");
+            click(amount);
 
             return true;
         }
@@ -95,9 +95,18 @@ namespace Universal_roulette_bot.Models
         {
             WinAPI.MouseMove(locationOfTurnButtonX, locationOfTurnButtonY);
             Thread.Sleep(delay);
-            WinAPI.MouseClick("left");
+            click();
 
             return true;
+        }
+
+        private void click(int times = 1)
+        {
+
+            for (int i = 1; i <= times; i++) {
+                WinAPI.MouseClick("left");
+            }
+            
         }
     }
 }

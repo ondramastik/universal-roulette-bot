@@ -29,7 +29,10 @@ namespace Universal_roulette_bot.Models
 
         public int[] playRound(int number)
         {
-            numbers.Add(number);
+            if(number >= 0)
+            {
+                numbers.Add(number);
+            }
             BetEvaluator betEvaluator = new BetEvaluator();
 
             Bet[] suggestedBets = betEvaluator.getSuggestions(numbers.ToArray());
