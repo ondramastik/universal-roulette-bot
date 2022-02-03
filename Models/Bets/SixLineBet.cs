@@ -16,7 +16,7 @@ namespace RouletteBot.Models
 
         public override void place(IRouletteControls rouletteControls)
         {
-            rouletteControls.betOnSixline(Index, multiplier);
+            rouletteControls.betOnSixline(Index >= 0 ? Index : 0, multiplier);
         }
     }
 }
