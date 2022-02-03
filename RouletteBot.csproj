@@ -207,6 +207,7 @@
     <Compile Include="Models\Bets\Bet.cs" />
     <Compile Include="Models\BetEvaluator.cs" />
     <Compile Include="Models\BetProcessor.cs" />
+    <Compile Include="Models\BetEvaluationConfig.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Controllers\IRouletteControls.cs" />
     <Compile Include="Controllers\Mocks\MockedRouletteControls.cs" />

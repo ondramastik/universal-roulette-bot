@@ -7,17 +7,17 @@ namespace RouletteBot.Models
 {
     public class ColorBet : Bet
     {
-        private bool red;
+        public bool Red { get; set; }
 
 
         public ColorBet(bool red)
         {
-            this.red = red;
+            this.Red = red;
         }
 
         public override void place(IRouletteControls rouletteControls)
         {
-            rouletteControls.betOnColor(red, multiplier);
+            rouletteControls.betOnColor(Red, multiplier);
         }
     }
 }

@@ -8,6 +8,16 @@ namespace RouletteBot.Models
     public class BetEvaluator
     {
 
+        private BetEvaluationConfig Config;
+
+        public BetEvaluator(BetEvaluationConfig evaluationConfig = null)
+        {
+            if(evaluationConfig == null)
+                Config = new BetEvaluationConfig();
+            else
+                Config = evaluationConfig;
+        }
+
         public Bet[] getSuggestions(int[] numbers)
         {
             List<Bet> bets = new List<Bet>();
@@ -20,7 +30,7 @@ namespace RouletteBot.Models
             bets.AddRange(getSixLinesBet(numbers));
             bets.AddRange(getSixLinesBet(numbers, true));
 
-            if(bets.Count == 0)
+            if(bets.Count == 0 && Config.NeutralBetOnEmpty)
             {
                 // If no bet is suggested, bet neutral.
                 bets.Add(new ColorBet(true));
