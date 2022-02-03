@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Universal_roulette_bot.Models
+namespace RouletteBot.Models
 {
     public interface IRouletteControls
     {

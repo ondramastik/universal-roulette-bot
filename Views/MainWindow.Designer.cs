@@ -1,4 +1,4 @@
-﻿namespace Universal_roulette_bot
+﻿namespace RouletteBot
 {
     partial class MainWindow
     {

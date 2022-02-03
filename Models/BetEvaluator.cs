@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 
-namespace Universal_roulette_bot.Models
+namespace RouletteBot.Models
 {
-    internal class BetEvaluator
+    public class BetEvaluator
     {
 
         public Bet[] getSuggestions(int[] numbers)
@@ -19,6 +19,13 @@ namespace Universal_roulette_bot.Models
             bets.AddRange(getAfterZeroBet(numbers));
             bets.AddRange(getSixLinesBet(numbers));
             bets.AddRange(getSixLinesBet(numbers, true));
+
+            if(bets.Count == 0)
+            {
+                // If no bet is suggested, bet neutral.
+                bets.Add(new ColorBet(true));
+                bets.Add(new ColorBet(false));
+            }
 
 
             return bets.ToArray();
@@ -44,17 +51,14 @@ namespace Universal_roulette_bot.Models
             {
                 if(counts[i] >= 2)
                 {
-                    Bet bet = new Bet();
 
                     for (int j = 0; j <= 36; j++)
                     {
                         if(j % 10 == i)
                         {
-                            bet.betNumber(j);
+                            bets.Add(new NumberBet(j));
                         }
                     }
-
-                    bets.Add(bet);
                 }
             }
 
@@ -69,11 +73,7 @@ namespace Universal_roulette_bot.Models
 
             if (lastThree[0] != 0 && isRed(lastThree[0]) != isRed(lastThree[1]) && isRed(lastThree[1]) == isRed(lastThree[2]))
             {
-                Bet bet = new Bet();
-
-                bet.betColor(!isRed(lastThree[2]));
-
-                return new Bet[1] {bet};
+                return new Bet[1] { new ColorBet(!isRed(lastThree[2])) };
 
             } else return new Bet[0];
 
@@ -81,20 +81,10 @@ namespace Universal_roulette_bot.Models
 
         private Bet[] getAfterZeroBet(int[] numbers)
         {
-            if (numbers.Length < 1) return new Bet[0];
-
-
-            if (numbers.Last() == 0)
-            {
-                Bet bet = new Bet();
-
-                bet.betColor(true);
-
-                return new Bet[1] { bet };
-
-            }
-            else return new Bet[0];
-
+            if (numbers.Length < 1 || numbers.Last() != 0)
+                return new Bet[0];
+            else
+                return new Bet[1] { new ColorBet(true) };
         }
 
         private Bet[] getColorsSwitchingBet(int[] numbers)
@@ -108,11 +98,7 @@ namespace Universal_roulette_bot.Models
                 && isRed(lastFive[2]) != isRed(lastFive[3])
                 && isRed(lastFive[3]) != isRed(lastFive[4]))
             {
-                Bet bet = new Bet();
-
-                bet.betColor(!isRed(lastFive[4]));
-
-                return new Bet[1] {bet};
+                return new Bet[1] { new ColorBet(!isRed(lastFive[4])) };
             } else return new Bet[0];
 
         }
@@ -154,12 +140,25 @@ namespace Universal_roulette_bot.Models
                 }
             }
 
+            List<Bet> result = new List<Bet>();
 
-            Bet bet = new Bet();
-            bet.betSixline(last.X);
+            if(last.X == 0 || last.X == 12)
+            {
+                result.Add(new SixLineBet(last.X) { Multiplier = 4 });
+            }
+            else if(last.X == 1)
+            {
+                result.Add(new SixLineBet(last.X) { Multiplier = 1 });
+                result.Add(new SixLineBet(last.X + 1) { Multiplier = 3 });
+            }
+            else
+            {
+                result.Add(new SixLineBet(last.X) { Multiplier = 2 });
+                result.Add(new SixLineBet(last.X + 1) { Multiplier = 2 });
+            }
 
 
-            if(!secondTry)
+            if (!secondTry)
             {
                 int beforeLast = lastFive[3];
                 for (int i = last.X - 1; i <= last.X + 1; i++)
@@ -170,7 +169,7 @@ namespace Universal_roulette_bot.Models
                         {
                             if (grid[j][i] % 10 == beforeLast % 10)
                             {
-                                bet.betNumber(grid[j][i]);
+                                result.Add(new NumberBet(grid[j][i]));
                                 break;
                             }
                         }
@@ -178,7 +177,7 @@ namespace Universal_roulette_bot.Models
                 }
             }
 
-            return new Bet[] { bet };
+            return result.ToArray();
 
 
         }

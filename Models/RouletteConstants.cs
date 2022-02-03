@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Universal_roulette_bot.Models
+namespace RouletteBot.Models
 {
-    internal class RouletteConstants
+    public class RouletteConstants
     {
         public static int[][] getNumbersGrid()
         {

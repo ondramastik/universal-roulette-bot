@@ -201,11 +201,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Bets\NumberBet.cs" />
+    <Compile Include="Models\Bets\ColorBet.cs" />
+    <Compile Include="Models\Bets\SixLineBet.cs" />
     <Compile Include="Models\Bet.cs" />
     <Compile Include="Models\BetEvaluator.cs" />
     <Compile Include="Models\BetProcessor.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\IRouletteControls.cs" />
+    <Compile Include="Models\Mocks\MockedRouletteControls.cs" />
     <Compile Include="Models\MouseRouletteControls.cs" />
     <Compile Include="Models\RouletteConstants.cs" />
     <Compile Include="Views\MainWindow.cs">

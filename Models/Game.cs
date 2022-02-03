@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Universal_roulette_bot.Models
+namespace RouletteBot.Models
 {
     public class Game
     {

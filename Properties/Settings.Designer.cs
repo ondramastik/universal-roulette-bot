@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Universal_roulette_bot.Properties
+namespace RouletteBot.Properties
 {
 
 

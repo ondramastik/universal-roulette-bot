@@ -5,11 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Universal_roulette_bot.Models;
+using RouletteBot.Models;
 using System.Threading;
 using IronOcr;
 
-namespace Universal_roulette_bot
+namespace RouletteBot
 {
     public partial class MainWindow : Form
     {

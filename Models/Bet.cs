@@ -4,49 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Universal_roulette_bot.Models
+namespace RouletteBot.Models
 {
-    internal class Bet
+    public abstract class Bet
     {
-        private Dictionary<int, int> numberBets;
+        protected int multiplier = 1;
 
-        private int redBetMultiplier;
+        public int Multiplier { set => multiplier = value; }
 
-        private int blackBetMultiplier;
-
-        private List<int> sixlineBets;
-
-        public Dictionary<int, int> NumberBets { get => numberBets; }
-        public int RedBetMultiplier { get => redBetMultiplier; }
-        public int BlackBetMultiplier { get => blackBetMultiplier; }
-        public List<int> SixlineBets { get => sixlineBets; }
-
-        public Bet()
-        {
-            numberBets = new Dictionary<int,int>();
-            redBetMultiplier = 0;
-            blackBetMultiplier = 0;
-            sixlineBets = new List<int>();
-        }
-
-        public void betNumber(int number, int betMultiplier = 1)
-        {
-            int currentBetMultiplier;
-
-            numberBets.TryGetValue(number, out currentBetMultiplier);
-
-            numberBets[number] = currentBetMultiplier + betMultiplier;
-        }
-
-        public void betColor(bool red)
-        {
-            if(red) redBetMultiplier++;
-            else blackBetMultiplier++;
-        }
-
-        public void betSixline(int column)
-        {
-            sixlineBets.Add(column);
-        }
+        public abstract void place(IRouletteControls rouletteControls);
     }
 }

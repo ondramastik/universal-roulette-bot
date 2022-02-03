@@ -13,7 +13,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
 
-namespace Universal_roulette_bot
+namespace RouletteBot
 {
     public static class WinAPI
     {

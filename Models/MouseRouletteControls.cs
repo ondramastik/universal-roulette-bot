@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace Universal_roulette_bot.Models
+namespace RouletteBot.Models
 {
 
     public class MouseRouletteControls : IRouletteControls
@@ -84,7 +84,7 @@ namespace Universal_roulette_bot.Models
 
         bool IRouletteControls.betOnSixline(int columnIndex, int amount)
         {
-            WinAPI.MouseMove(gridLocationX + (columnIndex * numberTileWidth), locationOfSixlineY);
+            WinAPI.MouseMove(gridLocationX - numberTileWidth + (columnIndex * numberTileWidth), locationOfSixlineY);
             Thread.Sleep(delay);
             click(amount);
 

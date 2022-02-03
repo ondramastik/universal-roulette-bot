@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Universal_roulette_bot
+namespace RouletteBot
 {
     internal static class Program
     {
