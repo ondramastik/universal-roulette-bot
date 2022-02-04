@@ -1,6 +1,6 @@
-﻿namespace RouletteBot
+﻿namespace RouletteBot.Views
 {
-    partial class MainWindow
+    public partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -31,15 +31,16 @@
             this.playRound = new System.Windows.Forms.Button();
             this.numbersView = new System.Windows.Forms.Label();
             this.doubleSixLineBets = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // playRound
             // 
-            this.playRound.Location = new System.Drawing.Point(163, 70);
+            this.playRound.Location = new System.Drawing.Point(137, 70);
             this.playRound.Name = "playRound";
-            this.playRound.Size = new System.Drawing.Size(75, 23);
+            this.playRound.Size = new System.Drawing.Size(101, 23);
             this.playRound.TabIndex = 0;
-            this.playRound.Text = "Play round";
+            this.playRound.Text = "Start";
             this.playRound.UseVisualStyleBackColor = true;
             this.playRound.Click += new System.EventHandler(this.playRoundClick);
             // 
@@ -56,19 +57,30 @@
             this.doubleSixLineBets.AutoSize = true;
             this.doubleSixLineBets.Checked = true;
             this.doubleSixLineBets.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.doubleSixLineBets.Location = new System.Drawing.Point(12, 70);
+            this.doubleSixLineBets.Location = new System.Drawing.Point(12, 76);
             this.doubleSixLineBets.Name = "doubleSixLineBets";
-            this.doubleSixLineBets.Size = new System.Drawing.Size(141, 17);
+            this.doubleSixLineBets.Size = new System.Drawing.Size(96, 17);
             this.doubleSixLineBets.TabIndex = 2;
-            this.doubleSixLineBets.Text = "Násobit sázky na six line";
+            this.doubleSixLineBets.Text = "Násobit six line";
             this.doubleSixLineBets.UseVisualStyleBackColor = true;
             this.doubleSixLineBets.Click += new System.EventHandler(this.doubleSixLineBetsChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(137, 41);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Upravit mapování";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.showEditMappingForm);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(250, 105);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.doubleSixLineBets);
             this.Controls.Add(this.numbersView);
             this.Controls.Add(this.playRound);
@@ -85,6 +97,7 @@
         private System.Windows.Forms.Button playRound;
         private System.Windows.Forms.Label numbersView;
         private System.Windows.Forms.CheckBox doubleSixLineBets;
+        private System.Windows.Forms.Button button1;
     }
 }
 

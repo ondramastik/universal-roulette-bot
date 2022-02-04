@@ -12,7 +12,7 @@ namespace RouletteBot.Models
 
             if(!File.Exists(fileName))
             {
-                File.WriteAllText(fileName, "Bet name, Rule name, Bet amount,Result amount,=SUBTOTAL(9;C2:C100000),=SUBTOTAL(9;D2:D100000),=(FLOOR((F1/E1) * 100) - 100) %\r\n");
+                File.WriteAllText(fileName, "Bet name, Rule name, Bet amount,Result amount,=SUBTOTAL(9;C2:C100000),=SUBTOTAL(9;D2:D100000),=(FLOOR((F1/E1) * 100) - 100)\r\n");
             }
         }
 

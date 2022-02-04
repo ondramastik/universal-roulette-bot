@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
+using RouletteBot.Views;
 
 namespace RouletteBot
 {
@@ -11,12 +13,14 @@ namespace RouletteBot
         [STAThread]
         static void Main()
         {
+
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(
                 new MainWindow(
-                    new Models.Game(new Models.MouseRouletteControls(),
-                    new Models.FileStatsRecorder(@"C:\Users\Ondra\Desktop\stats.csv"),
+                    new Models.Game(new Models.MouseRouletteControls(new Models.MappingConfig()),
+                    new Models.FileStatsRecorder(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot\stats.csv"), 
                     new Models.BetEvaluationConfig())));
         }
     }

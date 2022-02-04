@@ -6,26 +6,14 @@ namespace RouletteBot.Models
 
     public class MouseRouletteControls : IRouletteControls
     {
-        static int delay = 150; // TODO: Configuration file
+        static int delay = 150;
 
-        static int gridLocationX = 815;
-        static int gridLocationY = 600;
-        static int gridWidth = 642;
-        static int gridHeight = 250;
+        private MappingConfig config;
 
-        static int numberTileWidth = gridWidth / 12;
-        static int numberTileHeight = gridHeight / 3;
-
-        private static int locationOfTurnButtonX = 1533;
-        private static int locationOfTurnButtonY = 1000;
-
-        private static int locationOfRedButtonX = 1080;
-        private static int locationOfRedButtonY = 885;
-
-        private static int locationOfBlackButtonX = 1188;
-        private static int locationOfBlackButtonY = 885;
-
-        private static int locationOfSixlineY = 608;
+        public MouseRouletteControls(MappingConfig config)
+        {
+            this.config = config;
+        }
 
         bool IRouletteControls.betOnColumn(int index, int amount)
         {
@@ -34,6 +22,9 @@ namespace RouletteBot.Models
 
         bool IRouletteControls.betOnNumber(int value, int amount)
         {
+            int numberTileWidth = (config.GridRightBottomCornerX - config.GridLeftTopCornerX) / 12;
+            int numberTileHeight = (config.GridRightBottomCornerY - config.GridLeftTopCornerY) / 3;
+
             var grid = RouletteHelper.getNumbersGrid();
 
             for(int y = 0; y < grid.Length; y++)
@@ -42,8 +33,8 @@ namespace RouletteBot.Models
                 {
                     if(grid[y][x] == value)
                     {
-                        int middleONumberLocationX = ((x - 1) * numberTileWidth) + (numberTileWidth / 2)  + gridLocationX;
-                        int middleONumberLocationY = (y * numberTileHeight) + (numberTileHeight / 2)  + gridLocationY;
+                        int middleONumberLocationX = ((x - 1) * numberTileWidth) + (numberTileWidth / 2)  + config.GridLeftTopCornerX;
+                        int middleONumberLocationY = (y * numberTileHeight) + (numberTileHeight / 2)  + config.GridLeftTopCornerY;
 
                         WinAPI.MouseMove(middleONumberLocationX, middleONumberLocationY);
                         Thread.Sleep(delay);
@@ -59,11 +50,11 @@ namespace RouletteBot.Models
         {
             if(red)
             {
-                WinAPI.MouseMove(locationOfRedButtonX, locationOfRedButtonY);
+                WinAPI.MouseMove(config.RedBetX, config.RedBetY);
             }
             else
             {
-                WinAPI.MouseMove(locationOfBlackButtonX, locationOfBlackButtonY);
+                WinAPI.MouseMove(config.BlackBetX, config.BlackBetY);
             }
 
             Thread.Sleep(delay);
@@ -79,7 +70,9 @@ namespace RouletteBot.Models
 
         bool IRouletteControls.betOnSixline(int columnIndex, int amount)
         {
-            WinAPI.MouseMove(gridLocationX - numberTileWidth + (columnIndex * numberTileWidth), locationOfSixlineY);
+            int numberTileWidth = (config.GridRightBottomCornerX - config.GridLeftTopCornerX) / 12;
+            int numberTileHeight = (config.GridRightBottomCornerY - config.GridLeftTopCornerY) / 3;
+            WinAPI.MouseMove(config.GridLeftTopCornerX - numberTileWidth + (columnIndex * numberTileWidth), config.GridLeftTopCornerX);
             Thread.Sleep(delay);
             click(amount);
 
@@ -88,7 +81,7 @@ namespace RouletteBot.Models
 
         bool IRouletteControls.spin()
         {
-            WinAPI.MouseMove(locationOfTurnButtonX, locationOfTurnButtonY);
+            WinAPI.MouseMove(config.SpinX, config.SpinY);
             Thread.Sleep(delay);
             click();
 

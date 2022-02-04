@@ -64,6 +64,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.AppContext.4.3.0\lib\net463\System.AppContext.dll</HintPath>
@@ -218,6 +221,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\MappingConfig.cs" />
     <Compile Include="Models\Bets\NumberBet.cs" />
     <Compile Include="Models\Bets\ColorBet.cs" />
     <Compile Include="Models\Bets\SixLineBet.cs" />
@@ -226,12 +230,19 @@
     <Compile Include="Models\BetProcessor.cs" />
     <Compile Include="Models\BetEvaluationConfig.cs" />
     <Compile Include="Models\FileStatsRecorder.cs" />
+    <Compile Include="Models\GameTableReader.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Controllers\IRouletteControls.cs" />
     <Compile Include="Controllers\Mocks\MockedRouletteControls.cs" />
     <Compile Include="Controllers\MouseRouletteControls.cs" />
     <Compile Include="Models\IStatsRecorder.cs" />
     <Compile Include="Models\RouletteHelper.cs" />
+    <Compile Include="Views\UIMappingConfigurator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UIMappingConfigurator.Designer.cs">
+      <DependentUpon>UIMappingConfigurator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,6 +263,9 @@
     </Compile>
     <EmbeddedResource Include="Views\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UIMappingConfigurator.resx">
+      <DependentUpon>UIMappingConfigurator.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
