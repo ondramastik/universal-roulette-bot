@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.TopMost = true;
             this.playRound = new System.Windows.Forms.Button();
             this.numbersView = new System.Windows.Forms.Label();
+            this.doubleSixLineBets = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // playRound
@@ -51,15 +51,30 @@
             this.numbersView.Size = new System.Drawing.Size(0, 13);
             this.numbersView.TabIndex = 1;
             // 
+            // doubleSixLineBets
+            // 
+            this.doubleSixLineBets.AutoSize = true;
+            this.doubleSixLineBets.Checked = true;
+            this.doubleSixLineBets.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.doubleSixLineBets.Location = new System.Drawing.Point(12, 70);
+            this.doubleSixLineBets.Name = "doubleSixLineBets";
+            this.doubleSixLineBets.Size = new System.Drawing.Size(141, 17);
+            this.doubleSixLineBets.TabIndex = 2;
+            this.doubleSixLineBets.Text = "Násobit sázky na six line";
+            this.doubleSixLineBets.UseVisualStyleBackColor = true;
+            this.doubleSixLineBets.Click += new System.EventHandler(this.doubleSixLineBetsChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(250, 105);
+            this.Controls.Add(this.doubleSixLineBets);
             this.Controls.Add(this.numbersView);
             this.Controls.Add(this.playRound);
             this.Name = "MainWindow";
             this.Text = "Form1";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,6 +84,7 @@
 
         private System.Windows.Forms.Button playRound;
         private System.Windows.Forms.Label numbersView;
+        private System.Windows.Forms.CheckBox doubleSixLineBets;
     }
 }
 

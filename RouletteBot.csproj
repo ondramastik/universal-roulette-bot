@@ -35,10 +35,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IronOcr, Version=2022.1.0.0, Culture=neutral, PublicKeyToken=c2cbcea5ea3f6d8d, processorArchitecture=MSIL">
-      <HintPath>packages\IronOcr.2022.1.0\lib\net40\IronOcr.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.ML.OnnxRuntime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=f27f157f0a5b7bb6, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ML.OnnxRuntime.Managed.1.7.0\lib\netstandard1.1\Microsoft.ML.OnnxRuntime.dll</HintPath>
     </Reference>
@@ -208,11 +225,13 @@
     <Compile Include="Models\BetEvaluator.cs" />
     <Compile Include="Models\BetProcessor.cs" />
     <Compile Include="Models\BetEvaluationConfig.cs" />
+    <Compile Include="Models\FileStatsRecorder.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Controllers\IRouletteControls.cs" />
     <Compile Include="Controllers\Mocks\MockedRouletteControls.cs" />
     <Compile Include="Controllers\MouseRouletteControls.cs" />
-    <Compile Include="Models\RouletteConstants.cs" />
+    <Compile Include="Models\IStatsRecorder.cs" />
+    <Compile Include="Models\RouletteHelper.cs" />
     <Compile Include="Views\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

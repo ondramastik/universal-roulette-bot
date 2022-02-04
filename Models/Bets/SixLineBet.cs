@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
-
-namespace RouletteBot.Models
+﻿namespace RouletteBot.Models
 {
     public class SixLineBet : Bet
     {
@@ -16,7 +11,18 @@ namespace RouletteBot.Models
 
         public override void place(IRouletteControls rouletteControls)
         {
-            rouletteControls.betOnSixline(Index >= 0 ? Index : 0, multiplier);
+            rouletteControls.betOnSixline(Index >= 0 ? Index : 0, Multiplier);
+        }
+
+        public override int calculateBetResult(int lastNumber)
+        {
+            int lastX = RouletteHelper.getNumberGridIndex(lastNumber).X;
+
+            if (lastX == Index || lastX == Index + 1)
+            {
+                return Multiplier * 6;
+            }
+            return 0;
         }
     }
 }

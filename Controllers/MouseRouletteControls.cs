@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Threading;
 
 namespace RouletteBot.Models
@@ -11,7 +6,7 @@ namespace RouletteBot.Models
 
     public class MouseRouletteControls : IRouletteControls
     {
-        static int delay = 180; // TODO: Configuration file
+        static int delay = 150; // TODO: Configuration file
 
         static int gridLocationX = 815;
         static int gridLocationY = 600;
@@ -39,7 +34,7 @@ namespace RouletteBot.Models
 
         bool IRouletteControls.betOnNumber(int value, int amount)
         {
-            var grid = RouletteConstants.getNumbersGrid();
+            var grid = RouletteHelper.getNumbersGrid();
 
             for(int y = 0; y < grid.Length; y++)
             {

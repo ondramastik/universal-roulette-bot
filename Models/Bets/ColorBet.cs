@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
 
 namespace RouletteBot.Models
 {
@@ -17,7 +17,18 @@ namespace RouletteBot.Models
 
         public override void place(IRouletteControls rouletteControls)
         {
-            rouletteControls.betOnColor(Red, multiplier);
+            rouletteControls.betOnColor(Red, Multiplier);
         }
+
+        public override int calculateBetResult(int lastNumber)
+        {
+            if (Red == RouletteHelper.getRedNumbers().Contains(lastNumber))
+            {
+                return Multiplier * 2;
+            }
+            return 0;
+        }
+
+
     }
 }

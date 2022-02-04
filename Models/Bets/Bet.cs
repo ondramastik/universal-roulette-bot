@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RouletteBot.Models
+﻿namespace RouletteBot.Models
 {
     public abstract class Bet
     {
-        protected int multiplier = 1;
+        public int Multiplier { get; set; }
+        public string RuleName { get; set; }
 
-        public int Multiplier { set => multiplier = value; }
+        protected Bet(string initiedByRule = "Unspecified")
+        {
+            Multiplier = 1;
+            RuleName = initiedByRule;
+        }
 
         public abstract void place(IRouletteControls rouletteControls);
+
+        public abstract int calculateBetResult(int lastNumber);
     }
 }

@@ -13,7 +13,11 @@ namespace RouletteBot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow(new Models.Game(new Models.MouseRouletteControls())));
+            Application.Run(
+                new MainWindow(
+                    new Models.Game(new Models.MouseRouletteControls(),
+                    new Models.FileStatsRecorder(@"C:\Users\Ondra\Desktop\stats.csv"),
+                    new Models.BetEvaluationConfig())));
         }
     }
 }

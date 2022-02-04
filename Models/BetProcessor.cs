@@ -11,7 +11,6 @@
 
         public void processBets(Bet[] bets, int betAmount = 1)
         {
-
             foreach (Bet bet in bets)
             {
                 bet.place(rouletteControls);

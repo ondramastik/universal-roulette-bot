@@ -18,53 +18,77 @@ namespace RouletteBot.Models
         private string readyCheckColor = "Color [A=255, R=23, G=195, B=14]";
         private string readySkipColor = "Color [A=255, R=36, G=200, B=28]";
 
-        private List<int> numbers = new List<int>();
+        private List<int> Numbers { get; }
 
         private IRouletteControls rouletteControls;
 
-        public Game(IRouletteControls rouletteControls)
+        private IStatsRecorder statsRecorder;
+
+        private Bet[] previousBets;
+
+        public BetEvaluationConfig EvaluationConfig { get; set; }
+
+        public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationConfig config, List<int> initialNumbers = null)
         {
             this.rouletteControls = rouletteControls;
+            this.statsRecorder = statsRecorder;
+            this.previousBets = new Bet[0];
+
+            if(initialNumbers == null)
+            {
+                Numbers = new List<int>();
+            }
+            else
+            {
+                Numbers = initialNumbers;
+            }
+
+            EvaluationConfig = config;
         }
 
         public int[] playRound(int number)
         {
             if(number >= 0)
             {
-                numbers.Add(number);
+                Numbers.Add(number);
             }
-            BetEvaluator betEvaluator = new BetEvaluator();
 
-            Bet[] suggestedBets = betEvaluator.getSuggestions(numbers.ToArray());
+            foreach (Bet sb in previousBets)
+            {
+                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number));
+            }
+
+            BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);
+
+            Bet[] suggestedBets = betEvaluator.getSuggestions(Numbers.ToArray());
 
             BetProcessor betProcessor = new BetProcessor(rouletteControls);
 
             betProcessor.processBets(suggestedBets);
+            previousBets = suggestedBets;
 
-            return numbers.ToArray();
+            return Numbers.ToArray();
         }
 
         public bool isRoundReady()
         {
             Bitmap check = WinAPI.CreateScreenshot(readyCheckLocationX, readyCheckLocationY, readyCheckLocationX + 1, readyCheckLocationY + 1);
 
-
-            //MessageBox.Show(check.GetPixel(0, 0).ToString() + " == " + readyCheckColor + " je " + (check.GetPixel(0, 0).ToString() == readyCheckBitmap.GetPixel(0, 0).ToString()).ToString());
             bool isReady = check.GetPixel(0, 0).ToString() == readyCheckColor;
 
-                if (!isReady)
+            if (!isReady)
+            {
+                Bitmap checkSkip = WinAPI.CreateScreenshot(readySkipLocationX, readySkipLocationY, readySkipLocationX + 1, readySkipLocationY + 1);
+                bool isSkipReady = checkSkip.GetPixel(0, 0).ToString() == readySkipColor;
+                if(isSkipReady)
                 {
-                    Bitmap checkSkip = WinAPI.CreateScreenshot(readySkipLocationX, readySkipLocationY, readySkipLocationX + 1, readySkipLocationY + 1);
-                    bool isSkipReady = checkSkip.GetPixel(0, 0).ToString() == readySkipColor;
-                    if(isSkipReady)
-                    {
-                        /* This should skip it */
-                        rouletteControls.spin();
-                    }
-
+                    /* This should skip it */
+                    rouletteControls.spin();
                 }
 
-                return isReady; 
+            }
+
+            return isReady; 
             
         }
 
