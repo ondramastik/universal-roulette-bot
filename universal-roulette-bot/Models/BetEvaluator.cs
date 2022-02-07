@@ -30,7 +30,7 @@ namespace RouletteBot.Models
             bets.AddRange(getSixLinesBet(numbers));
             bets.AddRange(getFirstFiveBlackBet(numbers));
             bets.AddRange(getSixLinesBet(numbers, true));
-            //bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
+            bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
 
             if(bets.Count == 0 && Config.NeutralBetOnEmpty)
             {
@@ -150,11 +150,19 @@ namespace RouletteBot.Models
 
             foreach(int number in numbers)
             {
-                if(number == 0) hasZero = true;
+                if (number == 0) {
+                    if (hasZero)
+                    {
+                        colorsAfterZero.Clear();
+                    }
+                    else
+                    {
+                        hasZero = true;
+                    }
+                } 
                 else if(hasZero)
                 {
-                    if(number == 0) return new Bet[0];
-                    else colorsAfterZero.Add(isRed(number));
+                    colorsAfterZero.Add(isRed(number));
                 }
             }
 
