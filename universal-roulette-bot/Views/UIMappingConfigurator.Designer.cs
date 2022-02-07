@@ -50,10 +50,10 @@
             this.BlackBetY = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.SpinY = new System.Windows.Forms.TextBox();
+            this.ConfirmBetY = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.SpinX = new System.Windows.Forms.TextBox();
+            this.ConfirmBetX = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -62,6 +62,9 @@
             this.label18 = new System.Windows.Forms.Label();
             this.saveMapping = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.SixLineBetY = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -238,12 +241,12 @@
             this.label7.TabIndex = 28;
             this.label7.Text = "Y";
             // 
-            // SpinY
+            // ConfirmBetY
             // 
-            this.SpinY.Location = new System.Drawing.Point(274, 116);
-            this.SpinY.Name = "SpinY";
-            this.SpinY.Size = new System.Drawing.Size(42, 20);
-            this.SpinY.TabIndex = 27;
+            this.ConfirmBetY.Location = new System.Drawing.Point(274, 116);
+            this.ConfirmBetY.Name = "ConfirmBetY";
+            this.ConfirmBetY.Size = new System.Drawing.Size(42, 20);
+            this.ConfirmBetY.TabIndex = 27;
             // 
             // label14
             // 
@@ -259,22 +262,22 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(12, 119);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(94, 13);
+            this.label15.Size = new System.Drawing.Size(157, 13);
             this.label15.TabIndex = 25;
-            this.label15.Text = "Střed tlačítka spin";
+            this.label15.Text = "Střed tlačítka spin / confirm bet";
             // 
-            // SpinX
+            // ConfirmBetX
             // 
-            this.SpinX.Location = new System.Drawing.Point(206, 116);
-            this.SpinX.Name = "SpinX";
-            this.SpinX.Size = new System.Drawing.Size(42, 20);
-            this.SpinX.TabIndex = 24;
+            this.ConfirmBetX.Location = new System.Drawing.Point(206, 116);
+            this.ConfirmBetX.Name = "ConfirmBetX";
+            this.ConfirmBetX.Size = new System.Drawing.Size(42, 20);
+            this.ConfirmBetX.TabIndex = 24;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(15, 161);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 216);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(129, 111);
             this.pictureBox1.TabIndex = 29;
@@ -323,7 +326,7 @@
             // 
             // saveMapping
             // 
-            this.saveMapping.Location = new System.Drawing.Point(241, 184);
+            this.saveMapping.Location = new System.Drawing.Point(241, 204);
             this.saveMapping.Name = "saveMapping";
             this.saveMapping.Size = new System.Drawing.Size(75, 23);
             this.saveMapping.TabIndex = 35;
@@ -333,7 +336,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(160, 184);
+            this.button1.Location = new System.Drawing.Point(160, 204);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 36;
@@ -341,11 +344,39 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.closeClick);
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(12, 171);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(100, 13);
+            this.label19.TabIndex = 37;
+            this.label19.Text = "Pozice sixline sázky";
+            // 
+            // SixLineBetY
+            // 
+            this.SixLineBetY.Location = new System.Drawing.Point(274, 168);
+            this.SixLineBetY.Name = "SixLineBetY";
+            this.SixLineBetY.Size = new System.Drawing.Size(42, 20);
+            this.SixLineBetY.TabIndex = 38;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(254, 171);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(14, 13);
+            this.label20.TabIndex = 39;
+            this.label20.Text = "Y";
+            // 
             // UIMappingConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(328, 281);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.SixLineBetY);
+            this.Controls.Add(this.label19);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.saveMapping);
             this.Controls.Add(this.label18);
@@ -355,10 +386,10 @@
             this.Controls.Add(this.label16);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.SpinY);
+            this.Controls.Add(this.ConfirmBetY);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.SpinX);
+            this.Controls.Add(this.ConfirmBetX);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.BlackBetY);
             this.Controls.Add(this.label13);
@@ -413,10 +444,10 @@
         private System.Windows.Forms.TextBox BlackBetY;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox SpinY;
+        private System.Windows.Forms.TextBox ConfirmBetY;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox SpinX;
+        private System.Windows.Forms.TextBox ConfirmBetX;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
@@ -425,5 +456,8 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button saveMapping;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox SixLineBetY;
+        private System.Windows.Forms.Label label20;
     }
 }

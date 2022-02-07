@@ -8,7 +8,7 @@ namespace RouletteBot.Views
 {
     public partial class UIMappingConfigurator : Form
     {
-        private string configPath;
+        private string path;
 
         public UIMappingConfigurator(string configPath = null)
         {
@@ -16,12 +16,16 @@ namespace RouletteBot.Views
 
             if (configPath == null)
             {
-                configPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot\roulette-config.conf";
+                this.path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot\roulette-config.conf";
+            }
+            else
+            {
+                this.path = configPath;
             }
 
-            if(File.Exists(configPath))
+            if(File.Exists(this.path))
             {
-                string data = File.ReadAllText(configPath);
+                string data = File.ReadAllText(this.path);
                 assignFormData(JsonConvert.DeserializeObject<Dictionary<string, string>>(data));
             }
         }
@@ -38,13 +42,14 @@ namespace RouletteBot.Views
             data.Add("blackBetY", BlackBetY.Text);
             data.Add("redBetX", RedBetX.Text);
             data.Add("redBetY", RedBetY.Text);
-            data.Add("spinX", SpinX.Text);
-            data.Add("spinY", SpinY.Text);
+            data.Add("confirmBetX", ConfirmBetX.Text);
+            data.Add("confirmBetY", ConfirmBetY.Text);
             data.Add("spinReadyCheckX", SpinReadyCheckX.Text);
             data.Add("spinReadyCheckY", SpinReadyCheckY.Text);
+            data.Add("sixLineBetY", SixLineBetY.Text);
 
 
-            File.WriteAllText(configPath, JsonConvert.SerializeObject(data));
+            File.WriteAllText(this.path, JsonConvert.SerializeObject(data));
             this.Close();
         }
           
@@ -63,10 +68,11 @@ namespace RouletteBot.Views
             formData.TryGetValue("blackBetY", out string blackBetY);
             formData.TryGetValue("redBetX", out string redBetX);
             formData.TryGetValue("redBetY", out string redBetY);
-            formData.TryGetValue("spinX", out string spinX);
-            formData.TryGetValue("spinY", out string spinY);
+            formData.TryGetValue("confirmBetX", out string confirmBetX);
+            formData.TryGetValue("confirmBetY", out string confirmBetY);
             formData.TryGetValue("spinReadyCheckX", out string spinReadyCheckX);
             formData.TryGetValue("spinReadyCheckY", out string spinReadyCheckY);
+            formData.TryGetValue("sixLineBetY", out string sixLineBetY);
 
             GridLeftTopCornerX.Text = gridLeftTopCornerX;
             GridLeftTopCornerY.Text = gridLeftTopCornerY;
@@ -76,10 +82,11 @@ namespace RouletteBot.Views
             BlackBetY.Text = blackBetY;
             RedBetX.Text = redBetX;
             RedBetY.Text = redBetY;
-            SpinX.Text = spinX;
-            SpinY.Text = spinY;
+            ConfirmBetX.Text = confirmBetX;
+            ConfirmBetY.Text = confirmBetY;
             SpinReadyCheckX.Text = spinReadyCheckX;
             SpinReadyCheckY.Text = spinReadyCheckY;
+            SixLineBetY.Text = sixLineBetY;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace RouletteBot.Models
             bets.AddRange(getAfterZeroBet(numbers));
             bets.AddRange(getSixLinesBet(numbers));
             bets.AddRange(getSixLinesBet(numbers, true));
-            bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
+            //bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
 
             if(bets.Count == 0 && Config.NeutralBetOnEmpty)
             {
@@ -67,7 +67,7 @@ namespace RouletteBot.Models
                     {
                         if(j % 10 == i)
                         {
-                            bets.Add(new NumberBet(j) { RuleName = "ThreeOfFour" });
+                            bets.Add(new NumberBet(j) { RuleName = "ThreeOfFour", Multiplier = 2 });
                         }
                     }
                 }
@@ -104,7 +104,8 @@ namespace RouletteBot.Models
 
             int[] lastFive = numbers.Skip(Math.Max(0, numbers.Count() - 5)).ToArray();
 
-            if (isRed(lastFive[0]) != isRed(lastFive[1])
+            if (!lastFive.Contains(0)
+                && isRed(lastFive[0]) != isRed(lastFive[1])
                 && isRed(lastFive[1]) != isRed(lastFive[2])
                 && isRed(lastFive[2]) != isRed(lastFive[3])
                 && isRed(lastFive[3]) != isRed(lastFive[4]) && lastFive[4] != 0)

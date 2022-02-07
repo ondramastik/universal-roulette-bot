@@ -26,7 +26,7 @@ namespace RouletteBot.Models
 
         public void readReadySkipColor()
         {
-            readySkipColor = WinAPI.CreateScreenshot(config.SpinX, config.SpinY, config.SpinX + 1, config.SpinY + 1).GetPixel(0, 0).ToString();
+            readySkipColor = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1, config.ConfirmBetY + 1).GetPixel(0, 0).ToString();
         }
 
         public int ReadNumber()
@@ -38,12 +38,9 @@ namespace RouletteBot.Models
                 Color color;
                 foreach (KeyValuePair<int, Color> entry in checkColors)
                 {
-                    if(defaultNumberColors.TryGetValue(entry.Key, out color) && entry.Value.ToString() != color.ToString()) {
-                        Thread.Sleep(200);
-                        Color checkAgain = getNumberColor(entry.Key, GetGridScreenshot());
-
-                        if(checkAgain.ToString() != color.ToString())
-                            return entry.Key;
+                    if(defaultNumberColors.TryGetValue(entry.Key, out color) && entry.Value.ToString() != color.ToString())
+                    {
+                        return entry.Key;
                     }
                 }
 
@@ -60,7 +57,7 @@ namespace RouletteBot.Models
 
         public bool IsSkipReady()
         {
-            Bitmap checkSkip = WinAPI.CreateScreenshot(config.SpinX, config.SpinY, config.SpinX + 1, config.SpinY + 1);
+            Bitmap checkSkip = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1, config.ConfirmBetY + 1);
             return checkSkip.GetPixel(0, 0).ToString() == readySkipColor;
         }
 
@@ -90,8 +87,8 @@ namespace RouletteBot.Models
             int numberTileHeight = (config.GridRightBottomCornerY - config.GridLeftTopCornerY) / 3;
             Point loc = x < 0 ? RouletteHelper.getNumberGridIndex(number) : new Point(x, y);
 
-            int locX = (numberTileWidth / 2) + (loc.X * numberTileWidth);
-            int loxY = numberTileHeight / 3 + (loc.Y * numberTileHeight);
+            int locX = (loc.X * numberTileWidth) + (number != 0 ? 51 : 20);
+            int loxY = (loc.Y * numberTileHeight) + 56;
 
             return gridScreenshot.GetPixel(locX, loxY);
         }

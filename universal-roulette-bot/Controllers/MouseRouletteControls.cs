@@ -5,7 +5,7 @@ namespace RouletteBot.Models
 {
 
     public class MouseRouletteControls : IRouletteControls
-    {
+    {   
         static int delay = 150;
 
         private MappingConfig config;
@@ -71,8 +71,7 @@ namespace RouletteBot.Models
         bool IRouletteControls.betOnSixline(int columnIndex, int amount)
         {
             int numberTileWidth = (config.GridRightBottomCornerX - config.GridLeftTopCornerX) / 12;
-            int numberTileHeight = (config.GridRightBottomCornerY - config.GridLeftTopCornerY) / 3;
-            WinAPI.MouseMove(config.GridLeftTopCornerX - numberTileWidth + (columnIndex * numberTileWidth), config.GridLeftTopCornerX);
+            WinAPI.MouseMove(config.GridLeftTopCornerX - numberTileWidth + (columnIndex * numberTileWidth), config.SixLineBetY);
             Thread.Sleep(delay);
             click(amount);
 
@@ -81,7 +80,7 @@ namespace RouletteBot.Models
 
         bool IRouletteControls.spin()
         {
-            WinAPI.MouseMove(config.SpinX, config.SpinY);
+            WinAPI.MouseMove(config.ConfirmBetX, config.ConfirmBetY);
             Thread.Sleep(delay);
             click();
 

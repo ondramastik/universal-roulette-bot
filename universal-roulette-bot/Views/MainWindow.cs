@@ -22,7 +22,6 @@ namespace RouletteBot.Views
         {
             this.tableReader = new GameTableReader(new MappingConfig());
             tableReader.readReadyCheckColor();
-            bool skipCheckColorRed = false;
 
             new Thread(() =>
             {
@@ -53,23 +52,14 @@ namespace RouletteBot.Views
                         Thread.Sleep(50);
                         ready = tableReader.IsRoundReady();
                     }
+
                     Game.playRound(number);
 
-                    if(!skipCheckColorRed)
-                    {
-                        Thread.Sleep(1500);
-                        tableReader.readReadySkipColor();
-                        skipCheckColorRed = true;
-                    }
-
-                    ready = false;
-                   
-                    while (!ready)
+                    while (ready)
                     {
                         Thread.Sleep(50);
-                        ready = tableReader.IsSkipReady();
+                        ready = tableReader.IsRoundReady();
                     }
-                    Game.Spin();
 
                     counter++;
                 }

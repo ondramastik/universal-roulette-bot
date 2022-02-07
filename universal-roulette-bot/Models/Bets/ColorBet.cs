@@ -22,7 +22,8 @@ namespace RouletteBot.Models
 
         public override int calculateBetResult(int lastNumber)
         {
-            if (Red == RouletteHelper.getRedNumbers().Contains(lastNumber))
+            if (lastNumber == 0) return 0;
+            else if (Red == RouletteHelper.getRedNumbers().Contains(lastNumber))
             {
                 return Multiplier * 2;
             }
