@@ -28,6 +28,7 @@ namespace RouletteBot.Models
             bets.AddRange(getColorsSwitchingBet(numbers));
             bets.AddRange(getAfterZeroBet(numbers));
             bets.AddRange(getSixLinesBet(numbers));
+            bets.AddRange(getFirstFiveBlackBet(numbers));
             bets.AddRange(getSixLinesBet(numbers, true));
             //bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
 
@@ -40,6 +41,31 @@ namespace RouletteBot.Models
 
 
             return bets.ToArray();
+        }
+
+        public Bet[] getFirstFiveBlackBet(int[] numbers)
+        {
+
+            //Number.length = 1
+            //numbers.Length - 1 = 0
+            //Math.Min(numbers.Length, 3) = 1
+
+            for (/*1*/int i = numbers.Length - 1; i/*1*/ >= numbers.Length - Math.Min(numbers.Length, 3); i--)
+            {
+                if(numbers[i] <= 10 && numbers[i] != 0 && numbers[i] % 2 == 0)
+                {
+                    List<Bet> bets = new List<Bet>();
+
+                    for (int y = 2; y <= 10; y += 2)
+                    {
+                        bets.Add(new NumberBet(y) { RuleName = "FirstFiveBlack" } );
+                    }
+
+                    return bets.ToArray();
+                }
+            }
+
+            return new Bet[0];
         }
 
         private Bet[] getThreeOfFourBet(int[] numbers)
@@ -95,7 +121,7 @@ namespace RouletteBot.Models
             if (numbers.Length < 1 || numbers.Last() != 0)
                 return new Bet[0];
             else
-                return new Bet[1] { new ColorBet(true) { Multiplier = 3, RuleName = "AfterZero" } };
+                return new Bet[1] { new ColorBet(true) { Multiplier = 1, RuleName = "AfterZero" } };
         }
 
         private Bet[] getColorsSwitchingBet(int[] numbers)
