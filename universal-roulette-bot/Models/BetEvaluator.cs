@@ -70,9 +70,9 @@ namespace RouletteBot.Models
 
         private Bet[] getThreeOfFourBet(int[] numbers)
         {
-            if(numbers.Length < 3) return new Bet[0];
+            if(numbers.Length < 2) return new Bet[0];
 
-            int[] lastThree = numbers.Skip(Math.Max(0, numbers.Count() - 3)).ToArray();
+            int[] lastThree = numbers.Skip(Math.Max(0, numbers.Count() - Math.Min(numbers.Length, 3))).ToArray();
 
 
             int[] counts = new int[10];
