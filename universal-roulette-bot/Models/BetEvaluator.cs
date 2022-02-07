@@ -200,7 +200,8 @@ namespace RouletteBot.Models
             Point last = indexes.Last();
             for(int i = 0; i < indexes.Count - 1; i++)
             {
-                if (indexes[i].X == last.X || indexes[i].X == last.X + 1 || indexes[i].X == last.X - 1)
+                int checkX = last.X == 0 ? 1 : last.X;
+                if (indexes[i].X == checkX || indexes[i].X == checkX + 1 || indexes[i].X == checkX - 1)
                 {
                     return new Bet[0];
                 }
@@ -210,14 +211,14 @@ namespace RouletteBot.Models
 
 
             int multiplier = (Config.DoubleSixLineBets ? 2 : 1);
-            if (last.X == 0 || last.X == 12)
+            if (last.X == 12)
             {
                 result.Add(new SixLineBet(last.X) { Multiplier = 2 * multiplier, RuleName = ruleName });
             }
-            else if (last.X == 1)
+            else if (last.X == 1 || last.X == 0)
             {
                 result.Add(new NumberBet(0) { RuleName = ruleName });
-                result.Add(new SixLineBet(last.X + 1) { Multiplier = multiplier * 2, RuleName = ruleName });
+                result.Add(new SixLineBet(2) { Multiplier = multiplier * 2, RuleName = ruleName });
             }
             else if(last.X == 2)
             {
