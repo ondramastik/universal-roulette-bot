@@ -45,12 +45,7 @@ namespace RouletteBot.Models
 
         public Bet[] getFirstFiveBlackBet(int[] numbers)
         {
-
-            //Number.length = 1
-            //numbers.Length - 1 = 0
-            //Math.Min(numbers.Length, 3) = 1
-
-            for (/*1*/int i = numbers.Length - 1; i/*1*/ >= numbers.Length - Math.Min(numbers.Length, 3); i--)
+            for (int i = numbers.Length - 1; i >= numbers.Length - Math.Min(numbers.Length, 3); i--)
             {
                 if(numbers[i] <= 10 && numbers[i] != 0 && numbers[i] % 2 == 0)
                 {
@@ -110,7 +105,7 @@ namespace RouletteBot.Models
 
             if (lastThree.Where(number => number == 0).Count() == 0 && isRed(lastThree[0]) != isRed(lastThree[1]) && isRed(lastThree[1]) == isRed(lastThree[2]))
             {
-                return new Bet[1] { new ColorBet(!isRed(lastThree[2])) { RuleName = "TwoColorsInRow" } };
+                return new Bet[1] { new ColorBet(!isRed(lastThree[2])) { RuleName = "TwoColorsInRow", Multiplier = 2 } };
 
             } else return new Bet[0];
 
@@ -168,7 +163,7 @@ namespace RouletteBot.Models
 
             bool[] distinctValues = colorsAfterZero.Distinct().ToArray();
 
-            if(distinctValues.Length == 1)
+            if(colorsAfterZero.Count >= 2 && distinctValues.Length == 1)
                 return new Bet[1]{ new ColorBet(distinctValues[0]) { RuleName = "SameColorStreakAfterZero" } };
             
             else return new Bet[0];
