@@ -187,9 +187,11 @@ namespace RouletteBot.Models
             {
                 int[] lastSix = numbers.Skip(numbers.Count() - 6).ToArray();
 
-                var idxs = findIndexes(lastSix.Skip(lastSix.Count() - 2).ToArray());
-                
-                if(idxs[0].X == idxs[1].X || idxs[0].X - 1 == idxs[1].X  || idxs[0].X + 1 == idxs[1].X)
+                int[] lastTwo = lastSix.Skip(lastSix.Count() - 2).ToArray();
+                var idxs = findIndexes(lastTwo);
+
+                int previousNumberX = lastTwo[0] == 0 ? 1 : idxs[0].X;
+                if(previousNumberX == idxs[1].X || previousNumberX - 1 == idxs[1].X  || previousNumberX + 1 == idxs[1].X)
                 {
                     return new Bet[0];
                 }
