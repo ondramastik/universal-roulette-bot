@@ -48,7 +48,7 @@ namespace RouletteBot.Models
 
             foreach (Bet sb in previousBets)
             {
-                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin);
+                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin, number);
             }
 
             BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);
