@@ -53,7 +53,7 @@ namespace RouletteBot.Views
                         ready = tableReader.IsRoundReady();
                     }
 
-                    Game.playRound(number);
+                    Game.playRound(number, counter);
 
                     while (ready)
                     {

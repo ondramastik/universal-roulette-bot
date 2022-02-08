@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace RouletteBot.Models
 {
@@ -13,11 +14,15 @@ namespace RouletteBot.Models
 
         private Bet[] previousBets;
 
+        private string GameId;
+
         public BetEvaluationConfig EvaluationConfig { get; set; }
+
 
 
         public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationConfig config, List<int> initialNumbers = null)
         {
+            this.GameId = Guid.NewGuid().ToString();
             this.rouletteControls = rouletteControls;
             this.statsRecorder = statsRecorder;
             this.previousBets = new Bet[0];
@@ -34,7 +39,7 @@ namespace RouletteBot.Models
             EvaluationConfig = config;
         }
 
-        public int[] playRound(int number)
+        public int[] playRound(int number, int spin)
         {
             if(number >= 0)
             {
@@ -43,7 +48,7 @@ namespace RouletteBot.Models
 
             foreach (Bet sb in previousBets)
             {
-                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number));
+                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin);
             }
 
             BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);

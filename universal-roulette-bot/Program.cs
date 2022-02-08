@@ -20,7 +20,7 @@ namespace RouletteBot
             Application.Run(
                 new MainWindow(
                     new Models.Game(new Models.MouseRouletteControls(new Models.MappingConfig()),
-                    new Models.FileStatsRecorder(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot\stats.csv"), 
+                    new Models.MysqlStatsRecorder(), 
                     new Models.BetEvaluationConfig())));
         }
     }

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RouletteBot.Models
+﻿namespace RouletteBot.Models
 {
     public interface IStatsRecorder
     {
-        void recordBetResult(Bet bet, int betAmount, int resultAmount);
+        void recordBetResult(Bet bet, int betAmount, int resultAmount, string gameId, int spin, int number);
     }
 }
