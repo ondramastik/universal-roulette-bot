@@ -47,6 +47,10 @@ namespace RouletteBot.Views
             data.Add("spinReadyCheckX", SpinReadyCheckX.Text);
             data.Add("spinReadyCheckY", SpinReadyCheckY.Text);
             data.Add("sixLineBetY", SixLineBetY.Text);
+            data.Add("forResolutionX", ForResolutionX.Text);
+            data.Add("forResolutionY", ForResolutionY.Text);
+            data.Add("recalculateForX", RecalculateForX.Text);
+            data.Add("recalculateForY", RecalculateForY.Text);
 
 
             File.WriteAllText(this.path, JsonConvert.SerializeObject(data));
@@ -73,6 +77,10 @@ namespace RouletteBot.Views
             formData.TryGetValue("spinReadyCheckX", out string spinReadyCheckX);
             formData.TryGetValue("spinReadyCheckY", out string spinReadyCheckY);
             formData.TryGetValue("sixLineBetY", out string sixLineBetY);
+            formData.TryGetValue("forResolutionX", out string forResolutionX);
+            formData.TryGetValue("forResolutionY", out string forResolutionY);
+            formData.TryGetValue("recalculateForX", out string recalculateForX);
+            formData.TryGetValue("recalculateForY", out string recalculateForY);
 
             GridLeftTopCornerX.Text = gridLeftTopCornerX;
             GridLeftTopCornerY.Text = gridLeftTopCornerY;
@@ -87,6 +95,10 @@ namespace RouletteBot.Views
             SpinReadyCheckX.Text = spinReadyCheckX;
             SpinReadyCheckY.Text = spinReadyCheckY;
             SixLineBetY.Text = sixLineBetY;
+            ForResolutionX.Text = forResolutionX;
+            ForResolutionY.Text = forResolutionY;
+            RecalculateForX.Text = recalculateForX;
+            RecalculateForY.Text = recalculateForY;
         }
     }
 }

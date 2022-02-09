@@ -26,7 +26,7 @@ namespace RouletteBot.Models
 
         public void recordBetResult(Bet bet, int betAmount, int resultAmount, string gameId, int spin, int number)
         {
-            string sql = string.Format("INSERT INTO bets(game_id, client_id, bet_name, rule_name, bet_amount, bet_result, spin, number, version) VALUES('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{6}')",
+            string sql = string.Format("INSERT INTO bets(game_id, client_id, bet_name, rule_name, bet_amount, bet_result, spin, number, version) VALUES('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{8}')",
              gameId, Environment.UserName, bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString(), spin, number, "0.1.0");
 
             MySqlCommand cmd = new MySqlCommand(sql, conn);

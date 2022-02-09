@@ -65,6 +65,16 @@
             this.label19 = new System.Windows.Forms.Label();
             this.SixLineBetY = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.ForResolutionY = new System.Windows.Forms.TextBox();
+            this.ForResolutionX = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.RecalculateForY = new System.Windows.Forms.TextBox();
+            this.RecalculateForX = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -277,7 +287,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 216);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 282);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(129, 111);
             this.pictureBox1.TabIndex = 29;
@@ -326,7 +336,7 @@
             // 
             // saveMapping
             // 
-            this.saveMapping.Location = new System.Drawing.Point(241, 204);
+            this.saveMapping.Location = new System.Drawing.Point(241, 259);
             this.saveMapping.Name = "saveMapping";
             this.saveMapping.Size = new System.Drawing.Size(75, 23);
             this.saveMapping.TabIndex = 35;
@@ -336,7 +346,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(160, 204);
+            this.button1.Location = new System.Drawing.Point(160, 259);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 36;
@@ -369,11 +379,103 @@
             this.label20.TabIndex = 39;
             this.label20.Text = "Y";
             // 
+            // forResolutionY
+            // 
+            this.ForResolutionY.Location = new System.Drawing.Point(274, 194);
+            this.ForResolutionY.Name = "forResolutionY";
+            this.ForResolutionY.Size = new System.Drawing.Size(42, 20);
+            this.ForResolutionY.TabIndex = 41;
+            // 
+            // forResolutionX
+            // 
+            this.ForResolutionX.Location = new System.Drawing.Point(206, 194);
+            this.ForResolutionX.Name = "forResolutionX";
+            this.ForResolutionX.Size = new System.Drawing.Size(42, 20);
+            this.ForResolutionX.TabIndex = 40;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(254, 197);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(14, 13);
+            this.label21.TabIndex = 42;
+            this.label21.Text = "Y";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(188, 197);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(14, 13);
+            this.label22.TabIndex = 43;
+            this.label22.Text = "X";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(12, 197);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(141, 13);
+            this.label23.TabIndex = 44;
+            this.label23.Text = "Konfigurováno pro rozslišení";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(12, 223);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(118, 13);
+            this.label24.TabIndex = 47;
+            this.label24.Text = "Přepočítat pro rozlišení";
+            // 
+            // recalculateForY
+            // 
+            this.RecalculateForY.Location = new System.Drawing.Point(274, 220);
+            this.RecalculateForY.Name = "recalculateForY";
+            this.RecalculateForY.Size = new System.Drawing.Size(42, 20);
+            this.RecalculateForY.TabIndex = 46;
+            // 
+            // recalculateForX
+            // 
+            this.RecalculateForX.Location = new System.Drawing.Point(206, 220);
+            this.RecalculateForX.Name = "recalculateForX";
+            this.RecalculateForX.Size = new System.Drawing.Size(42, 20);
+            this.RecalculateForX.TabIndex = 45;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(188, 223);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(14, 13);
+            this.label25.TabIndex = 48;
+            this.label25.Text = "X";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(253, 223);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(14, 13);
+            this.label26.TabIndex = 49;
+            this.label26.Text = "Y";
+            // 
             // UIMappingConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 281);
+            this.ClientSize = new System.Drawing.Size(328, 371);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.RecalculateForY);
+            this.Controls.Add(this.RecalculateForX);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.ForResolutionY);
+            this.Controls.Add(this.ForResolutionX);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.SixLineBetY);
             this.Controls.Add(this.label19);
@@ -459,5 +561,15 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox SixLineBetY;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox ForResolutionY;
+        private System.Windows.Forms.TextBox ForResolutionX;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox RecalculateForY;
+        private System.Windows.Forms.TextBox RecalculateForX;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
     }
 }
