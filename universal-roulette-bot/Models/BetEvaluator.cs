@@ -61,7 +61,7 @@ namespace RouletteBot.Models
 
                     for (int y = 2; y <= 10; y += 2)
                     {
-                        bets.Add(new NumberBet(y) { RuleName = "FirstFiveBlack" } );
+                        bets.Add(new NumberBet(y) { RuleName = "FirstFiveBlack", Multiplier = Config.FirstFiveBlackAmount } );
                     }
 
                     return bets.ToArray();

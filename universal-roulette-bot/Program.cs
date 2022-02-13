@@ -17,11 +17,7 @@ namespace RouletteBot
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(
-                new MainWindow(
-                    new Models.Game(new Models.MouseRouletteControls(new Models.MappingConfig()),
-                    new Models.MysqlStatsRecorder(), 
-                    new Models.BetEvaluationConfig())));
+            Application.Run(new MainWindow());
         }
     }
 }

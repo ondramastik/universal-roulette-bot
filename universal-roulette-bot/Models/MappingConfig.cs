@@ -76,7 +76,7 @@ namespace RouletteBot.Models
                 SpinReadyCheckX = Int32.TryParse(spinReadyCheckX, out int spinReadyCheckXint) ? recalculateX(spinReadyCheckXint) : 0;
                 SpinReadyCheckY = Int32.TryParse(spinReadyCheckY, out int spinReadyCheckYint) ? recalculateY(spinReadyCheckYint) : 0;
                 SixLineBetY = Int32.TryParse(sixLineBetY, out int sixLineBetYint) ? recalculateY(sixLineBetYint) : 0;
-                NumberCheckOffsetX = Int32.TryParse(numberCheckOffsetX, out int numberCheckOffsetXint) ? recalculateY(numberCheckOffsetXint) : 0;
+                NumberCheckOffsetX = Int32.TryParse(numberCheckOffsetX, out int numberCheckOffsetXint) ? recalculateX(numberCheckOffsetXint) : 0;
                 NumberCheckOffsetY = Int32.TryParse(numberCheckOffsetY, out int numberCheckOffsetYint) ? recalculateY(numberCheckOffsetYint) : 0;
             }
         }

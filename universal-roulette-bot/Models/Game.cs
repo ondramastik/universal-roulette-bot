@@ -16,27 +16,21 @@ namespace RouletteBot.Models
 
         private string GameId;
 
+        private string RouletteType;
+
         public BetEvaluationConfig EvaluationConfig { get; set; }
 
 
 
-        public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationConfig config, List<int> initialNumbers = null)
+        public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationConfig config, string rouletteType)
         {
             this.GameId = Guid.NewGuid().ToString();
             this.rouletteControls = rouletteControls;
             this.statsRecorder = statsRecorder;
             this.previousBets = new Bet[0];
-
-            if (initialNumbers == null)
-            {
-                Numbers = new List<int>();
-            }
-            else
-            {
-                Numbers = initialNumbers;
-            }
-
-            EvaluationConfig = config;
+            this.Numbers = new List<int>();
+            this.EvaluationConfig = config;
+            this.RouletteType = rouletteType;
         }
 
         public int[] playRound(int number, int spin)
@@ -48,7 +42,7 @@ namespace RouletteBot.Models
 
             foreach (Bet sb in previousBets)
             {
-                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin, number);
+                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin, number, RouletteType);
             }
 
             BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);

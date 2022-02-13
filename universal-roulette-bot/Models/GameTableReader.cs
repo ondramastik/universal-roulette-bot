@@ -88,7 +88,7 @@ namespace RouletteBot.Models
             int numberTileHeight = (config.GridRightBottomCornerY - config.GridLeftTopCornerY) / 3;
             Point loc = x < 0 ? RouletteHelper.getNumberGridIndex(number) : new Point(x, y);
 
-            int locX = (loc.X * numberTileWidth) + Convert.ToInt32(number != 0 ? config.NumberCheckOffsetX : config.NumberCheckOffsetY / 2);
+            int locX = (loc.X * numberTileWidth) + (number != 0 ? config.NumberCheckOffsetX : 20);
             int loxY = (loc.Y * numberTileHeight) + config.NumberCheckOffsetY;
 
             return gridScreenshot.GetPixel(locX, loxY);

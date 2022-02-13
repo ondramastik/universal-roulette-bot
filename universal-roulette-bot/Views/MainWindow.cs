@@ -12,15 +12,30 @@ namespace RouletteBot.Views
 
         private GameTableReader tableReader;
 
-        public MainWindow(Game game)
+        public MainWindow()
         {
             InitializeComponent();
-            this.Game = game;
+        }
+
+        private string getRuletteType()
+        {
+            string result = IsMulti.Checked ? "multi" : "platinum";
+
+            result += IsDemo.Checked ? "-demo" : "-real";
+
+            return result;
         }
 
         private void playRoundClick(object sender, System.EventArgs e)
         {
-            this.tableReader = new GameTableReader(new MappingConfig());
+            var mappingConf = new MappingConfig();
+            Game = new Game(
+                new MouseRouletteControls(mappingConf),
+                new MysqlStatsRecorder(),
+                new BetEvaluationConfig(),
+                getRuletteType());
+
+            this.tableReader = new GameTableReader(mappingConf);
             tableReader.readReadyCheckColor();
 
             new Thread(() =>
