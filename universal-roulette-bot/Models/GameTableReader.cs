@@ -62,6 +62,57 @@ namespace RouletteBot.Models
             return checkSkip.GetPixel(0, 0).ToString() == readySkipColor;
         }
 
+        public void HighlightConfiguredMapping(int duration = 5000)
+        {
+            int thickness = 4;
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                while (duration > 0)
+                {
+                    Thread.Sleep(50);
+                    HighlightNumbersGrid(thickness);
+                    highlightNumberCheckPixels(thickness);
+
+                    duration-= 50;
+                }
+            }).Start();
+        }
+
+        private void HighlightNumbersGrid(int thickness)
+        {
+            // Top line
+            WinAPI.draw(new Rectangle(config.GridLeftTopCornerX, config.GridLeftTopCornerY - thickness, config.GridRightBottomCornerX - config.GridLeftTopCornerX, thickness), Brushes.Black);
+            // Bottom line
+            WinAPI.draw(new Rectangle(config.GridLeftTopCornerX, config.GridRightBottomCornerY, config.GridRightBottomCornerX - config.GridLeftTopCornerX, thickness), Brushes.Black);
+            // Left line
+            WinAPI.draw(new Rectangle(config.GridLeftTopCornerX - thickness, config.GridLeftTopCornerY - thickness, thickness, config.GridRightBottomCornerY - config.GridLeftTopCornerY + (thickness * 2)), Brushes.Black);
+            // Right line
+            WinAPI.draw(new Rectangle(config.GridRightBottomCornerX, config.GridLeftTopCornerY - thickness, thickness, config.GridRightBottomCornerY - config.GridLeftTopCornerY + (thickness * 2)), Brushes.Black);
+        }
+
+        private void highlightNumberCheckPixels(int thickness)
+        {
+            var grid = RouletteHelper.getNumbersGrid();
+
+            int gridLocX = config.GridLeftTopCornerX;
+            int gridLocY = config.GridLeftTopCornerY;
+
+            int gridTileWidth = (config.GridRightBottomCornerX - gridLocX) / 12;
+            int gridTileHeight = (config.GridRightBottomCornerY - gridLocY) / 3;
+
+            for (int y = 0; y < grid.Length; y++)
+            {
+                for(int x = -1; x < grid[y].Length - 1; x++)
+                {
+                    if(grid[y][x + 1] >= 0)
+                    {
+                        WinAPI.draw(new Rectangle(gridLocX + (x * gridTileWidth) - (thickness / 2) + config.NumberCheckOffsetX, gridLocY + (y * gridTileHeight) - (thickness / 2) + config.NumberCheckOffsetY, thickness, thickness), Brushes.Black);
+                    }
+                }
+            }
+        }
+
 
         private Dictionary<int, Color> readNumberColors()
         {

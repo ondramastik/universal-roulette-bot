@@ -35,6 +35,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.IsMulti = new System.Windows.Forms.CheckBox();
             this.IsDemo = new System.Windows.Forms.CheckBox();
+            this.highlightMapping = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // playRound
@@ -80,7 +81,7 @@
             this.IsMulti.AutoSize = true;
             this.IsMulti.Checked = true;
             this.IsMulti.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IsMulti.Location = new System.Drawing.Point(16, 70);
+            this.IsMulti.Location = new System.Drawing.Point(16, 99);
             this.IsMulti.Name = "IsMulti";
             this.IsMulti.Size = new System.Drawing.Size(83, 17);
             this.IsMulti.TabIndex = 5;
@@ -92,18 +93,29 @@
             this.IsDemo.AutoSize = true;
             this.IsDemo.Checked = true;
             this.IsDemo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IsDemo.Location = new System.Drawing.Point(139, 70);
+            this.IsDemo.Location = new System.Drawing.Point(140, 99);
             this.IsDemo.Name = "IsDemo";
             this.IsDemo.Size = new System.Drawing.Size(60, 17);
             this.IsDemo.TabIndex = 6;
             this.IsDemo.Text = "Demo?";
             this.IsDemo.UseVisualStyleBackColor = true;
             // 
+            // highlightMapping
+            // 
+            this.highlightMapping.Location = new System.Drawing.Point(225, 95);
+            this.highlightMapping.Name = "highlightMapping";
+            this.highlightMapping.Size = new System.Drawing.Size(101, 23);
+            this.highlightMapping.TabIndex = 7;
+            this.highlightMapping.Text = "Vykreslit mapping";
+            this.highlightMapping.UseVisualStyleBackColor = true;
+            this.highlightMapping.Click += new System.EventHandler(this.highlightConfiguredMapping);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 97);
+            this.ClientSize = new System.Drawing.Size(338, 123);
+            this.Controls.Add(this.highlightMapping);
             this.Controls.Add(this.IsDemo);
             this.Controls.Add(this.IsMulti);
             this.Controls.Add(this.button2);
@@ -131,6 +143,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox IsMulti;
         private System.Windows.Forms.CheckBox IsDemo;
+        private System.Windows.Forms.Button highlightMapping;
     }
 }
 

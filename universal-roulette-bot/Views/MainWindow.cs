@@ -94,5 +94,13 @@ namespace RouletteBot.Views
 
             configurator.Show();
         }
+
+        private void highlightConfiguredMapping(object sender, System.EventArgs e)
+        {
+            MessageBox.Show("Nezkoušet na opravdové ruletě, místo toho udělat sceenshot rulety, otevřít ho na fullscreen a až poté testovat a upravovat. Ruleta se přerendrovává příliš vysokou frekvencí a tak to přepisuje a poblikává to.");
+            var mappingConf = new MappingConfig();
+            this.tableReader = new GameTableReader(mappingConf);
+            tableReader.HighlightConfiguredMapping();
+        }
     }
 }

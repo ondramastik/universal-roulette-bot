@@ -41,7 +41,6 @@ namespace RouletteBot
         static extern void keybd_event(byte bVk, byte bScan, uint dwFlags,
            UIntPtr dwExtraInfo);
 
-
         private const int SRCCOPY = 0x00CC0020;
         [DllImport("gdi32.dll")]
         private static extern bool BitBlt(IntPtr hObject, int nXDest, int
@@ -74,6 +73,8 @@ namespace RouletteBot
         private static extern IntPtr ReleaseDC(IntPtr hWnd, IntPtr hDC);
         [DllImport("user32.dll")]
         private static extern IntPtr GetWindowRect(IntPtr hWnd, ref RECT rect);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetDC(IntPtr hWnd);
 
         [Flags]
         public enum MouseEventFlags
@@ -91,6 +92,13 @@ namespace RouletteBot
 
         #region static methods
 
+        public static void draw(Rectangle r, Brush b)
+        {
+            using(Graphics g = Graphics.FromHdc(GetDC(IntPtr.Zero)))
+            {
+                g.FillRectangle(b, r);
+            }
+        }
         /// <summary>
         /// simulates a keypress, see http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys(VS.71).aspx
         /// no winapi but this works just fine for me
