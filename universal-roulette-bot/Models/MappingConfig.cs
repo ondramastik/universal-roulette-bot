@@ -7,10 +7,10 @@ namespace RouletteBot.Models
 {
     public class MappingConfig
     {
-        public int ForResolutionX { get; set; }
-        public int ForResolutionY { get; set; }
-        public int RecalculateForX { get; set; }
-        public int RecalculateForY { get; set; }
+        public double ForResolutionX { get; set; }
+        public double ForResolutionY { get; set; }
+        public double RecalculateForX { get; set; }
+        public double RecalculateForY { get; set; }
         public int GridLeftTopCornerX { get; set; }
         public int GridLeftTopCornerY { get; set; }
         public int GridRightBottomCornerX { get; set; }
@@ -37,10 +37,10 @@ namespace RouletteBot.Models
                 string data = File.ReadAllText(configPath);
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
 
-                dictionary.TryGetValue("ForResolutionX", out string forResolutionX);
-                dictionary.TryGetValue("ForResolutionY", out string forResolutionY);
-                dictionary.TryGetValue("RecalculateForX", out string recalculateForX);
-                dictionary.TryGetValue("RecalculateForY", out string recalculateForY);
+                dictionary.TryGetValue("forResolutionX", out string forResolutionX);
+                dictionary.TryGetValue("forResolutionY", out string forResolutionY);
+                dictionary.TryGetValue("recalculateForX", out string recalculateForX);
+                dictionary.TryGetValue("recalculateForY", out string recalculateForY);
                 dictionary.TryGetValue("gridLeftTopCornerX", out string gridLeftTopCornerX);
                 dictionary.TryGetValue("gridLeftTopCornerY", out string gridLeftTopCornerY);
                 dictionary.TryGetValue("gridRightBottomCornerX", out string gridRightBottomCornerX);
@@ -55,10 +55,10 @@ namespace RouletteBot.Models
                 dictionary.TryGetValue("spinReadyCheckY", out string spinReadyCheckY);
                 dictionary.TryGetValue("sixLineBetY", out string sixLineBetY);
 
-                ForResolutionX = Int32.TryParse(forResolutionX, out int forResolutionXint) ? recalculateX(forResolutionXint) : 0;
-                ForResolutionY = Int32.TryParse(forResolutionY, out int forResolutionYint) ? recalculateY(forResolutionYint) : 0;
-                RecalculateForX = Int32.TryParse(recalculateForX, out int recalculateForXint) ? recalculateX(recalculateForXint) : 0;
-                RecalculateForY = Int32.TryParse(recalculateForY, out int recalculateForYint) ? recalculateY(recalculateForYint) : 0;
+                ForResolutionX = Double.TryParse(forResolutionX, out double forResolutionXdouble) ? forResolutionXdouble : 0;
+                ForResolutionY = Double.TryParse(forResolutionY, out double forResolutionYdouble) ? forResolutionYdouble : 0;
+                RecalculateForX = Double.TryParse(recalculateForX, out double recalculateForXdouble) ? recalculateForXdouble : 0;
+                RecalculateForY = Double.TryParse(recalculateForY, out double recalculateForYdouble) ? recalculateForYdouble : 0;
                 GridLeftTopCornerX = Int32.TryParse(gridLeftTopCornerX, out int gridLeftTopCornerXint) ? recalculateX(gridLeftTopCornerXint) : 0;
                 GridLeftTopCornerY = Int32.TryParse(gridLeftTopCornerY, out int gridLeftTopCornerYint) ? recalculateY(gridLeftTopCornerYint) : 0;
                 GridRightBottomCornerX = Int32.TryParse(gridRightBottomCornerX, out int gridRightBottomCornerXint) ? recalculateX(gridRightBottomCornerXint) : 0;
@@ -79,7 +79,7 @@ namespace RouletteBot.Models
         {
             if(RecalculateForX > 0)
             {
-                return RecalculateForX / ForResolutionX * toRecalculateX;
+                return Convert.ToInt32(RecalculateForX / ForResolutionX * Convert.ToDouble(toRecalculateX));
             }
 
             return toRecalculateX;
@@ -88,7 +88,7 @@ namespace RouletteBot.Models
         {
             if (RecalculateForY > 0)
             {
-                return RecalculateForY / ForResolutionY * toRecalculateY;
+                return Convert.ToInt32(RecalculateForY / ForResolutionY * Convert.ToDouble(toRecalculateY));
             }
 
             return toRecalculateY;

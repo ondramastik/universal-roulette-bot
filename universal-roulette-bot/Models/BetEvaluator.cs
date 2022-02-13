@@ -24,15 +24,15 @@ namespace RouletteBot.Models
 
            
             bets.AddRange(getThreeOfFourBet(numbers));
-            bets.AddRange(getTwoColorsInRowBet(numbers));
+            //bets.AddRange(getTwoColorsInRowBet(numbers));
             bets.AddRange(getColorsSwitchingBet(numbers));
             bets.AddRange(getAfterZeroBet(numbers));
             bets.AddRange(getSixLinesBet(numbers));
             bets.AddRange(getFirstFiveBlackBet(numbers));
-            bets.AddRange(getSixLinesBet(numbers, true));
-            bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
+            //bets.AddRange(getSixLinesBet(numbers, true));
+            //bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
 
-            if(bets.Count == 0 && Config.NeutralBetOnEmpty)
+            if(bets.Count == 0)
             {
                 // If no bet is suggested, bet neutral.
                 bets.Add(new ColorBet(true) { RuleName = "NeutralBet" });
@@ -215,7 +215,7 @@ namespace RouletteBot.Models
             List<Bet> result = new List<Bet>();
 
 
-            int multiplier = (Config.DoubleSixLineBets ? 2 : 1);
+            int multiplier = 2;
             if (last.X == 12)
             {
                 result.Add(new SixLineBet(last.X) { Multiplier = 2 * multiplier, RuleName = ruleName });
@@ -236,6 +236,7 @@ namespace RouletteBot.Models
                 result.Add(new SixLineBet(last.X) { Multiplier = multiplier, RuleName = ruleName });
                 result.Add(new SixLineBet(last.X + 1) { Multiplier = multiplier, RuleName = ruleName });
             }
+            result.Clear();
 
 
             int numberToBet = secondTry ? lastFive[4] : lastFive[3];

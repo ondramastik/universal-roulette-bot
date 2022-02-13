@@ -73,9 +73,11 @@ namespace RouletteBot.Views
             configurator.Show();
         }
 
-        private void doubleSixLineBetsChanged(object sender, System.EventArgs e)
+        private void showEditBettingForm(object sender, System.EventArgs e)
         {
-            Game.EvaluationConfig.DoubleSixLineBets = doubleSixLineBets.Checked;
+            var configurator = new BetEvaluationConfigurator();
+
+            configurator.Show();
         }
     }
 }

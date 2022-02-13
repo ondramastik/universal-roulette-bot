@@ -30,13 +30,13 @@
         {
             this.playRound = new System.Windows.Forms.Button();
             this.numbersView = new System.Windows.Forms.Label();
-            this.doubleSixLineBets = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // playRound
             // 
-            this.playRound.Location = new System.Drawing.Point(137, 70);
+            this.playRound.Location = new System.Drawing.Point(12, 8);
             this.playRound.Name = "playRound";
             this.playRound.Size = new System.Drawing.Size(101, 23);
             this.playRound.TabIndex = 0;
@@ -52,22 +52,9 @@
             this.numbersView.Size = new System.Drawing.Size(0, 13);
             this.numbersView.TabIndex = 1;
             // 
-            // doubleSixLineBets
-            // 
-            this.doubleSixLineBets.AutoSize = true;
-            this.doubleSixLineBets.Checked = true;
-            this.doubleSixLineBets.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.doubleSixLineBets.Location = new System.Drawing.Point(12, 76);
-            this.doubleSixLineBets.Name = "doubleSixLineBets";
-            this.doubleSixLineBets.Size = new System.Drawing.Size(96, 17);
-            this.doubleSixLineBets.TabIndex = 2;
-            this.doubleSixLineBets.Text = "Násobit six line";
-            this.doubleSixLineBets.UseVisualStyleBackColor = true;
-            this.doubleSixLineBets.Click += new System.EventHandler(this.doubleSixLineBetsChanged);
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(137, 41);
+            this.button1.Location = new System.Drawing.Point(12, 37);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(101, 23);
             this.button1.TabIndex = 3;
@@ -75,13 +62,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.showEditMappingForm);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(12, 66);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(101, 23);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Upravit sázení";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.showEditBettingForm);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(250, 105);
+            this.ClientSize = new System.Drawing.Size(125, 105);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.doubleSixLineBets);
             this.Controls.Add(this.numbersView);
             this.Controls.Add(this.playRound);
             this.Name = "MainWindow";
@@ -96,8 +93,8 @@
 
         private System.Windows.Forms.Button playRound;
         private System.Windows.Forms.Label numbersView;
-        private System.Windows.Forms.CheckBox doubleSixLineBets;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
