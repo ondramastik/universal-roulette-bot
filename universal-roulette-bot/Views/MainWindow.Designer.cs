@@ -36,7 +36,7 @@
             // 
             // playRound
             // 
-            this.playRound.Location = new System.Drawing.Point(12, 8);
+            this.playRound.Location = new System.Drawing.Point(225, 8);
             this.playRound.Name = "playRound";
             this.playRound.Size = new System.Drawing.Size(101, 23);
             this.playRound.TabIndex = 0;
@@ -54,7 +54,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 37);
+            this.button1.Location = new System.Drawing.Point(225, 37);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(101, 23);
             this.button1.TabIndex = 3;
@@ -64,7 +64,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 66);
+            this.button2.Location = new System.Drawing.Point(225, 66);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 23);
             this.button2.TabIndex = 4;
@@ -76,13 +76,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(125, 105);
+            this.ClientSize = new System.Drawing.Size(338, 97);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.numbersView);
             this.Controls.Add(this.playRound);
             this.Name = "MainWindow";
-            this.Text = "Form1";
+            this.Text = "Roulette bot";
             this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();

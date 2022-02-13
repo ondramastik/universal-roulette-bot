@@ -75,6 +75,11 @@
             this.RecalculateForX = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
+            this.NumberCheckOffsetY = new System.Windows.Forms.TextBox();
+            this.NumberCheckOffsetX = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -287,7 +292,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(3, 282);
+            this.pictureBox1.Location = new System.Drawing.Point(15, 272);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(129, 111);
             this.pictureBox1.TabIndex = 29;
@@ -336,7 +341,7 @@
             // 
             // saveMapping
             // 
-            this.saveMapping.Location = new System.Drawing.Point(241, 259);
+            this.saveMapping.Location = new System.Drawing.Point(241, 272);
             this.saveMapping.Name = "saveMapping";
             this.saveMapping.Size = new System.Drawing.Size(75, 23);
             this.saveMapping.TabIndex = 35;
@@ -346,7 +351,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(160, 259);
+            this.button1.Location = new System.Drawing.Point(160, 272);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 36;
@@ -379,24 +384,24 @@
             this.label20.TabIndex = 39;
             this.label20.Text = "Y";
             // 
-            // forResolutionY
+            // ForResolutionY
             // 
-            this.ForResolutionY.Location = new System.Drawing.Point(274, 194);
-            this.ForResolutionY.Name = "forResolutionY";
+            this.ForResolutionY.Location = new System.Drawing.Point(274, 220);
+            this.ForResolutionY.Name = "ForResolutionY";
             this.ForResolutionY.Size = new System.Drawing.Size(42, 20);
             this.ForResolutionY.TabIndex = 41;
             // 
-            // forResolutionX
+            // ForResolutionX
             // 
-            this.ForResolutionX.Location = new System.Drawing.Point(206, 194);
-            this.ForResolutionX.Name = "forResolutionX";
+            this.ForResolutionX.Location = new System.Drawing.Point(206, 220);
+            this.ForResolutionX.Name = "ForResolutionX";
             this.ForResolutionX.Size = new System.Drawing.Size(42, 20);
             this.ForResolutionX.TabIndex = 40;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(254, 197);
+            this.label21.Location = new System.Drawing.Point(254, 223);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(14, 13);
             this.label21.TabIndex = 42;
@@ -405,7 +410,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(188, 197);
+            this.label22.Location = new System.Drawing.Point(188, 223);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(14, 13);
             this.label22.TabIndex = 43;
@@ -414,39 +419,39 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(12, 197);
+            this.label23.Location = new System.Drawing.Point(12, 223);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(141, 13);
+            this.label23.Size = new System.Drawing.Size(136, 13);
             this.label23.TabIndex = 44;
-            this.label23.Text = "Konfigurováno pro rozslišení";
+            this.label23.Text = "Konfigurováno pro rozlišení";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(12, 223);
+            this.label24.Location = new System.Drawing.Point(12, 249);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(118, 13);
             this.label24.TabIndex = 47;
             this.label24.Text = "Přepočítat pro rozlišení";
             // 
-            // recalculateForY
+            // RecalculateForY
             // 
-            this.RecalculateForY.Location = new System.Drawing.Point(274, 220);
-            this.RecalculateForY.Name = "recalculateForY";
+            this.RecalculateForY.Location = new System.Drawing.Point(274, 246);
+            this.RecalculateForY.Name = "RecalculateForY";
             this.RecalculateForY.Size = new System.Drawing.Size(42, 20);
             this.RecalculateForY.TabIndex = 46;
             // 
-            // recalculateForX
+            // RecalculateForX
             // 
-            this.RecalculateForX.Location = new System.Drawing.Point(206, 220);
-            this.RecalculateForX.Name = "recalculateForX";
+            this.RecalculateForX.Location = new System.Drawing.Point(206, 246);
+            this.RecalculateForX.Name = "RecalculateForX";
             this.RecalculateForX.Size = new System.Drawing.Size(42, 20);
             this.RecalculateForX.TabIndex = 45;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(188, 223);
+            this.label25.Location = new System.Drawing.Point(188, 249);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(14, 13);
             this.label25.TabIndex = 48;
@@ -455,17 +460,63 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(253, 223);
+            this.label26.Location = new System.Drawing.Point(253, 249);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(14, 13);
             this.label26.TabIndex = 49;
             this.label26.Text = "Y";
             // 
+            // NumberCheckOffsetY
+            // 
+            this.NumberCheckOffsetY.Location = new System.Drawing.Point(274, 194);
+            this.NumberCheckOffsetY.Name = "NumberCheckOffsetY";
+            this.NumberCheckOffsetY.Size = new System.Drawing.Size(42, 20);
+            this.NumberCheckOffsetY.TabIndex = 52;
+            // 
+            // NumberCheckOffsetX
+            // 
+            this.NumberCheckOffsetX.Location = new System.Drawing.Point(206, 194);
+            this.NumberCheckOffsetX.Name = "NumberCheckOffsetX";
+            this.NumberCheckOffsetX.Size = new System.Drawing.Size(42, 20);
+            this.NumberCheckOffsetX.TabIndex = 51;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(12, 197);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(181, 13);
+            this.label27.TabIndex = 50;
+            this.label27.Text = "Ofset pro zjišťování posledního čísla";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(188, 197);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(14, 13);
+            this.label28.TabIndex = 54;
+            this.label28.Text = "X";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(254, 197);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(14, 13);
+            this.label29.TabIndex = 53;
+            this.label29.Text = "Y";
+            // 
             // UIMappingConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 371);
+            this.ClientSize = new System.Drawing.Size(328, 330);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.label29);
+            this.Controls.Add(this.NumberCheckOffsetY);
+            this.Controls.Add(this.NumberCheckOffsetX);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label24);
@@ -571,5 +622,10 @@
         private System.Windows.Forms.TextBox RecalculateForX;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox NumberCheckOffsetY;
+        private System.Windows.Forms.TextBox NumberCheckOffsetX;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
     }
 }

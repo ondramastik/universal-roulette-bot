@@ -24,6 +24,8 @@ namespace RouletteBot.Models
         public int SpinReadyCheckX { get; set; }
         public int SpinReadyCheckY { get; set; }
         public int SixLineBetY { get; set; }
+        public int NumberCheckOffsetX { get; set; }
+        public int NumberCheckOffsetY { get; set; }
 
         public MappingConfig(string configPath = null)
         {
@@ -54,6 +56,8 @@ namespace RouletteBot.Models
                 dictionary.TryGetValue("spinReadyCheckX", out string spinReadyCheckX);
                 dictionary.TryGetValue("spinReadyCheckY", out string spinReadyCheckY);
                 dictionary.TryGetValue("sixLineBetY", out string sixLineBetY);
+                dictionary.TryGetValue("numberCheckOffsetX", out string numberCheckOffsetX);
+                dictionary.TryGetValue("numberCheckOffsetY", out string numberCheckOffsetY);
 
                 ForResolutionX = Double.TryParse(forResolutionX, out double forResolutionXdouble) ? forResolutionXdouble : 0;
                 ForResolutionY = Double.TryParse(forResolutionY, out double forResolutionYdouble) ? forResolutionYdouble : 0;
@@ -72,6 +76,8 @@ namespace RouletteBot.Models
                 SpinReadyCheckX = Int32.TryParse(spinReadyCheckX, out int spinReadyCheckXint) ? recalculateX(spinReadyCheckXint) : 0;
                 SpinReadyCheckY = Int32.TryParse(spinReadyCheckY, out int spinReadyCheckYint) ? recalculateY(spinReadyCheckYint) : 0;
                 SixLineBetY = Int32.TryParse(sixLineBetY, out int sixLineBetYint) ? recalculateY(sixLineBetYint) : 0;
+                NumberCheckOffsetX = Int32.TryParse(numberCheckOffsetX, out int numberCheckOffsetXint) ? recalculateY(numberCheckOffsetXint) : 0;
+                NumberCheckOffsetY = Int32.TryParse(numberCheckOffsetY, out int numberCheckOffsetYint) ? recalculateY(numberCheckOffsetYint) : 0;
             }
         }
 

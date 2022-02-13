@@ -47,6 +47,8 @@ namespace RouletteBot.Views
             data.Add("spinReadyCheckX", SpinReadyCheckX.Text);
             data.Add("spinReadyCheckY", SpinReadyCheckY.Text);
             data.Add("sixLineBetY", SixLineBetY.Text);
+            data.Add("numberCheckOffsetX", NumberCheckOffsetX.Text);
+            data.Add("numberCheckOffsetY", NumberCheckOffsetY.Text);
             data.Add("forResolutionX", ForResolutionX.Text);
             data.Add("forResolutionY", ForResolutionY.Text);
             data.Add("recalculateForX", RecalculateForX.Text);
@@ -77,6 +79,8 @@ namespace RouletteBot.Views
             formData.TryGetValue("spinReadyCheckX", out string spinReadyCheckX);
             formData.TryGetValue("spinReadyCheckY", out string spinReadyCheckY);
             formData.TryGetValue("sixLineBetY", out string sixLineBetY);
+            formData.TryGetValue("numberCheckOffsetX", out string numberCheckOffsetX);
+            formData.TryGetValue("numberCheckOffsetY", out string numberCheckOffsetY);
             formData.TryGetValue("forResolutionX", out string forResolutionX);
             formData.TryGetValue("forResolutionY", out string forResolutionY);
             formData.TryGetValue("recalculateForX", out string recalculateForX);
@@ -95,6 +99,8 @@ namespace RouletteBot.Views
             SpinReadyCheckX.Text = spinReadyCheckX;
             SpinReadyCheckY.Text = spinReadyCheckY;
             SixLineBetY.Text = sixLineBetY;
+            NumberCheckOffsetX.Text = numberCheckOffsetX;
+            NumberCheckOffsetY.Text = numberCheckOffsetY;
             ForResolutionX.Text = forResolutionX;
             ForResolutionY.Text = forResolutionY;
             RecalculateForX.Text = recalculateForX;

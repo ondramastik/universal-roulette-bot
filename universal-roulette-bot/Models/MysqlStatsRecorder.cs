@@ -26,7 +26,7 @@ namespace RouletteBot.Models
 
         public string getInsertRow()
         {
-            return string.Format("('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{8}',FROM_UNIXTIME({9}))", gameId, Environment.UserName, bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString(), spin, number, "TO DELETE", 1644485353 + (spin * 60));
+            return string.Format("('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{8}')", gameId, Environment.UserName, bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString(), spin, number, "0.2.0");
         }
     }
 
