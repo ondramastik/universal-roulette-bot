@@ -53,6 +53,8 @@ namespace RouletteBot.Views
             data.Add("forResolutionY", ForResolutionY.Text);
             data.Add("recalculateForX", RecalculateForX.Text);
             data.Add("recalculateForY", RecalculateForY.Text);
+            data.Add("isMulti", IsMulti.Checked.ToString());
+            data.Add("isDemo", IsDemo.Checked.ToString());
 
 
             File.WriteAllText(this.path, JsonConvert.SerializeObject(data));
@@ -85,6 +87,8 @@ namespace RouletteBot.Views
             formData.TryGetValue("forResolutionY", out string forResolutionY);
             formData.TryGetValue("recalculateForX", out string recalculateForX);
             formData.TryGetValue("recalculateForY", out string recalculateForY);
+            formData.TryGetValue("isMulti", out string isMulti);
+            formData.TryGetValue("isDemo", out string isDemo);
 
             GridLeftTopCornerX.Text = gridLeftTopCornerX;
             GridLeftTopCornerY.Text = gridLeftTopCornerY;
@@ -105,6 +109,8 @@ namespace RouletteBot.Views
             ForResolutionY.Text = forResolutionY;
             RecalculateForX.Text = recalculateForX;
             RecalculateForY.Text = recalculateForY;
+            IsMulti.Checked = Boolean.TryParse(isMulti, out bool isMultiBool) ? isMultiBool : false;
+            IsDemo.Checked = Boolean.TryParse(isDemo, out bool isDemoBool) ? isDemoBool : true;
         }
     }
 }

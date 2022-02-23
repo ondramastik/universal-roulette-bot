@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using RouletteBot.Models;
+using System;
 using System.Threading;
 
 namespace RouletteBot.Views
@@ -17,11 +18,11 @@ namespace RouletteBot.Views
             InitializeComponent();
         }
 
-        private string getRuletteType()
+        private string getRuletteType(MappingConfig config)
         {
-            string result = IsMulti.Checked ? "multi" : "platinum";
+            string result = config.IsMulti ? "multi" : "platinum";
 
-            result += IsDemo.Checked ? "-demo" : "-real";
+            result += config.IsDemo ? "-demo" : "-real";
 
             return result;
         }
@@ -33,7 +34,7 @@ namespace RouletteBot.Views
                 new MouseRouletteControls(mappingConf),
                 new MysqlStatsRecorder(),
                 new BetEvaluationConfig(),
-                getRuletteType());
+                getRuletteType(mappingConf));
 
             this.tableReader = new GameTableReader(mappingConf);
             tableReader.readReadyCheckColor();
@@ -68,12 +69,39 @@ namespace RouletteBot.Views
                         ready = tableReader.IsRoundReady();
                     }
 
-                    Game.playRound(number, counter);
+                    this.numbersView.Invoke((MethodInvoker)delegate
+                    {
+                        int[] num = getLongTimeNoSeeNumber(Game.playRound(number, counter));
+                        if(num.Length > 1)
+                        {
+                            this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 1: {0}\r\nVýskyt naposled před: {1}", num[0], num[1]);
+                        }
+                        if (num.Length > 3)
+                        {
+                            this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 2: {0}\r\nVýskyt naposled před: {1}", num[2], num[3]);
+                        }
+                        if (num.Length > 5)
+                        {
+                            this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 3: {0}\r\nVýskyt naposled před: {1}", num[4], num[5]);
+                        }
+                    });
 
                     while (ready)
                     {
                         Thread.Sleep(50);
                         ready = tableReader.IsRoundReady();
+                    }
+
+                    if(!mappingConf.IsMulti)
+                    {
+                        ready = false;
+
+                        while (!ready)
+                        {
+                            Thread.Sleep(50);
+                            ready = tableReader.IsSkipReady();
+                        }
+                        Game.Spin();
                     }
 
                     counter++;
@@ -97,10 +125,53 @@ namespace RouletteBot.Views
 
         private void highlightConfiguredMapping(object sender, System.EventArgs e)
         {
-            MessageBox.Show("Nezkoušet na opravdové ruletě, místo toho udělat sceenshot rulety, otevřít ho na fullscreen a až poté testovat a upravovat. Ruleta se přerendrovává příliš vysokou frekvencí a tak to přepisuje a poblikává to.");
+            //MessageBox.Show("Nezkoušet na opravdové ruletě, místo toho udělat sceenshot rulety, otevřít ho na fullscreen a až poté testovat a upravovat. Ruleta se přerendrovává příliš vysokou frekvencí a tak to přepisuje a poblikává to.");
             var mappingConf = new MappingConfig();
             this.tableReader = new GameTableReader(mappingConf);
             tableReader.HighlightConfiguredMapping();
+        }
+
+        private int[] getLongTimeNoSeeNumber(int[] numbers)
+        {
+            var lastSeeNumbers = new Dictionary<int, int>();
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                int roundsWithoutSeeTmp = 0;
+                for (int y = i; y < numbers.Length; y++)
+                {
+                    if (i == y) continue;
+                    if (numbers[i] != numbers[y])
+                    {
+                        roundsWithoutSeeTmp++;
+                    }
+                    else
+                    {
+                        roundsWithoutSeeTmp = 0;
+                    }
+                }
+
+                if(lastSeeNumbers.ContainsKey(numbers[i]))
+                {
+                    lastSeeNumbers[numbers[i]] = roundsWithoutSeeTmp;
+                }
+                else
+                {
+                    lastSeeNumbers.Add(numbers[i], roundsWithoutSeeTmp);
+                }
+            }
+
+            lastSeeNumbers = lastSeeNumbers.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            var result = new List<int>();
+
+            foreach (var number in lastSeeNumbers.Skip(Math.Max(0, lastSeeNumbers.Count() - 3)))
+            {
+                result.Add(number.Key);
+                result.Add(number.Value);
+            }
+
+            return result.ToArray();
         }
     }
 }

@@ -39,12 +39,14 @@ namespace RouletteBot.Models
                 bets.AddRange(getFirstFiveBlackBet(numbers));
             if (Config.ColorStreakAfterZero)
                 bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
+            //if (Config.ColorStreakAfterZero)
+            bets.AddRange(getLongTimeNoSeeBet(numbers));
 
-            if(bets.Count == 0)
+            if (bets.Count == 0)
             {
                 // If no bet is suggested, bet neutral.
-                bets.Add(new ColorBet(true) { RuleName = "NeutralBet" });
-                bets.Add(new ColorBet(false) { RuleName = "NeutralBet" });
+                bets.Add(new ColorBet(true) { RuleName = "NeutralBet", isVirtualBet = false});
+                bets.Add(new ColorBet(false) { RuleName = "NeutralBet", isVirtualBet = false });
             }
 
 
@@ -271,6 +273,52 @@ namespace RouletteBot.Models
             return result.ToArray();
 
 
+        }
+
+        private Bet[] getLongTimeNoSeeBet(int[] numbers)
+        {
+            var lastSeeNumbers = new Dictionary<int, int>();
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                int roundsWithoutSeeTmp = 0;
+                for (int y = i; y < numbers.Length; y++)
+                {
+                    if (i == y) continue;
+                    if (numbers[i] != numbers[y])
+                    {
+                        roundsWithoutSeeTmp++;
+                    }
+                    else
+                    {
+                        roundsWithoutSeeTmp = 0;
+                    }
+                }
+
+                if(lastSeeNumbers.ContainsKey(numbers[i]))
+                {
+                    lastSeeNumbers[numbers[i]] = roundsWithoutSeeTmp;
+                }
+                else
+                {
+                    lastSeeNumbers.Add(numbers[i], roundsWithoutSeeTmp);
+                }
+            }
+
+            lastSeeNumbers = lastSeeNumbers.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            var bets = new List<Bet>();
+            foreach(var number in lastSeeNumbers.Skip(Math.Max(0, lastSeeNumbers.Count() - 3)))
+            {
+
+                if (number.Key >= 0 && number.Value >= 74 && number.Value < 148)
+                {
+                    int multiplier = Convert.ToInt32(Math.Pow(2, ((number.Value - 74) / 37) + 1)) / 2;
+                    bets.Add(new NumberBet(number.Key) { RuleName = "LongTimeNoSee", Multiplier = multiplier });
+                }
+            }
+
+            return bets.ToArray();
         }
 
         private List<Point> findIndexes(int[] numbers)

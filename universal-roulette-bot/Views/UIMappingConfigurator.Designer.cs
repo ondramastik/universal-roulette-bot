@@ -80,6 +80,8 @@
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
+            this.IsMulti = new System.Windows.Forms.CheckBox();
+            this.IsDemo = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -341,7 +343,7 @@
             // 
             // saveMapping
             // 
-            this.saveMapping.Location = new System.Drawing.Point(241, 272);
+            this.saveMapping.Location = new System.Drawing.Point(241, 333);
             this.saveMapping.Name = "saveMapping";
             this.saveMapping.Size = new System.Drawing.Size(75, 23);
             this.saveMapping.TabIndex = 35;
@@ -351,7 +353,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(160, 272);
+            this.button1.Location = new System.Drawing.Point(160, 333);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 36;
@@ -507,11 +509,35 @@
             this.label29.TabIndex = 53;
             this.label29.Text = "Y";
             // 
+            // IsMulti
+            // 
+            this.IsMulti.AutoSize = true;
+            this.IsMulti.Location = new System.Drawing.Point(191, 272);
+            this.IsMulti.Name = "IsMulti";
+            this.IsMulti.Size = new System.Drawing.Size(64, 17);
+            this.IsMulti.TabIndex = 55;
+            this.IsMulti.Text = "Is multi?";
+            this.IsMulti.UseVisualStyleBackColor = true;
+            // 
+            // IsDemo
+            // 
+            this.IsDemo.AutoSize = true;
+            this.IsDemo.Checked = true;
+            this.IsDemo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.IsDemo.Location = new System.Drawing.Point(191, 295);
+            this.IsDemo.Name = "IsDemo";
+            this.IsDemo.Size = new System.Drawing.Size(69, 17);
+            this.IsDemo.TabIndex = 56;
+            this.IsDemo.Text = "Is demo?";
+            this.IsDemo.UseVisualStyleBackColor = true;
+            // 
             // UIMappingConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 330);
+            this.ClientSize = new System.Drawing.Size(328, 368);
+            this.Controls.Add(this.IsDemo);
+            this.Controls.Add(this.IsMulti);
             this.Controls.Add(this.label28);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.NumberCheckOffsetY);
@@ -627,5 +653,7 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.CheckBox IsMulti;
+        private System.Windows.Forms.CheckBox IsDemo;
     }
 }

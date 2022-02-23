@@ -33,8 +33,6 @@
             this.numbersView = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.IsMulti = new System.Windows.Forms.CheckBox();
-            this.IsDemo = new System.Windows.Forms.CheckBox();
             this.highlightMapping = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -51,10 +49,11 @@
             // numbersView
             // 
             this.numbersView.AutoSize = true;
-            this.numbersView.Location = new System.Drawing.Point(13, 13);
+            this.numbersView.Location = new System.Drawing.Point(12, 4);
             this.numbersView.Name = "numbersView";
-            this.numbersView.Size = new System.Drawing.Size(0, 13);
+            this.numbersView.Size = new System.Drawing.Size(0, 16);
             this.numbersView.TabIndex = 1;
+            this.numbersView.UseCompatibleTextRendering = true;
             // 
             // button1
             // 
@@ -76,30 +75,6 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.showEditBettingForm);
             // 
-            // IsMulti
-            // 
-            this.IsMulti.AutoSize = true;
-            this.IsMulti.Checked = true;
-            this.IsMulti.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IsMulti.Location = new System.Drawing.Point(16, 99);
-            this.IsMulti.Name = "IsMulti";
-            this.IsMulti.Size = new System.Drawing.Size(83, 17);
-            this.IsMulti.TabIndex = 5;
-            this.IsMulti.Text = "Multi ruleta?";
-            this.IsMulti.UseVisualStyleBackColor = true;
-            // 
-            // IsDemo
-            // 
-            this.IsDemo.AutoSize = true;
-            this.IsDemo.Checked = true;
-            this.IsDemo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IsDemo.Location = new System.Drawing.Point(140, 99);
-            this.IsDemo.Name = "IsDemo";
-            this.IsDemo.Size = new System.Drawing.Size(60, 17);
-            this.IsDemo.TabIndex = 6;
-            this.IsDemo.Text = "Demo?";
-            this.IsDemo.UseVisualStyleBackColor = true;
-            // 
             // highlightMapping
             // 
             this.highlightMapping.Location = new System.Drawing.Point(225, 95);
@@ -116,8 +91,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 123);
             this.Controls.Add(this.highlightMapping);
-            this.Controls.Add(this.IsDemo);
-            this.Controls.Add(this.IsMulti);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.numbersView);
@@ -141,8 +114,6 @@
         private System.Windows.Forms.Label numbersView;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.CheckBox IsMulti;
-        private System.Windows.Forms.CheckBox IsDemo;
         private System.Windows.Forms.Button highlightMapping;
     }
 }

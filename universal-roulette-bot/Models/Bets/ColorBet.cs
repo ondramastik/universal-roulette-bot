@@ -17,7 +17,10 @@ namespace RouletteBot.Models
 
         public override void place(IRouletteControls rouletteControls)
         {
-            rouletteControls.betOnColor(Red, Multiplier);
+            if(!isVirtualBet)
+            {
+                rouletteControls.betOnColor(Red, Multiplier);
+            }
         }
 
         public override int calculateBetResult(int lastNumber)

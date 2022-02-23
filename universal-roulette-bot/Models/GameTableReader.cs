@@ -10,7 +10,7 @@ namespace RouletteBot.Models
         private MappingConfig config;
 
         private static string readyCheckColor;
-        private static string readySkipColor = "Color [A=255, R=36, G=200, B=28]";
+        private static string readySkipColor;
 
         private Dictionary<int, Color> defaultNumberColors;
 
@@ -41,7 +41,15 @@ namespace RouletteBot.Models
                 {
                     if(defaultNumberColors.TryGetValue(entry.Key, out color) && entry.Value.ToString() != color.ToString())
                     {
-                        return entry.Key;
+                        if (!config.IsMulti)
+                        {
+                            Thread.Sleep(1500);
+                            Color checkAgain = getNumberColor(entry.Key, GetGridScreenshot());
+
+                            if (checkAgain.ToString() != color.ToString())
+                                return entry.Key;
+                        }
+                        else return entry.Key;
                     }
                 }
 
@@ -58,6 +66,11 @@ namespace RouletteBot.Models
 
         public bool IsSkipReady()
         {
+            if(readySkipColor == null)
+            {
+                Thread.Sleep(3000);
+                readySkipColor = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1, config.ConfirmBetY + 1).GetPixel(0, 0).ToString();
+            }
             Bitmap checkSkip = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1, config.ConfirmBetY + 1);
             return checkSkip.GetPixel(0, 0).ToString() == readySkipColor;
         }

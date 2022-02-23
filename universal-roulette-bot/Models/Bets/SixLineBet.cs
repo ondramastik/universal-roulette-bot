@@ -11,7 +11,10 @@
 
         public override void place(IRouletteControls rouletteControls)
         {
-            rouletteControls.betOnSixline(Index >= 0 ? Index : 0, Multiplier);
+            if (!isVirtualBet)
+            {
+                rouletteControls.betOnSixline(Index >= 0 ? Index : 0, Multiplier);
+            }
         }
 
         public override int calculateBetResult(int lastNumber)

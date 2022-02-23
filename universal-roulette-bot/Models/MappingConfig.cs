@@ -26,6 +26,8 @@ namespace RouletteBot.Models
         public int SixLineBetY { get; set; }
         public int NumberCheckOffsetX { get; set; }
         public int NumberCheckOffsetY { get; set; }
+        public bool IsMulti { get; set; }
+        public bool IsDemo { get; set; }
 
         public MappingConfig(string configPath = null)
         {
@@ -58,6 +60,8 @@ namespace RouletteBot.Models
                 dictionary.TryGetValue("sixLineBetY", out string sixLineBetY);
                 dictionary.TryGetValue("numberCheckOffsetX", out string numberCheckOffsetX);
                 dictionary.TryGetValue("numberCheckOffsetY", out string numberCheckOffsetY);
+                dictionary.TryGetValue("isMulti", out string isMulti);
+                dictionary.TryGetValue("isDemo", out string isDemo);
 
                 ForResolutionX = Double.TryParse(forResolutionX, out double forResolutionXdouble) ? forResolutionXdouble : 0;
                 ForResolutionY = Double.TryParse(forResolutionY, out double forResolutionYdouble) ? forResolutionYdouble : 0;
@@ -78,6 +82,8 @@ namespace RouletteBot.Models
                 SixLineBetY = Int32.TryParse(sixLineBetY, out int sixLineBetYint) ? recalculateY(sixLineBetYint) : 0;
                 NumberCheckOffsetX = Int32.TryParse(numberCheckOffsetX, out int numberCheckOffsetXint) ? recalculateX(numberCheckOffsetXint) : 0;
                 NumberCheckOffsetY = Int32.TryParse(numberCheckOffsetY, out int numberCheckOffsetYint) ? recalculateY(numberCheckOffsetYint) : 0;
+                IsMulti = Boolean.TryParse(isMulti, out bool isMultiBool) ? isMultiBool : false;
+                IsDemo = Boolean.TryParse(isDemo, out bool isDemoBool) ? isDemoBool : true;
             }
         }
 

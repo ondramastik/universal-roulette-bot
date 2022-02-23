@@ -17,7 +17,10 @@ namespace RouletteBot.Models
 
         public override void place(IRouletteControls rouletteControls)
         {
-            rouletteControls.betOnNumber(Number, Multiplier);
+            if (!isVirtualBet)
+            {
+                rouletteControls.betOnNumber(Number, Multiplier);
+            }
         }
 
         public override int calculateBetResult(int lastNumber)

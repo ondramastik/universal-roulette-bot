@@ -28,7 +28,7 @@ namespace RouletteBot.Models
 
         public string getInsertRow()
         {
-            return string.Format("('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{8}','{9}')", gameId, Environment.UserName, bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString(), spin, number, "0.2.0", rouletteType);
+            return string.Format("('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{8}','{9}')", gameId, Environment.UserName, bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString(), spin, number, "NO BETS PLACED, JUST READING", rouletteType);
         }
     }
 
