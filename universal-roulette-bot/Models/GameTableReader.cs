@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 
 namespace RouletteBot.Models
@@ -25,31 +26,24 @@ namespace RouletteBot.Models
         public void ReadReadyCheckColor()
         {
             _readyCheckColor = WinAPI.CreateScreenshot(_config.SpinReadyCheckX, _config.SpinReadyCheckY,
-                _config.SpinReadyCheckX + 1, _config.SpinReadyCheckY + 1).GetPixel(0, 0).ToString();
+                _config.SpinReadyCheckX + 1, _config.SpinReadyCheckY + 1).GetPixel(0, 0).Name;
         }
 
         public int ReadNumber()
         {
-            var checkColors = ReadNumberColors();
             while (true)
             {
-                foreach (var entry in checkColors)
+                var checkColors = ReadNumberColors().ToList();
+                var nonEqual = checkColors.Where(entry => !_defaultNumberColors[entry.Key].Equals(entry.Value));
+                foreach (var entry in nonEqual)
                 {
-                    if (_defaultNumberColors.TryGetValue(entry.Key, out var color) && entry.Value.ToString() !=
-                        color.ToString()
-                        && (
-                            entry.Key == 0 ||
-                            _activeNumberColors.TryGetValue(
-                                entry.Key, out var activeColor) &&
-                            entry.Value.ToString() ==
-                            activeColor.ToString())
-                       )
+                    if (entry.Key == 0 || entry.Value.Equals(_activeNumberColors[entry.Key]))
                     {
                         return entry.Key;
                     }
                 }
 
-                Thread.Sleep(5);
+                Thread.Sleep(20);
             }
         }
 
@@ -58,7 +52,7 @@ namespace RouletteBot.Models
             var check = WinAPI.CreateScreenshot(_config.SpinReadyCheckX, _config.SpinReadyCheckY,
                 _config.SpinReadyCheckX + 1, _config.SpinReadyCheckY + 1);
 
-            return check.GetPixel(0, 0).ToString() == _readyCheckColor;
+            return check.GetPixel(0, 0).Name == _readyCheckColor;
         }
 
         public bool IsSkipReady()
@@ -68,12 +62,12 @@ namespace RouletteBot.Models
                 Thread.Sleep(3000);
                 _readySkipColor = WinAPI.CreateScreenshot(_config.ConfirmBetX, _config.ConfirmBetY,
                     _config.ConfirmBetX + 1,
-                    _config.ConfirmBetY + 1).GetPixel(0, 0).ToString();
+                    _config.ConfirmBetY + 1).GetPixel(0, 0).Name;
             }
 
             var checkSkip = WinAPI.CreateScreenshot(_config.ConfirmBetX, _config.ConfirmBetY, _config.ConfirmBetX + 1,
                 _config.ConfirmBetY + 1);
-            return checkSkip.GetPixel(0, 0).ToString() == _readySkipColor;
+            return checkSkip.GetPixel(0, 0).Name == _readySkipColor;
         }
 
         public void HighlightConfiguredMapping(int duration = 5000)

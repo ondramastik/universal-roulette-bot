@@ -93,7 +93,7 @@ namespace RouletteBot.Views
                         ready = _tableReader.IsRoundReady();
                     }
 
-                    num = getLongTimeNoSeeNumber(_game.playRound(number, counter));
+                    num = getLongTimeNoSeeNumber(_game.PlayRound(number, counter));
 
                     while (ready)
                     {

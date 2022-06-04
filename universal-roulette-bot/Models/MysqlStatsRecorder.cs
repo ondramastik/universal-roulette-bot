@@ -32,8 +32,9 @@ namespace RouletteBot.Models
 
         public string getInsertRow()
         {
+            string ruleName = bet.RepeatNumber == 0 ? bet.RuleName : bet.RuleName + "TryNumber" + bet.RepeatNumber;
             return string.Format("('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{8}','{9}',{10})", gameId,
-                Environment.UserName, bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString(),
+                Environment.UserName, bet.GetType().Name, ruleName, betAmount.ToString(), resultAmount.ToString(),
                 spin, number, "1.4.0", rouletteType, lastBefore);
         }
     }
@@ -62,7 +63,7 @@ namespace RouletteBot.Models
             }
         }
 
-        public void recordBetResult(Bet bet, int betAmount, int resultAmount, string gameId, int spin, int number,
+        public void RecordBetResult(Bet bet, int betAmount, int resultAmount, string gameId, int spin, int number,
             string rouletteType, int lastBefore)
         {
             rows.Add(new BulkInsertRow(bet, gameId, betAmount, resultAmount, spin, number, rouletteType, lastBefore));

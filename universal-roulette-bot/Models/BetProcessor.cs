@@ -12,14 +12,12 @@ namespace RouletteBot.Models
             this.rouletteControls = rouletteControls;
         }
 
-        public void processBets(Bet[] bets, int betAmount = 1)
+        public void ProcessBets(Bet[] bets)
         {
             foreach (Bet bet in bets)
             {
                 bet.Place(rouletteControls);
             }
-
-            rouletteControls.spin();
         }
     }
 }

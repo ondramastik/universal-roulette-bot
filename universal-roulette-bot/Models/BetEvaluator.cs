@@ -15,9 +15,18 @@ namespace RouletteBot.Models
             _config = evaluationConfig ?? new BetEvaluationFileConfig();
         }
 
-        public Bet[] GetSuggestions(int[] numbers)
+        public Bet[] GetSuggestions(int[] numbers, Bet[] previousBets)
         {
             var bets = new List<Bet>();
+
+            foreach (var bet in previousBets)
+            {
+                if (bet.CalculateBetResult(numbers[numbers.Length - 1]) > 0 ||
+                    bet.RepeatOnUnsuccessfulTimes <= bet.RepeatNumber) continue;
+
+                bet.RepeatNumber++;
+                bets.Add(bet);
+            }
 
 
             if (_config.ThreeOfFour)
@@ -30,8 +39,6 @@ namespace RouletteBot.Models
                 bets.AddRange(GetAfterZeroBet(numbers));
             if (_config.SixLineBet)
                 bets.AddRange(GetSixLinesBet(numbers));
-            if (_config.SecondSixLineBet)
-                bets.AddRange(GetSixLinesBet(numbers, true));
             if (_config.FirstFiveBlack)
                 bets.AddRange(GetFirstFiveBlackBet(numbers));
             if (_config.ColorStreakAfterZero)
@@ -188,36 +195,14 @@ namespace RouletteBot.Models
             return Array.Empty<Bet>();
         }
 
-        private IEnumerable<Bet> GetSixLinesBet(IReadOnlyCollection<int> numbers, bool secondTry = false)
+        private IEnumerable<Bet> GetSixLinesBet(IReadOnlyCollection<int> numbers)
         {
             if (numbers.Count < 5) return Array.Empty<Bet>();
             var grid = RouletteHelper.getNumbersGrid();
+            ;
 
-            var ruleName = secondTry ? "SixLinesSecondTry" : "SixLines";
 
-
-            int[] lastFive;
-            if (!secondTry)
-            {
-                lastFive = numbers.Skip(Math.Max(0, numbers.Count() - 5)).ToArray();
-            }
-            else if (numbers.Count > 5)
-            {
-                var lastSix = numbers.Skip(numbers.Count() - 6).ToArray();
-
-                var lastTwo = lastSix.Skip(lastSix.Count() - 2).ToArray();
-                var idxs = FindIndexes(lastTwo);
-
-                var previousNumberX = lastTwo[0] == 0 ? 1 : idxs[0].X;
-                if (previousNumberX == idxs[1].X || previousNumberX - 1 == idxs[1].X ||
-                    previousNumberX + 1 == idxs[1].X)
-                {
-                    return Array.Empty<Bet>();
-                }
-
-                lastFive = lastSix.Take(5).ToArray();
-            }
-            else return Array.Empty<Bet>();
+            int[] lastFive = numbers.Skip(Math.Max(0, numbers.Count() - 5)).ToArray();
 
             var indexes = FindIndexes(lastFive);
 
@@ -234,36 +219,41 @@ namespace RouletteBot.Models
             var result = new List<Bet>();
 
 
-            if ((!secondTry && _config.SixLineBet) || (secondTry && _config.SecondSixLineBet))
-            {
-                var multiplier = secondTry ? _config.SecondSixLineBetAmount : _config.SixLineBetAmount;
+            var multiplier = _config.SixLineBetAmount;
+            var ruleName = "SixLine";
 
-                switch (last.X)
-                {
-                    case 12:
-                        result.Add(new SixLineBet(last.X) { Multiplier = 2 * multiplier, RuleName = ruleName });
-                        break;
-                    case 1:
-                    case 0:
-                        result.Add(new NumberBet(0) { RuleName = ruleName, Multiplier = multiplier });
-                        result.Add(new SixLineBet(2) { Multiplier = multiplier * 2, RuleName = ruleName });
-                        break;
-                    case 2:
-                        result.Add(new NumberBet(0) { RuleName = ruleName, Multiplier = multiplier });
-                        result.Add(new SixLineBet(last.X) { Multiplier = multiplier, RuleName = ruleName });
-                        result.Add(new SixLineBet(last.X + 1) { Multiplier = multiplier, RuleName = ruleName });
-                        break;
-                    default:
-                        result.Add(new SixLineBet(last.X) { Multiplier = multiplier, RuleName = ruleName });
-                        result.Add(new SixLineBet(last.X + 1) { Multiplier = multiplier, RuleName = ruleName });
-                        break;
-                }
+            switch (last.X)
+            {
+                case 12:
+                    result.Add(new SixLineBet(last.X)
+                        { Multiplier = 2 * multiplier, RuleName = ruleName, RepeatOnUnsuccessfulTimes = 2 });
+                    break;
+                case 1:
+                case 0:
+                    result.Add(new NumberBet(0)
+                        { RuleName = ruleName, Multiplier = multiplier, RepeatOnUnsuccessfulTimes = 2 });
+                    result.Add(new SixLineBet(2)
+                        { Multiplier = multiplier * 2, RuleName = ruleName, RepeatOnUnsuccessfulTimes = 2 });
+                    break;
+                case 2:
+                    result.Add(new NumberBet(0)
+                        { RuleName = ruleName, Multiplier = multiplier, RepeatOnUnsuccessfulTimes = 2 });
+                    result.Add(new SixLineBet(last.X)
+                        { Multiplier = multiplier, RuleName = ruleName, RepeatOnUnsuccessfulTimes = 2 });
+                    result.Add(new SixLineBet(last.X + 1)
+                        { Multiplier = multiplier, RuleName = ruleName, RepeatOnUnsuccessfulTimes = 2 });
+                    break;
+                default:
+                    result.Add(new SixLineBet(last.X)
+                        { Multiplier = multiplier, RuleName = ruleName, RepeatOnUnsuccessfulTimes = 2 });
+                    result.Add(new SixLineBet(last.X + 1)
+                        { Multiplier = multiplier, RuleName = ruleName, RepeatOnUnsuccessfulTimes = 2 });
+                    break;
             }
 
 
-            var numberBeforeMultiplier =
-                secondTry ? _config.SecondSixLineBetNumberBeforeAmount : _config.SixLineBetNumberBeforeAmount;
-            var numberToBet = secondTry ? lastFive[4] : lastFive[3];
+            var numberBeforeMultiplier = _config.SixLineBetNumberBeforeAmount;
+            var numberToBet = lastFive[3];
             for (var i = last.X - 1; i <= last.X + 1; i++)
             {
                 if (i < 0 || i >= grid[0].Length) continue;

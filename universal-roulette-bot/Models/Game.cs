@@ -34,7 +34,7 @@ namespace RouletteBot.Models
             RouletteType = rouletteType;
         }
 
-        public int[] playRound(int number, int spin)
+        public int[] PlayRound(int number, int spin)
         {
             if (number >= 0)
             {
@@ -43,17 +43,16 @@ namespace RouletteBot.Models
 
             foreach (Bet sb in previousBets)
             {
-                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.CalculateBetResult(number), GameId, spin, number,
+                statsRecorder.RecordBetResult(sb, sb.Multiplier, sb.CalculateBetResult(number), GameId, spin, number,
                     RouletteType, RouletteHelper.GetLastOccurance(Numbers.ToArray(), number, true));
             }
 
             BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);
-
-            Bet[] suggestedBets = betEvaluator.GetSuggestions(Numbers.ToArray());
-
+            Bet[] suggestedBets = betEvaluator.GetSuggestions(Numbers.ToArray(), previousBets);
             BetProcessor betProcessor = new BetProcessor(rouletteControls);
+            betProcessor.ProcessBets(suggestedBets);
+            rouletteControls.spin();
 
-            betProcessor.processBets(suggestedBets);
             previousBets = suggestedBets;
 
             return Numbers.ToArray();
