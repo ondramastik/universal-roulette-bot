@@ -6,7 +6,7 @@ using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models
 {
-    partial class BulkInsertRow
+    class BulkInsertRow
     {
         Bet bet;
         string gameId;

@@ -1,11 +1,14 @@
-﻿namespace RouletteBot.Views
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace RouletteBot.Views
 {
     public partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -110,11 +113,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button playRound;
-        private System.Windows.Forms.Label numbersView;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button highlightMapping;
+        private Button playRound;
+        private Label numbersView;
+        private Button button1;
+        private Button button2;
+        private Button highlightMapping;
     }
 }
 

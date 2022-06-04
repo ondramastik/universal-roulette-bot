@@ -9,33 +9,33 @@ namespace RouletteBotTests
     [TestClass]
     public class BetEvaluatorTests
     {
-        private BetEvaluator betEvaluator = new BetEvaluator(new BetEvaluationTestConfig());
+        private readonly BetEvaluator _betEvaluator = new(new BetEvaluationTestConfig());
 
         [TestMethod("Checks correct try SixLine bets for normal case")]
         public void SixLines_CorrectBetsAreCreated()
         {
             // Arrange
-            int[] numbers = new int[] { 1, 2, 3, 7, 15 };
+            var numbers = new[] { 1, 2, 3, 7, 15 };
 
             // Act
-            Bet[] bets = betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
 
-            int[] SixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
+            var sixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
                 .Select(bet => ((SixLineBet)bet).Index).ToArray();
 
-            Assert.AreEqual(2, SixLineBetIndexes.Length, "There must be exactly 2 SixLine bets");
-            Assert.IsTrue(Math.Abs(SixLineBetIndexes[0] - SixLineBetIndexes[1]) == 1,
+            Assert.AreEqual(2, sixLineBetIndexes.Length, "There must be exactly 2 SixLine bets");
+            Assert.IsTrue(Math.Abs(sixLineBetIndexes[0] - sixLineBetIndexes[1]) == 1,
                 "SixLine bets must be next to each other");
 
-            int lastNumberX = RouletteHelper.getNumberGridIndex(numbers[4]).X;
-            Array.Sort(SixLineBetIndexes);
+            var lastNumberX = RouletteHelper.getNumberGridIndex(numbers[4]).X;
+            Array.Sort(sixLineBetIndexes);
 
-            Assert.IsTrue(lastNumberX == SixLineBetIndexes[0], "First SixLine bet index must be same as last number X");
+            Assert.IsTrue(lastNumberX == sixLineBetIndexes[0], "First SixLine bet index must be same as last number X");
 
-            int[] numberBetNumbers = Array.FindAll(bets, bet => bet is NumberBet)
+            var numberBetNumbers = Array.FindAll(bets, bet => bet is NumberBet)
                 .Select(bet => ((NumberBet)bet).Number).ToArray();
 
             Assert.AreEqual(1, numberBetNumbers.Length, "There must be exactly 1 number bet");
@@ -46,25 +46,25 @@ namespace RouletteBotTests
         public void SixLines_CorrectBetsAreCreated_SecondTryCase()
         {
             // Arrange
-            int[] numbers = new int[] { 1, 2, 3, 7, 15, 3 };
+            var numbers = new[] { 1, 2, 3, 7, 15, 3 };
 
             // Act
-            Bet[] bets = betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
 
-            int[] SixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
+            var sixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
                 .Select(bet => ((SixLineBet)bet).Index).ToArray();
 
-            Assert.AreEqual(2, SixLineBetIndexes.Length, "There must be exactly 3 SixLine bets");
-            Assert.IsTrue(Math.Abs(SixLineBetIndexes[0] - SixLineBetIndexes[1]) == 1,
+            Assert.AreEqual(2, sixLineBetIndexes.Length, "There must be exactly 3 SixLine bets");
+            Assert.IsTrue(Math.Abs(sixLineBetIndexes[0] - sixLineBetIndexes[1]) == 1,
                 "SixLine bets must be next to each other");
 
-            int beforeLastNumberX = RouletteHelper.getNumberGridIndex(numbers[4]).X;
-            Array.Sort(SixLineBetIndexes);
+            var beforeLastNumberX = RouletteHelper.getNumberGridIndex(numbers[4]).X;
+            Array.Sort(sixLineBetIndexes);
 
-            Assert.IsTrue(beforeLastNumberX == SixLineBetIndexes[0],
+            Assert.IsTrue(beforeLastNumberX == sixLineBetIndexes[0],
                 "First SixLine bet index must be same as last number X");
         }
 
@@ -73,25 +73,30 @@ namespace RouletteBotTests
         public void SixLines_CorrectBetsAreCreated_EdgeCase()
         {
             // 0, 34, 35, 36
-            for (int i = 0; i < 10; i += (i == 0 ? 34 : 1))
+            for (var i = 0; i < 10; i += (i == 0 ? 34 : 1))
             {
-                int[] numbers = new int[] { 20, 20, 22, 13, i };
+                var numbers = new[] { 20, 20, 22, 13, i };
 
                 // Act
-                Bet[] bets = betEvaluator.GetSuggestions(numbers);
+                Bet[] bets = _betEvaluator.GetSuggestions(numbers);
 
                 // Assert
-                Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
+                Assert.AreEqual(4, bets.Length, "There must be exactly 4 bets");
 
-                NumberBet[] numberBets = bets.Where(bet => bet is NumberBet)
-                    .Select(bet => (NumberBet)bet).ToArray();
+                var numberBets = bets.OfType<NumberBet>().ToArray();
 
-                Assert.AreEqual(1, numberBets.Length, "There must be exactly 1 number bet");
+                if (i == 0)
+                {
+                    Assert.AreEqual(2, numberBets.Length, "There must be exactly 2 number bet");
+                }
+                else
+                {
+                    Assert.AreEqual(1, numberBets.Length, "There must be exactly 1 number bet");
+                }
 
-                SixLineBet[] SixLineBets = bets.Where(bet => bet is SixLineBet)
-                    .Select(bet => (SixLineBet)bet).ToArray();
+                var sixLineBets = bets.OfType<SixLineBet>().ToArray();
 
-                Assert.AreEqual(1, SixLineBets.Length, "There must be exactly 1 SixLine bet");
+                Assert.AreEqual(1, sixLineBets.Length, "There must be exactly 1 SixLine bet");
             }
         }
 
@@ -99,16 +104,16 @@ namespace RouletteBotTests
         public void TwoColors_CorrectBetIsCreated()
         {
             // Arrange
-            int[] numbers = new int[] { 3, 2, 1, 3 };
+            var numbers = new[] { 3, 2, 1, 3 };
 
             // Act
-            Bet[] bets = betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _betEvaluator.GetSuggestions(numbers)
+                .Where(v => v.RuleName == "TwoColorsInRow").ToArray();
 
             // Assert
             Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");
 
-            ColorBet[] colorBets = bets.Where(bet => bet is ColorBet)
-                .Select(bet => (ColorBet)bet).ToArray();
+            var colorBets = bets.OfType<ColorBet>().ToArray();
 
             Assert.AreEqual(1, colorBets.Length, "There must be exactly 1 color bet");
         }
@@ -117,67 +122,68 @@ namespace RouletteBotTests
         public void TwoColors_BetIsNotCreated_EdgeCase()
         {
             // Arrange
-            int[] numbers = new int[] { 9, 12 };
+            var numbers = new[] { 9, 12 };
 
             // Act
-            Bet[] bets = betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _betEvaluator.GetSuggestions(numbers)
+                .Where(v => v.RuleName == "TwoColorsInRow").ToArray();
 
             // Assert
             Assert.AreEqual(0, bets.Length, "There must be no bet");
         }
 
-        [TestMethod("Checks correct switchnig colors bet")]
-        public void SwitchingColor_CorrectBetIsCreated()
+        [TestMethod("Checks correct switching colors bet")]
+        public void ColorSwitching_CorrectBetIsCreated()
         {
             // Arrange
-            int[] numbers = new int[] { 1, 2, 3, 4, 5 };
+            var numbers = new[] { 1, 2, 3, 4, 5 };
 
             // Act
-            Bet[] bets = betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _betEvaluator.GetSuggestions(numbers)
+                .Where(v => v.RuleName == "ColorsSwitching").ToArray();
 
             // Assert
             Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");
 
-            ColorBet[] colorBets = bets.Where(bet => bet is ColorBet)
-                .Select(bet => (ColorBet)bet).ToArray();
+            var colorBets = bets.OfType<ColorBet>().ToArray();
 
             Assert.AreEqual(1, colorBets.Length, "There must be exactly 1 color bet");
-            Assert.IsFalse(colorBets[0].Red, string.Format("Last color must be black after number {0}", numbers[4]));
+            Assert.IsFalse(colorBets[0].Red, $"Last color must be black after number {numbers[4]}");
         }
 
         [TestMethod("Checks three of four bet")]
         public void ThreeOfFour_CorrectBetsAreCreated()
         {
             // Arrange
-            int[] numbers = new int[] { 3, 4, 3 };
+            var numbers = new[] { 3, 4, 3 };
 
             // Act
-            Bet[] bets = betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _betEvaluator.GetSuggestions(numbers)
+                .Where(v => v.RuleName == "ThreeOfFour").ToArray();
 
             // Assert
             Assert.AreEqual(4, bets.Length, "There must be exactly 4 bets");
 
-            int[] numberBetsNumbers = bets.Where(bet => bet is NumberBet)
+            var numberBetsNumbers = bets.Where(bet => bet is NumberBet)
                 .Select(bet => ((NumberBet)bet).Number).ToArray();
 
             Assert.AreEqual(4, numberBetsNumbers.Length, "There must be exactly 4 number bets");
 
             Array.Sort(numberBetsNumbers);
-            int[] reference = new int[4] { 3, 13, 23, 33 };
+            var reference = new[] { 3, 13, 23, 33 };
 
             Assert.IsTrue(numberBetsNumbers.SequenceEqual(reference),
-                string.Format("Values must be ({0}), but they are ({1})",
-                    string.Join(", ", reference), string.Join(", ", numberBetsNumbers)));
+                $"Values must be ({string.Join(", ", reference)}), but they are ({string.Join(", ", numberBetsNumbers)})");
         }
 
         [TestMethod("Checks color streak after zero bet")]
         public void ColorStreakAfterZero_CorrectBetIsCreated()
         {
             // Arrange
-            int[] numbers = new int[] { 1, 8, 9, 25, 12, 0, 9, 12 };
+            var numbers = new[] { 1, 8, 9, 25, 12, 0, 9, 12 };
 
             // Act
-            Bet[] bets = betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");

@@ -1,11 +1,14 @@
-﻿namespace RouletteBot.Views
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace RouletteBot.Views
 {
     partial class UiMappingConfigurator
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -602,58 +605,58 @@
 
 
 
-        private System.Windows.Forms.TextBox GridLeftTopCornerX;
-        private System.Windows.Forms.TextBox GridLeftTopCornerY;
-        private System.Windows.Forms.TextBox GridRightBottomCornerX;
-        private System.Windows.Forms.TextBox RedBetX;
-        private System.Windows.Forms.TextBox GridRightBottomCornerY;
-        private System.Windows.Forms.TextBox RedBetY;
-        private System.Windows.Forms.TextBox BlackBetX;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox BlackBetY;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox ConfirmBetY;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox ConfirmBetX;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox SpinReadyCheckX;
-        private System.Windows.Forms.TextBox SpinReadyCheckY;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Button saveMapping;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox SixLineBetY;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox ForResolutionY;
-        private System.Windows.Forms.TextBox ForResolutionX;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox RecalculateForY;
-        private System.Windows.Forms.TextBox RecalculateForX;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox NumberCheckOffsetY;
-        private System.Windows.Forms.TextBox NumberCheckOffsetX;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.CheckBox IsMulti;
-        private System.Windows.Forms.CheckBox IsDemo;
+        private TextBox GridLeftTopCornerX;
+        private TextBox GridLeftTopCornerY;
+        private TextBox GridRightBottomCornerX;
+        private TextBox RedBetX;
+        private TextBox GridRightBottomCornerY;
+        private TextBox RedBetY;
+        private TextBox BlackBetX;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label6;
+        private Label label8;
+        private Label label9;
+        private Label label10;
+        private Label label11;
+        private Label label12;
+        private Label label13;
+        private TextBox BlackBetY;
+        private Label label5;
+        private Label label7;
+        private TextBox ConfirmBetY;
+        private Label label14;
+        private Label label15;
+        private TextBox ConfirmBetX;
+        private PictureBox pictureBox1;
+        private Label label16;
+        private Label label17;
+        private TextBox SpinReadyCheckX;
+        private TextBox SpinReadyCheckY;
+        private Label label18;
+        private Button saveMapping;
+        private Button button1;
+        private Label label19;
+        private TextBox SixLineBetY;
+        private Label label20;
+        private TextBox ForResolutionY;
+        private TextBox ForResolutionX;
+        private Label label21;
+        private Label label22;
+        private Label label23;
+        private Label label24;
+        private TextBox RecalculateForY;
+        private TextBox RecalculateForX;
+        private Label label25;
+        private Label label26;
+        private TextBox NumberCheckOffsetY;
+        private TextBox NumberCheckOffsetX;
+        private Label label27;
+        private Label label28;
+        private Label label29;
+        private CheckBox IsMulti;
+        private CheckBox IsDemo;
     }
 }

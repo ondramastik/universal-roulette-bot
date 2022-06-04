@@ -307,8 +307,7 @@ namespace RouletteBot
             IntPtr foreGround = GetForegroundWindow();
             if (myHandle != foreGround)
                 return false;
-            else
-                return true;
+            return true;
         }
 
         /// <summary>
@@ -321,8 +320,7 @@ namespace RouletteBot
             IntPtr foreGround = GetForegroundWindow();
             if (myHandle != foreGround)
                 return false;
-            else
-                return true;
+            return true;
         }
 
         /// <summary>

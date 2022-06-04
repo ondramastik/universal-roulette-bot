@@ -1,11 +1,14 @@
-﻿namespace RouletteBot.Views
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace RouletteBot.Views
 {
     partial class BetEvaluationConfigurator
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -388,34 +391,34 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox SixLineBet;
-        private System.Windows.Forms.NumericUpDown SixLineBetAmount;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox SecondSixLineBet;
-        private System.Windows.Forms.CheckBox ThreeOfFour;
-        private System.Windows.Forms.CheckBox FirstFiveBlack;
-        private System.Windows.Forms.CheckBox ColorSwitching;
-        private System.Windows.Forms.CheckBox TwoColorsInRow;
-        private System.Windows.Forms.CheckBox ColorStreakAfterZero;
-        private System.Windows.Forms.CheckBox RedAfterZero;
-        private System.Windows.Forms.NumericUpDown SecondSixLineBetAmount;
-        private System.Windows.Forms.NumericUpDown ThreeOfFourAmount;
-        private System.Windows.Forms.NumericUpDown FirstFiveBlackAmount;
-        private System.Windows.Forms.NumericUpDown ColorSwitchingAmount;
-        private System.Windows.Forms.NumericUpDown TwoColorsInRowAmount;
-        private System.Windows.Forms.NumericUpDown ColorStreakAfterZeroAmount;
-        private System.Windows.Forms.NumericUpDown RedAfterZeroAmount;
-        private System.Windows.Forms.NumericUpDown SixLineBetNumberBeforeAmount;
-        private System.Windows.Forms.CheckBox SixLineBetNumberBefore;
-        private System.Windows.Forms.NumericUpDown SecondSixLineBetNumberBeforeAmount;
-        private System.Windows.Forms.CheckBox SecondSixLineBetNumberBefore;
-        private System.Windows.Forms.Button save;
-        private System.Windows.Forms.Button close;
-        private System.Windows.Forms.NumericUpDown LongTimeNoSeeAmount;
-        private System.Windows.Forms.CheckBox LongTimeNoSee;
-        private System.Windows.Forms.NumericUpDown LongTimeNoSeeFrom;
-        private System.Windows.Forms.NumericUpDown LongTimeNoSeeTo;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private CheckBox SixLineBet;
+        private NumericUpDown SixLineBetAmount;
+        private Label label1;
+        private CheckBox SecondSixLineBet;
+        private CheckBox ThreeOfFour;
+        private CheckBox FirstFiveBlack;
+        private CheckBox ColorSwitching;
+        private CheckBox TwoColorsInRow;
+        private CheckBox ColorStreakAfterZero;
+        private CheckBox RedAfterZero;
+        private NumericUpDown SecondSixLineBetAmount;
+        private NumericUpDown ThreeOfFourAmount;
+        private NumericUpDown FirstFiveBlackAmount;
+        private NumericUpDown ColorSwitchingAmount;
+        private NumericUpDown TwoColorsInRowAmount;
+        private NumericUpDown ColorStreakAfterZeroAmount;
+        private NumericUpDown RedAfterZeroAmount;
+        private NumericUpDown SixLineBetNumberBeforeAmount;
+        private CheckBox SixLineBetNumberBefore;
+        private NumericUpDown SecondSixLineBetNumberBeforeAmount;
+        private CheckBox SecondSixLineBetNumberBefore;
+        private Button save;
+        private Button close;
+        private NumericUpDown LongTimeNoSeeAmount;
+        private CheckBox LongTimeNoSee;
+        private NumericUpDown LongTimeNoSeeFrom;
+        private NumericUpDown LongTimeNoSeeTo;
+        private Label label2;
+        private Label label3;
     }
 }

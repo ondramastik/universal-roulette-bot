@@ -116,7 +116,8 @@ namespace RouletteBot.Models
                         { RuleName = "TwoColorsInRow", Multiplier = _config.TwoColorsInRowAmount }
                 };
             }
-            else return Array.Empty<Bet>();
+
+            return Array.Empty<Bet>();
         }
 
         private IEnumerable<Bet> GetAfterZeroBet(IReadOnlyCollection<int> numbers)

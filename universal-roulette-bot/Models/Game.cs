@@ -25,13 +25,13 @@ namespace RouletteBot.Models
         public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationFileConfig config,
             string rouletteType)
         {
-            this.GameId = Guid.NewGuid().ToString();
+            GameId = Guid.NewGuid().ToString();
             this.rouletteControls = rouletteControls;
             this.statsRecorder = statsRecorder;
-            this.previousBets = new Bet[0];
-            this.Numbers = new List<int>();
-            this.EvaluationConfig = config;
-            this.RouletteType = rouletteType;
+            previousBets = new Bet[0];
+            Numbers = new List<int>();
+            EvaluationConfig = config;
+            RouletteType = rouletteType;
         }
 
         public int[] playRound(int number, int spin)

@@ -9,7 +9,7 @@ namespace RouletteBot.Models
 
         public SixLineBet(int number)
         {
-            this.Index = number;
+            Index = number;
         }
 
         public override void Place(IRouletteControls rouletteControls)

@@ -9,7 +9,7 @@ namespace RouletteBot.Models
 
         public NumberBet(int number)
         {
-            this.Number = number;
+            Number = number;
         }
 
         public override void Place(IRouletteControls rouletteControls)

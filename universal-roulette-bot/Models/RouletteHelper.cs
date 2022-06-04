@@ -11,7 +11,7 @@ namespace RouletteBot.Models
             int[] second = new int[13] { 0, 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
             int[] third = new int[13] { -1, 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 };
 
-            return new int[][] { first, second, third };
+            return new[] { first, second, third };
         }
 
         public static int[] getRedNumbers()
