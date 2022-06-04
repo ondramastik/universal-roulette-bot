@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FCF2137C-8D83-45FA-82C3-B7C06B6B6A09}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Universal_roulette_bot</RootNamespace>
+    <RootNamespace>RouletteBot</RootNamespace>
     <AssemblyName>Universal roulette bot</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
+using RouletteBot.Models;
 
-namespace RouletteBot.Models
+namespace RouletteBot.Controllers
 {
 
     public class MouseRouletteControls : IRouletteControls

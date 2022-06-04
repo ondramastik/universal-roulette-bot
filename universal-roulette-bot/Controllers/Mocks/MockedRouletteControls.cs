@@ -1,4 +1,6 @@
 ﻿using System;
+using RouletteBot.Controllers;
+
 namespace RouletteBot.Models
 {
 

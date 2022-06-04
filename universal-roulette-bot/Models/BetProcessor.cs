@@ -1,4 +1,6 @@
-﻿namespace RouletteBot.Models
+﻿using RouletteBot.Controllers;
+
+namespace RouletteBot.Models
 {
     internal class BetProcessor
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using RouletteBot.Controllers;
 
 namespace RouletteBot.Models
 {
