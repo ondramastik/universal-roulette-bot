@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 
 namespace RouletteBot.Models
 {
     public class BetEvaluator
     {
-
         private BetEvaluationConfig Config;
 
         public BetEvaluator(BetEvaluationConfig evaluationConfig = null)
         {
-            if(evaluationConfig == null)
+            if (evaluationConfig == null)
                 Config = new BetEvaluationFileConfig();
             else
                 Config = evaluationConfig;
@@ -22,7 +21,7 @@ namespace RouletteBot.Models
         {
             List<Bet> bets = new List<Bet>();
 
-           
+
             if (Config.ThreeOfFour)
                 bets.AddRange(getThreeOfFourBet(numbers));
             if (Config.TwoColorsInRow)
@@ -45,7 +44,7 @@ namespace RouletteBot.Models
             if (bets.Count == 0 && Config.EnableNeutralBet)
             {
                 // If no bet is suggested, bet neutral.
-                bets.Add(new ColorBet(true) { RuleName = "NeutralBet", isVirtualBet = false});
+                bets.Add(new ColorBet(true) { RuleName = "NeutralBet", isVirtualBet = false });
                 bets.Add(new ColorBet(false) { RuleName = "NeutralBet", isVirtualBet = false });
             }
 
@@ -57,13 +56,14 @@ namespace RouletteBot.Models
         {
             for (int i = numbers.Length - 1; i >= numbers.Length - Math.Min(numbers.Length, 3); i--)
             {
-                if(numbers[i] <= 10 && numbers[i] != 0 && numbers[i] % 2 == 0)
+                if (numbers[i] <= 10 && numbers[i] != 0 && numbers[i] % 2 == 0)
                 {
                     List<Bet> bets = new List<Bet>();
 
                     for (int y = 2; y <= 10; y += 2)
                     {
-                        bets.Add(new NumberBet(y) { RuleName = "FirstFiveBlack", Multiplier = Config.FirstFiveBlackAmount } );
+                        bets.Add(new NumberBet(y)
+                            { RuleName = "FirstFiveBlack", Multiplier = Config.FirstFiveBlackAmount });
                     }
 
                     return bets.ToArray();
@@ -75,7 +75,7 @@ namespace RouletteBot.Models
 
         private Bet[] getThreeOfFourBet(int[] numbers)
         {
-            if(numbers.Length < 2) return new Bet[0];
+            if (numbers.Length < 2) return new Bet[0];
 
             int[] lastThree = numbers.Skip(Math.Max(0, numbers.Count() - Math.Min(numbers.Length, 3))).ToArray();
 
@@ -91,14 +91,14 @@ namespace RouletteBot.Models
 
             for (int i = 0; i < counts.Length; i++)
             {
-                if(counts[i] >= 2)
+                if (counts[i] >= 2)
                 {
-
                     for (int j = 0; j <= 36; j++)
                     {
-                        if(j % 10 == i)
+                        if (j % 10 == i)
                         {
-                            bets.Add(new NumberBet(j) { RuleName = "ThreeOfFour", Multiplier = Config.ThreeOfFourAmount });
+                            bets.Add(new NumberBet(j)
+                                { RuleName = "ThreeOfFour", Multiplier = Config.ThreeOfFourAmount });
                         }
                     }
                 }
@@ -113,12 +113,16 @@ namespace RouletteBot.Models
 
             int[] lastThree = numbers.Skip(Math.Max(0, numbers.Count() - 3)).ToArray();
 
-            if (lastThree.Where(number => number == 0).Count() == 0 && isRed(lastThree[0]) != isRed(lastThree[1]) && isRed(lastThree[1]) == isRed(lastThree[2]))
+            if (lastThree.Where(number => number == 0).Count() == 0 && isRed(lastThree[0]) != isRed(lastThree[1]) &&
+                isRed(lastThree[1]) == isRed(lastThree[2]))
             {
-                return new Bet[1] { new ColorBet(!isRed(lastThree[2])) { RuleName = "TwoColorsInRow", Multiplier = Config.TwoColorsInRowAmount } };
-
-            } else return new Bet[0];
-
+                return new Bet[1]
+                {
+                    new ColorBet(!isRed(lastThree[2]))
+                        { RuleName = "TwoColorsInRow", Multiplier = Config.TwoColorsInRowAmount }
+                };
+            }
+            else return new Bet[0];
         }
 
         private Bet[] getAfterZeroBet(int[] numbers)
@@ -126,7 +130,8 @@ namespace RouletteBot.Models
             if (numbers.Length < 1 || numbers.Last() != 0)
                 return new Bet[0];
             else
-                return new Bet[1] { new ColorBet(true) { Multiplier = Config.RedAfterZeroAmount, RuleName = "AfterZero" } };
+                return new Bet[1]
+                    { new ColorBet(true) { Multiplier = Config.RedAfterZeroAmount, RuleName = "AfterZero" } };
         }
 
         private Bet[] getColorsSwitchingBet(int[] numbers)
@@ -141,9 +146,13 @@ namespace RouletteBot.Models
                 && isRed(lastFive[2]) != isRed(lastFive[3])
                 && isRed(lastFive[3]) != isRed(lastFive[4]) && lastFive[4] != 0)
             {
-                return new Bet[1] { new ColorBet(!isRed(lastFive[4])) { RuleName = "ColorsSwitching", Multiplier = Config.ColorSwitchingAmount } };
-            } else return new Bet[0];
-
+                return new Bet[1]
+                {
+                    new ColorBet(!isRed(lastFive[4]))
+                        { RuleName = "ColorsSwitching", Multiplier = Config.ColorSwitchingAmount }
+                };
+            }
+            else return new Bet[0];
         }
 
         private Bet[] getSameColorStreakAfterZeroBet(int[] numbers)
@@ -153,9 +162,10 @@ namespace RouletteBot.Models
             List<bool> colorsAfterZero = new List<bool>();
             bool hasZero = false;
 
-            foreach(int number in numbers)
+            foreach (int number in numbers)
             {
-                if (number == 0) {
+                if (number == 0)
+                {
                     if (hasZero)
                     {
                         colorsAfterZero.Clear();
@@ -164,8 +174,8 @@ namespace RouletteBot.Models
                     {
                         hasZero = true;
                     }
-                } 
-                else if(hasZero)
+                }
+                else if (hasZero)
                 {
                     colorsAfterZero.Add(isRed(number));
                 }
@@ -173,11 +183,14 @@ namespace RouletteBot.Models
 
             bool[] distinctValues = colorsAfterZero.Distinct().ToArray();
 
-            if(colorsAfterZero.Count >= 2 && distinctValues.Length == 1)
-                return new Bet[1]{ new ColorBet(distinctValues[0]) { RuleName = "SameColorStreakAfterZero", Multiplier = Config.ColorStreakAfterZeroAmount } };
-            
-            else return new Bet[0];
+            if (colorsAfterZero.Count >= 2 && distinctValues.Length == 1)
+                return new Bet[1]
+                {
+                    new ColorBet(distinctValues[0])
+                        { RuleName = "SameColorStreakAfterZero", Multiplier = Config.ColorStreakAfterZeroAmount }
+                };
 
+            else return new Bet[0];
         }
 
         private Bet[] getSixLinesBet(int[] numbers, bool secondTry = false)
@@ -189,11 +202,11 @@ namespace RouletteBot.Models
 
 
             int[] lastFive;
-            if(!secondTry)
+            if (!secondTry)
             {
                 lastFive = numbers.Skip(Math.Max(0, numbers.Count() - 5)).ToArray();
             }
-            else if(numbers.Length > 5)
+            else if (numbers.Length > 5)
             {
                 int[] lastSix = numbers.Skip(numbers.Count() - 6).ToArray();
 
@@ -201,7 +214,8 @@ namespace RouletteBot.Models
                 var idxs = findIndexes(lastTwo);
 
                 int previousNumberX = lastTwo[0] == 0 ? 1 : idxs[0].X;
-                if(previousNumberX == idxs[1].X || previousNumberX - 1 == idxs[1].X  || previousNumberX + 1 == idxs[1].X)
+                if (previousNumberX == idxs[1].X || previousNumberX - 1 == idxs[1].X ||
+                    previousNumberX + 1 == idxs[1].X)
                 {
                     return new Bet[0];
                 }
@@ -213,7 +227,7 @@ namespace RouletteBot.Models
             List<Point> indexes = findIndexes(lastFive);
 
             Point last = indexes.Last();
-            for(int i = 0; i < indexes.Count - 1; i++)
+            for (int i = 0; i < indexes.Count - 1; i++)
             {
                 int checkX = last.X == 0 ? 1 : last.X;
                 if (indexes[i].X == checkX || indexes[i].X == checkX + 1 || indexes[i].X == checkX - 1)
@@ -225,7 +239,7 @@ namespace RouletteBot.Models
             List<Bet> result = new List<Bet>();
 
 
-            if((!secondTry && Config.SixlineBet) || (secondTry && Config.SecondSixlineBet))
+            if ((!secondTry && Config.SixlineBet) || (secondTry && Config.SecondSixlineBet))
             {
                 int multiplier = secondTry ? Config.SecondSixlineBetAmount : Config.SixlineBetAmount;
 
@@ -252,7 +266,8 @@ namespace RouletteBot.Models
             }
 
 
-            int numberBeforeMultiplier = secondTry ? Config.SecondSixlineBetNumberBeforeAmount : Config.SixlineBetNumberBeforeAmount;
+            int numberBeforeMultiplier =
+                secondTry ? Config.SecondSixlineBetNumberBeforeAmount : Config.SixlineBetNumberBeforeAmount;
             int numberToBet = secondTry ? lastFive[4] : lastFive[3];
             for (int i = last.X - 1; i <= last.X + 1; i++)
             {
@@ -262,17 +277,21 @@ namespace RouletteBot.Models
                     {
                         if (grid[j][i] % 10 == numberToBet % 10)
                         {
-                            result.Add(new NumberBet(grid[j][i]) { Multiplier = (last.X == 12 || last.X == 1 ? numberBeforeMultiplier * 2 : numberBeforeMultiplier), RuleName = ruleName } );
+                            result.Add(new NumberBet(grid[j][i])
+                            {
+                                Multiplier = (last.X == 12 || last.X == 1
+                                    ? numberBeforeMultiplier * 2
+                                    : numberBeforeMultiplier),
+                                RuleName = ruleName
+                            });
                             break;
                         }
                     }
                 }
             }
-            
+
 
             return result.ToArray();
-
-
         }
 
         private Bet[] getLongTimeNoSeeBet(int[] numbers)
@@ -283,7 +302,7 @@ namespace RouletteBot.Models
             {
                 int lastOccurance = RouletteHelper.GetLastOccurance(numbers, numbers[i]);
 
-                if(lastSeeNumbers.ContainsKey(numbers[i]))
+                if (lastSeeNumbers.ContainsKey(numbers[i]))
                 {
                     lastSeeNumbers[numbers[i]] = lastOccurance;
                 }
@@ -297,13 +316,15 @@ namespace RouletteBot.Models
 
             var bets = new List<Bet>();
 
-            foreach(var number in lastSeeNumbers.Skip(Math.Max(0, lastSeeNumbers.Count() - 3)))
+            foreach (var number in lastSeeNumbers.Skip(Math.Max(0, lastSeeNumbers.Count() - 3)))
             {
-                if (number.Key >= 0 && number.Value >= Config.LongTimeNoSeeFrom && number.Value <= Config.LongTimeNoSeeTo)
+                if (number.Key >= 0 && number.Value >= Config.LongTimeNoSeeFrom &&
+                    number.Value <= Config.LongTimeNoSeeTo)
                 {
                     int seriesWithoutSee = (number.Value + 1 - Config.LongTimeNoSeeFrom) / 33;
                     int multiplier = Convert.ToInt32(Math.Pow(2, Convert.ToDouble(seriesWithoutSee)));
-                    bets.Add(new NumberBet(number.Key) { RuleName = "LongTimeNoSee", Multiplier = multiplier * Config.LongTimeNoSeeAmount });
+                    bets.Add(new NumberBet(number.Key)
+                        { RuleName = "LongTimeNoSee", Multiplier = multiplier * Config.LongTimeNoSeeAmount });
                 }
             }
 

@@ -4,9 +4,8 @@ using RouletteBot.Models;
 
 namespace RouletteBot.Controllers
 {
-
     public class MouseRouletteControls : IRouletteControls
-    {   
+    {
         static int delay = 150;
 
         private MappingConfig config;
@@ -28,14 +27,16 @@ namespace RouletteBot.Controllers
 
             var grid = RouletteHelper.getNumbersGrid();
 
-            for(int y = 0; y < grid.Length; y++)
+            for (int y = 0; y < grid.Length; y++)
             {
                 for (int x = y == 1 ? 0 : 1; x < grid[y].Length; x++)
                 {
-                    if(grid[y][x] == value)
+                    if (grid[y][x] == value)
                     {
-                        int middleONumberLocationX = ((x - 1) * numberTileWidth) + (numberTileWidth / 2)  + config.GridLeftTopCornerX;
-                        int middleONumberLocationY = (y * numberTileHeight) + (numberTileHeight / 2)  + config.GridLeftTopCornerY;
+                        int middleONumberLocationX = ((x - 1) * numberTileWidth) + (numberTileWidth / 2) +
+                                                     config.GridLeftTopCornerX;
+                        int middleONumberLocationY =
+                            (y * numberTileHeight) + (numberTileHeight / 2) + config.GridLeftTopCornerY;
 
                         WinAPI.MouseMove(middleONumberLocationX, middleONumberLocationY);
                         Thread.Sleep(delay);
@@ -49,7 +50,7 @@ namespace RouletteBot.Controllers
 
         bool IRouletteControls.betOnColor(bool red, int amount)
         {
-            if(red)
+            if (red)
             {
                 WinAPI.MouseMove(config.RedBetX, config.RedBetY);
             }
@@ -72,7 +73,8 @@ namespace RouletteBot.Controllers
         bool IRouletteControls.betOnSixline(int columnIndex, int amount)
         {
             int numberTileWidth = (config.GridRightBottomCornerX - config.GridLeftTopCornerX) / 12;
-            WinAPI.MouseMove(config.GridLeftTopCornerX - numberTileWidth + (columnIndex * numberTileWidth), config.SixLineBetY);
+            WinAPI.MouseMove(config.GridLeftTopCornerX - numberTileWidth + (columnIndex * numberTileWidth),
+                config.SixLineBetY);
             Thread.Sleep(delay);
             click(amount);
 
@@ -90,11 +92,10 @@ namespace RouletteBot.Controllers
 
         private void click(int times = 1)
         {
-
-            for (int i = 1; i <= times; i++) {
+            for (int i = 1; i <= times; i++)
+            {
                 WinAPI.MouseClick("left");
             }
-            
         }
     }
 }

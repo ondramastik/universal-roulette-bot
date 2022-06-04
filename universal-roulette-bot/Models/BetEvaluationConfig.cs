@@ -27,6 +27,5 @@
         public int LongTimeNoSeeAmount { get; set; }
         public int LongTimeNoSeeFrom { get; set; }
         public int LongTimeNoSeeTo { get; set; }
-
     }
 }

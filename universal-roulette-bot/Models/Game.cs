@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using RouletteBot.Controllers;
 
 namespace RouletteBot.Models
 {
     public class Game
     {
-
         private List<int> Numbers { get; }
 
         private IRouletteControls rouletteControls;
@@ -22,8 +21,8 @@ namespace RouletteBot.Models
         public BetEvaluationFileConfig EvaluationConfig { get; set; }
 
 
-
-        public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationFileConfig config, string rouletteType)
+        public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationFileConfig config,
+            string rouletteType)
         {
             this.GameId = Guid.NewGuid().ToString();
             this.rouletteControls = rouletteControls;
@@ -36,14 +35,15 @@ namespace RouletteBot.Models
 
         public int[] playRound(int number, int spin)
         {
-            if(number >= 0)
+            if (number >= 0)
             {
                 Numbers.Add(number);
             }
 
             foreach (Bet sb in previousBets)
             {
-                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin, number, RouletteType, RouletteHelper.GetLastOccurance(Numbers.ToArray(), number, true));
+                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin, number,
+                    RouletteType, RouletteHelper.GetLastOccurance(Numbers.ToArray(), number, true));
             }
 
             BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);
@@ -63,6 +63,5 @@ namespace RouletteBot.Models
             rouletteControls.spin();
             return true;
         }
-
     }
 }

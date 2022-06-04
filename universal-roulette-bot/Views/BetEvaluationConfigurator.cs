@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace RouletteBot.Views
 {
-
     public partial class BetEvaluationConfigurator : Form
     {
         private string path;
@@ -17,7 +16,8 @@ namespace RouletteBot.Views
 
             if (configPath == null)
             {
-                this.path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot\bet-eval-config.conf";
+                this.path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                            @"\RouletteBot\bet-eval-config.conf";
             }
             else
             {
@@ -31,7 +31,7 @@ namespace RouletteBot.Views
             }
         }
 
-        private void saveClick(object sender, System.EventArgs e)
+        private void saveClick(object sender, EventArgs e)
         {
             var data = new Dictionary<string, string>();
 
@@ -65,7 +65,7 @@ namespace RouletteBot.Views
             this.Close();
         }
 
-        private void closeClick(object sender, System.EventArgs e)
+        private void closeClick(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -125,7 +125,6 @@ namespace RouletteBot.Views
 
         private void BetEvaluationConfigurator_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using RouletteBot.Models;
-using System;
 using System.Threading;
+using System.Windows.Forms;
+using RouletteBot.Controllers;
+using RouletteBot.Models;
 
 namespace RouletteBot.Views
 {
@@ -27,7 +28,7 @@ namespace RouletteBot.Views
             return result;
         }
 
-        private void playRoundClick(object sender, System.EventArgs e)
+        private void playRoundClick(object sender, EventArgs e)
         {
             int[] num = null;
             var mappingConf = new MappingConfig();
@@ -59,25 +60,34 @@ namespace RouletteBot.Views
 
                         this.numbersView.Invoke((MethodInvoker)delegate
                         {
-                            this.numbersView.Text = string.Format("Hraje se {0}. kolo", counter) + "\r\n" + string.Join(", ", numbers);
+                            this.numbersView.Text = string.Format("Hraje se {0}. kolo", counter) + "\r\n" +
+                                                    string.Join(", ", numbers);
 
                             if (num != null && num.Length > 1)
                             {
-                                this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 1: {0}\r\nVýskyt naposled před: {1}", num[0], num[1]);
+                                this.numbersView.Text +=
+                                    string.Format("\r\nNejvzácnější číslo 1: {0}\r\nVýskyt naposled před: {1}", num[0],
+                                        num[1]);
                             }
+
                             if (num != null && num.Length > 3)
                             {
-                                this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 2: {0}\r\nVýskyt naposled před: {1}", num[2], num[3]);
+                                this.numbersView.Text +=
+                                    string.Format("\r\nNejvzácnější číslo 2: {0}\r\nVýskyt naposled před: {1}", num[2],
+                                        num[3]);
                             }
+
                             if (num != null && num.Length > 5)
                             {
-                                this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 3: {0}\r\nVýskyt naposled před: {1}", num[4], num[5]);
+                                this.numbersView.Text +=
+                                    string.Format("\r\nNejvzácnější číslo 3: {0}\r\nVýskyt naposled před: {1}", num[4],
+                                        num[5]);
                             }
                         });
                     }
 
                     bool ready = false;
-                    while(!ready)
+                    while (!ready)
                     {
                         Thread.Sleep(50);
                         ready = tableReader.IsRoundReady();
@@ -91,7 +101,7 @@ namespace RouletteBot.Views
                         ready = tableReader.IsRoundReady();
                     }
 
-                    if(!mappingConf.IsMulti)
+                    if (!mappingConf.IsMulti)
                     {
                         ready = false;
 
@@ -100,6 +110,7 @@ namespace RouletteBot.Views
                             Thread.Sleep(50);
                             ready = tableReader.IsSkipReady();
                         }
+
                         Game.Spin();
                     }
 
@@ -108,21 +119,21 @@ namespace RouletteBot.Views
             }).Start();
         }
 
-        private void showEditMappingForm(object sender, System.EventArgs e)
+        private void showEditMappingForm(object sender, EventArgs e)
         {
             var configurator = new UIMappingConfigurator();
 
             configurator.Show();
         }
 
-        private void showEditBettingForm(object sender, System.EventArgs e)
+        private void showEditBettingForm(object sender, EventArgs e)
         {
             var configurator = new BetEvaluationConfigurator();
 
             configurator.Show();
         }
 
-        private void highlightConfiguredMapping(object sender, System.EventArgs e)
+        private void highlightConfiguredMapping(object sender, EventArgs e)
         {
             //MessageBox.Show("Nezkoušet na opravdové ruletě, místo toho udělat sceenshot rulety, otevřít ho na fullscreen a až poté testovat a upravovat. Ruleta se přerendrovává příliš vysokou frekvencí a tak to přepisuje a poblikává to.");
             var mappingConf = new MappingConfig();
@@ -138,7 +149,7 @@ namespace RouletteBot.Views
             {
                 int roundsWithoutSeeTmp = RouletteHelper.GetLastOccurance(numbers, numbers[i]);
 
-                if(lastSeeNumbers.ContainsKey(numbers[i]))
+                if (lastSeeNumbers.ContainsKey(numbers[i]))
                 {
                     lastSeeNumbers[numbers[i]] = roundsWithoutSeeTmp;
                 }

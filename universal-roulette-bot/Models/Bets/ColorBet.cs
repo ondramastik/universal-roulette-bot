@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
+﻿using System.Linq;
 using RouletteBot.Controllers;
 
 namespace RouletteBot.Models
@@ -18,7 +15,7 @@ namespace RouletteBot.Models
 
         public override void place(IRouletteControls rouletteControls)
         {
-            if(!isVirtualBet)
+            if (!isVirtualBet)
             {
                 rouletteControls.betOnColor(Red, Multiplier);
             }
@@ -31,9 +28,8 @@ namespace RouletteBot.Models
             {
                 return Multiplier * 2;
             }
+
             return 0;
         }
-
-
     }
 }

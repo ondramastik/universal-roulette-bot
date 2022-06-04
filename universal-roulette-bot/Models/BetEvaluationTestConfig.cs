@@ -1,6 +1,6 @@
 ﻿namespace RouletteBot.Models
 {
-    public class BetEvaluationTestConfig: BetEvaluationConfig
+    public class BetEvaluationTestConfig : BetEvaluationConfig
     {
         public BetEvaluationTestConfig()
         {
@@ -29,7 +29,6 @@
             LongTimeNoSeeAmount = 1;
             LongTimeNoSeeFrom = 1;
             LongTimeNoSeeTo = 1;
-
         }
     }
 }

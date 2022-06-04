@@ -1,8 +1,8 @@
-﻿using System.Windows.Forms;
-using System;
-using Newtonsoft.Json;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace RouletteBot.Views
 {
@@ -16,21 +16,22 @@ namespace RouletteBot.Views
 
             if (configPath == null)
             {
-                this.path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot\roulette-config.conf";
+                this.path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                            @"\RouletteBot\roulette-config.conf";
             }
             else
             {
                 this.path = configPath;
             }
 
-            if(File.Exists(this.path))
+            if (File.Exists(this.path))
             {
                 string data = File.ReadAllText(this.path);
                 assignFormData(JsonConvert.DeserializeObject<Dictionary<string, string>>(data));
             }
         }
 
-        private void saveClick(object sender, System.EventArgs e)
+        private void saveClick(object sender, EventArgs e)
         {
             var data = new Dictionary<string, string>();
 
@@ -60,8 +61,8 @@ namespace RouletteBot.Views
             File.WriteAllText(this.path, JsonConvert.SerializeObject(data));
             this.Close();
         }
-          
-        private void closeClick(object sender, System.EventArgs e)
+
+        private void closeClick(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
-using RouletteBot.Controllers;
+﻿using RouletteBot.Controllers;
 
 namespace RouletteBot.Models
 {
@@ -25,10 +21,11 @@ namespace RouletteBot.Models
 
         public override int calculateBetResult(int lastNumber)
         {
-            if(Number == lastNumber)
+            if (Number == lastNumber)
             {
                 return Multiplier * 36;
             }
+
             return 0;
         }
     }

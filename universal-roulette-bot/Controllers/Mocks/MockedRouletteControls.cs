@@ -3,7 +3,6 @@ using RouletteBot.Controllers;
 
 namespace RouletteBot.Models
 {
-
     public class MockedRouletteControls : IRouletteControls
     {
         bool IRouletteControls.betOnColumn(int index, int amount)
@@ -13,7 +12,6 @@ namespace RouletteBot.Models
 
         bool IRouletteControls.betOnNumber(int value, int amount)
         {
-
             return true;
         }
 
@@ -34,7 +32,6 @@ namespace RouletteBot.Models
 
         bool IRouletteControls.spin()
         {
-
             return true;
         }
     }

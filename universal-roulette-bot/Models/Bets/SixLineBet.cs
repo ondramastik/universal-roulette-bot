@@ -27,6 +27,7 @@ namespace RouletteBot.Models
             {
                 return Multiplier * 6;
             }
+
             return 0;
         }
     }

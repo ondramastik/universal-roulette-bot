@@ -1,7 +1,7 @@
-﻿using System.Drawing;
-using System.Threading;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Drawing;
+using System.Threading;
 
 namespace RouletteBot.Models
 {
@@ -26,17 +26,20 @@ namespace RouletteBot.Models
 
         public void readReadyCheckColor()
         {
-            readyCheckColor = WinAPI.CreateScreenshot(config.SpinReadyCheckX, config.SpinReadyCheckY, config.SpinReadyCheckX + 1, config.SpinReadyCheckY + 1).GetPixel(0, 0).ToString();
+            readyCheckColor = WinAPI.CreateScreenshot(config.SpinReadyCheckX, config.SpinReadyCheckY,
+                config.SpinReadyCheckX + 1, config.SpinReadyCheckY + 1).GetPixel(0, 0).ToString();
         }
 
         public void readReadySkipColor()
         {
-            readySkipColor = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1, config.ConfirmBetY + 1).GetPixel(0, 0).ToString();
+            readySkipColor = WinAPI
+                .CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1,
+                    config.ConfirmBetY + 1).GetPixel(0, 0).ToString();
         }
 
         public int ReadNumber()
         {
-            while(true)
+            while (true)
             {
                 Dictionary<int, Color> checkColors = readNumberColors();
 
@@ -44,10 +47,15 @@ namespace RouletteBot.Models
                 Color activeColor;
                 foreach (KeyValuePair<int, Color> entry in checkColors)
                 {
-                    if(defaultNumberColors.TryGetValue(entry.Key, out color) && entry.Value.ToString() != color.ToString()
-                        && (
-                           entry.Key == 0 || activeNumberColors.TryGetValue(entry.Key, out activeColor) && entry.Value.ToString() == activeColor.ToString())
-                        )
+                    if (defaultNumberColors.TryGetValue(entry.Key, out color) && entry.Value.ToString() !=
+                                                                              color.ToString()
+                                                                              && (
+                                                                                  entry.Key == 0 ||
+                                                                                  activeNumberColors.TryGetValue(
+                                                                                      entry.Key, out activeColor) &&
+                                                                                  entry.Value.ToString() ==
+                                                                                  activeColor.ToString())
+                       )
                     {
                         return entry.Key;
                     }
@@ -59,19 +67,23 @@ namespace RouletteBot.Models
 
         public bool IsRoundReady()
         {
-            Bitmap check = WinAPI.CreateScreenshot(config.SpinReadyCheckX, config.SpinReadyCheckY, config.SpinReadyCheckX + 1, config.SpinReadyCheckY + 1);
+            Bitmap check = WinAPI.CreateScreenshot(config.SpinReadyCheckX, config.SpinReadyCheckY,
+                config.SpinReadyCheckX + 1, config.SpinReadyCheckY + 1);
 
             return check.GetPixel(0, 0).ToString() == readyCheckColor;
         }
 
         public bool IsSkipReady()
         {
-            if(readySkipColor == null)
+            if (readySkipColor == null)
             {
                 Thread.Sleep(3000);
-                readySkipColor = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1, config.ConfirmBetY + 1).GetPixel(0, 0).ToString();
+                readySkipColor = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1,
+                    config.ConfirmBetY + 1).GetPixel(0, 0).ToString();
             }
-            Bitmap checkSkip = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1, config.ConfirmBetY + 1);
+
+            Bitmap checkSkip = WinAPI.CreateScreenshot(config.ConfirmBetX, config.ConfirmBetY, config.ConfirmBetX + 1,
+                config.ConfirmBetY + 1);
             return checkSkip.GetPixel(0, 0).ToString() == readySkipColor;
         }
 
@@ -87,7 +99,7 @@ namespace RouletteBot.Models
                     HighlightNumbersGrid(thickness);
                     highlightNumberCheckPixels(thickness);
 
-                    duration-= 50;
+                    duration -= 50;
                 }
             }).Start();
         }
@@ -95,13 +107,21 @@ namespace RouletteBot.Models
         private void HighlightNumbersGrid(int thickness)
         {
             // Top line
-            WinAPI.draw(new Rectangle(config.GridLeftTopCornerX, config.GridLeftTopCornerY - thickness, config.GridRightBottomCornerX - config.GridLeftTopCornerX, thickness), Brushes.Black);
+            WinAPI.draw(
+                new Rectangle(config.GridLeftTopCornerX, config.GridLeftTopCornerY - thickness,
+                    config.GridRightBottomCornerX - config.GridLeftTopCornerX, thickness), Brushes.Black);
             // Bottom line
-            WinAPI.draw(new Rectangle(config.GridLeftTopCornerX, config.GridRightBottomCornerY, config.GridRightBottomCornerX - config.GridLeftTopCornerX, thickness), Brushes.Black);
+            WinAPI.draw(
+                new Rectangle(config.GridLeftTopCornerX, config.GridRightBottomCornerY,
+                    config.GridRightBottomCornerX - config.GridLeftTopCornerX, thickness), Brushes.Black);
             // Left line
-            WinAPI.draw(new Rectangle(config.GridLeftTopCornerX - thickness, config.GridLeftTopCornerY - thickness, thickness, config.GridRightBottomCornerY - config.GridLeftTopCornerY + (thickness * 2)), Brushes.Black);
+            WinAPI.draw(
+                new Rectangle(config.GridLeftTopCornerX - thickness, config.GridLeftTopCornerY - thickness, thickness,
+                    config.GridRightBottomCornerY - config.GridLeftTopCornerY + (thickness * 2)), Brushes.Black);
             // Right line
-            WinAPI.draw(new Rectangle(config.GridRightBottomCornerX, config.GridLeftTopCornerY - thickness, thickness, config.GridRightBottomCornerY - config.GridLeftTopCornerY + (thickness * 2)), Brushes.Black);
+            WinAPI.draw(
+                new Rectangle(config.GridRightBottomCornerX, config.GridLeftTopCornerY - thickness, thickness,
+                    config.GridRightBottomCornerY - config.GridLeftTopCornerY + (thickness * 2)), Brushes.Black);
         }
 
         private void highlightNumberCheckPixels(int thickness)
@@ -116,11 +136,14 @@ namespace RouletteBot.Models
 
             for (int y = 0; y < grid.Length; y++)
             {
-                for(int x = -1; x < grid[y].Length - 1; x++)
+                for (int x = -1; x < grid[y].Length - 1; x++)
                 {
-                    if(grid[y][x + 1] >= 0)
+                    if (grid[y][x + 1] >= 0)
                     {
-                        WinAPI.draw(new Rectangle(gridLocX + (x * gridTileWidth) - (thickness / 2) + config.NumberCheckOffsetX, gridLocY + (y * gridTileHeight) - (thickness / 2) + config.NumberCheckOffsetY, thickness, thickness), Brushes.Black);
+                        WinAPI.draw(
+                            new Rectangle(gridLocX + (x * gridTileWidth) - (thickness / 2) + config.NumberCheckOffsetX,
+                                gridLocY + (y * gridTileHeight) - (thickness / 2) + config.NumberCheckOffsetY,
+                                thickness, thickness), Brushes.Black);
                     }
                 }
             }
@@ -147,11 +170,11 @@ namespace RouletteBot.Models
                 {
                     if (grid[y][x] < 0) continue;
 
-                    if(Array.IndexOf(RouletteHelper.getRedNumbers(), grid[y][x]) >= 0)
+                    if (Array.IndexOf(RouletteHelper.getRedNumbers(), grid[y][x]) >= 0)
                     {
                         colors.Add(grid[y][x], getNumberColor(grid[y][x], gridScreenshotRedActive, x, y));
                     }
-                    else if(grid[y][x] == 0)
+                    else if (grid[y][x] == 0)
                     {
                         continue;
                     }

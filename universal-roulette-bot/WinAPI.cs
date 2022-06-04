@@ -2,22 +2,19 @@
  * hypnodok #elitepvpers quakenet
  * 8.5.08
  */
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using System.Drawing;
-using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace RouletteBot
 {
     public static class WinAPI
     {
         #region function imports
+
         [DllImport("user32.dll")]
         private static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
 
@@ -39,24 +36,31 @@ namespace RouletteBot
 
         [DllImport("user32.dll")]
         static extern void keybd_event(byte bVk, byte bScan, uint dwFlags,
-           UIntPtr dwExtraInfo);
+            UIntPtr dwExtraInfo);
 
         private const int SRCCOPY = 0x00CC0020;
+
         [DllImport("gdi32.dll")]
         private static extern bool BitBlt(IntPtr hObject, int nXDest, int
-        nYDest, int nWidth, int nHeight, IntPtr hObjectSource, int nXSrc, int
-        nYSrc, int dwRop);
+            nYDest, int nWidth, int nHeight, IntPtr hObjectSource, int nXSrc, int
+            nYSrc, int dwRop);
+
         [DllImport("gdi32.dll")]
         private static extern IntPtr CreateCompatibleBitmap(IntPtr hDC, int
-        nWidth, int nHeight);
+            nWidth, int nHeight);
+
         [DllImport("gdi32.dll")]
         private static extern IntPtr CreateCompatibleDC(IntPtr hDC);
+
         [DllImport("gdi32.dll")]
         private static extern bool DeleteDC(IntPtr hDC);
+
         [DllImport("gdi32.dll")]
         private static extern bool DeleteObject(IntPtr hObject);
+
         [DllImport("gdi32.dll")]
         private static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
+
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
         {
@@ -65,14 +69,19 @@ namespace RouletteBot
             public int right;
             public int bottom;
         }
+
         [DllImport("user32.dll")]
         private static extern IntPtr GetDesktopWindow();
+
         [DllImport("user32.dll")]
         private static extern IntPtr GetWindowDC(IntPtr hWnd);
+
         [DllImport("user32.dll")]
         private static extern IntPtr ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
         [DllImport("user32.dll")]
         private static extern IntPtr GetWindowRect(IntPtr hWnd, ref RECT rect);
+
         [DllImport("user32.dll")]
         private static extern IntPtr GetDC(IntPtr hWnd);
 
@@ -88,17 +97,19 @@ namespace RouletteBot
             RIGHTDOWN = 0x00000008,
             RIGHTUP = 0x00000010
         }
+
         #endregion
 
         #region static methods
 
         public static void draw(Rectangle r, Brush b)
         {
-            using(Graphics g = Graphics.FromHdc(GetDC(IntPtr.Zero)))
+            using (Graphics g = Graphics.FromHdc(GetDC(IntPtr.Zero)))
             {
                 g.FillRectangle(b, r);
             }
         }
+
         /// <summary>
         /// simulates a keypress, see http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys(VS.71).aspx
         /// no winapi but this works just fine for me
@@ -118,10 +129,10 @@ namespace RouletteBot
         {
             if (WindowActive(windowName))
             {
-
                 ManagedSendKeys(keys);
             }
         }
+
         /// <summary>
         /// sends a keystring to a window
         /// </summary>
@@ -134,6 +145,7 @@ namespace RouletteBot
                 ManagedSendKeys(keys);
             }
         }
+
         /// <summary>
         /// sends a key to a window, pressing the button for x seconds
         /// </summary>
@@ -219,6 +231,7 @@ namespace RouletteBot
                             mouse_event((uint)MouseEventFlags.LEFTDOWN, 0, 0, 0, 0);
                             break;
                     }
+
                     break;
                 case "right":
                     switch (state)
@@ -230,6 +243,7 @@ namespace RouletteBot
                             mouse_event((uint)MouseEventFlags.RIGHTDOWN, 0, 0, 0, 0);
                             break;
                     }
+
                     break;
                 case "middle":
                     switch (state)
@@ -241,6 +255,7 @@ namespace RouletteBot
                             mouse_event((uint)MouseEventFlags.MIDDLEDOWN, 0, 0, 0, 0);
                             break;
                     }
+
                     break;
             }
         }
@@ -328,6 +343,7 @@ namespace RouletteBot
         {
             SetForegroundWindow(handle);
         }
+
         #endregion
 
         /// <summary>
@@ -354,6 +370,4 @@ namespace RouletteBot
             return screenshot;
         }
     }
-
-
 }

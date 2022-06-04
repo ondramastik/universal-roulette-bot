@@ -13,8 +13,8 @@ namespace RouletteBot
         [STAThread]
         static void Main()
         {
-
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot");
+            Directory.CreateDirectory(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\RouletteBot");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
