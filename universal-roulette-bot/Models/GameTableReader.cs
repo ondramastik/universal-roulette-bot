@@ -11,13 +11,17 @@ namespace RouletteBot.Models
 
         private static string readyCheckColor;
         private static string readySkipColor;
+        private static string redTileHighlightColor;
+        private static string blackTileHighlightColor;
 
         private Dictionary<int, Color> defaultNumberColors;
+        private Dictionary<int, Color> activeNumberColors;
 
         public GameTableReader(MappingConfig config)
         {
             this.config = config;
             defaultNumberColors = readNumberColors();
+            activeNumberColors = readActiveNumberColors();
         }
 
         public void readReadyCheckColor()
@@ -37,19 +41,15 @@ namespace RouletteBot.Models
                 Dictionary<int, Color> checkColors = readNumberColors();
 
                 Color color;
+                Color activeColor;
                 foreach (KeyValuePair<int, Color> entry in checkColors)
                 {
-                    if(defaultNumberColors.TryGetValue(entry.Key, out color) && entry.Value.ToString() != color.ToString())
+                    if(defaultNumberColors.TryGetValue(entry.Key, out color) && entry.Value.ToString() != color.ToString()
+                        && (
+                           entry.Key == 0 || activeNumberColors.TryGetValue(entry.Key, out activeColor) && entry.Value.ToString() == activeColor.ToString())
+                        )
                     {
-                        if (!config.IsMulti)
-                        {
-                            Thread.Sleep(1500);
-                            Color checkAgain = getNumberColor(entry.Key, GetGridScreenshot());
-
-                            if (checkAgain.ToString() != color.ToString())
-                                return entry.Key;
-                        }
-                        else return entry.Key;
+                        return entry.Key;
                     }
                 }
 
@@ -126,6 +126,44 @@ namespace RouletteBot.Models
             }
         }
 
+        private Dictionary<int, Color> readActiveNumberColors()
+        {
+            var grid = RouletteHelper.getNumbersGrid();
+            var colors = new Dictionary<int, Color>();
+
+            int gridTileWidth = (config.GridRightBottomCornerX - config.GridLeftTopCornerX) / 12;
+
+            WinAPI.MouseMove(config.RedBetX, config.RedBetY);
+            Thread.Sleep(1000);
+            var gridScreenshotRedActive = GetGridScreenshot();
+
+            WinAPI.MouseMove(config.BlackBetX, config.BlackBetY);
+            Thread.Sleep(1000);
+            var gridScreenshotBlackActive = GetGridScreenshot();
+
+            for (int y = 0; y < grid.Length; y++)
+            {
+                for (int x = 0; x < grid[y].Length; x++)
+                {
+                    if (grid[y][x] < 0) continue;
+
+                    if(Array.IndexOf(RouletteHelper.getRedNumbers(), grid[y][x]) >= 0)
+                    {
+                        colors.Add(grid[y][x], getNumberColor(grid[y][x], gridScreenshotRedActive, x, y));
+                    }
+                    else if(grid[y][x] == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        colors.Add(grid[y][x], getNumberColor(grid[y][x], gridScreenshotBlackActive, x, y));
+                    }
+                }
+            }
+
+            return colors;
+        }
 
         private Dictionary<int, Color> readNumberColors()
         {

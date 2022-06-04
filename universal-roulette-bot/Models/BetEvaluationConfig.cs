@@ -27,6 +27,10 @@ namespace RouletteBot.Models
         public int ColorStreakAfterZeroAmount { get; set; }
         public bool RedAfterZero { get; set; }
         public int RedAfterZeroAmount { get; set; }
+        public bool LongTimeNoSee { get; set; }
+        public int LongTimeNoSeeAmount { get; set; }
+        public int LongTimeNoSeeFrom { get; set; }
+        public int LongTimeNoSeeTo { get; set; }
 
         public BetEvaluationConfig(string configPath = null)
         {
@@ -60,6 +64,10 @@ namespace RouletteBot.Models
                 dictionary.TryGetValue("ColorStreakAfterZeroAmount", out string colorStreakAfterZeroAmount);
                 dictionary.TryGetValue("RedAfterZero", out string redAfterZero);
                 dictionary.TryGetValue("RedAfterZeroAmount", out string redAfterZeroAmount);
+                dictionary.TryGetValue("LongTimeNoSee", out string longTimeNoSee);
+                dictionary.TryGetValue("LongTimeNoSeeAmount", out string longTimeNoSeeAmount);
+                dictionary.TryGetValue("LongTimeNoSeeFrom", out string longTimeNoSeeFrom);
+                dictionary.TryGetValue("LongTimeNoSeeTo", out string longTimeNoSeeTo);
 
                 SixlineBet = Boolean.TryParse(sixlineBet, out bool sixlineBetBool) ? sixlineBetBool : false;
                 SixlineBetAmount = Int32.TryParse(sixlineBetAmount, out int sixlineBetAmountInt) ? sixlineBetAmountInt : 0;
@@ -81,6 +89,10 @@ namespace RouletteBot.Models
                 ColorStreakAfterZeroAmount = Int32.TryParse(colorStreakAfterZeroAmount, out int colorStreakAfterZeroAmountInt) ? colorStreakAfterZeroAmountInt : 0;
                 RedAfterZero = Boolean.TryParse(redAfterZero, out bool redAfterZeroBool) ? redAfterZeroBool : false;
                 RedAfterZeroAmount = Int32.TryParse(redAfterZeroAmount, out int redAfterZeroAmountInt) ? redAfterZeroAmountInt : 0;
+                LongTimeNoSee = Boolean.TryParse(longTimeNoSee, out bool longTimeNoSeeBool) ? longTimeNoSeeBool : false;
+                LongTimeNoSeeAmount = Int32.TryParse(longTimeNoSeeAmount, out int longTimeNoSeeAmountInt) ? longTimeNoSeeAmountInt : 0;
+                LongTimeNoSeeFrom = Int32.TryParse(longTimeNoSeeFrom, out int longTimeNoSeeFromInt) ? longTimeNoSeeFromInt : 0;
+                LongTimeNoSeeTo = Int32.TryParse(longTimeNoSeeTo, out int longTimeNoSeeToInt) ? longTimeNoSeeToInt : 0;
             }
         }
     }

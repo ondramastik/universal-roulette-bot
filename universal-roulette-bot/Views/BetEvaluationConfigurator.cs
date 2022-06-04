@@ -55,6 +55,10 @@ namespace RouletteBot.Views
             data.Add("ColorStreakAfterZeroAmount", ColorStreakAfterZeroAmount.Text);
             data.Add("RedAfterZero", RedAfterZero.Checked.ToString());
             data.Add("RedAfterZeroAmount", RedAfterZeroAmount.Text);
+            data.Add("LongTimeNoSee", LongTimeNoSee.Checked.ToString());
+            data.Add("LongTimeNoSeeAmount", LongTimeNoSeeAmount.Text);
+            data.Add("LongTimeNoSeeFrom", LongTimeNoSeeFrom.Text);
+            data.Add("LongTimeNoSeeTo", LongTimeNoSeeTo.Text);
 
 
             File.WriteAllText(this.path, JsonConvert.SerializeObject(data));
@@ -88,6 +92,10 @@ namespace RouletteBot.Views
             formData.TryGetValue("ColorStreakAfterZeroAmount", out string colorStreakAfterZeroAmount);
             formData.TryGetValue("RedAfterZero", out string redAfterZero);
             formData.TryGetValue("RedAfterZeroAmount", out string redAfterZeroAmount);
+            formData.TryGetValue("LongTimeNoSee", out string longTimeNoSee);
+            formData.TryGetValue("LongTimeNoSeeAmount", out string longTimeNoSeeAmount);
+            formData.TryGetValue("LongTimeNoSeeFrom", out string longTimeNoSeeFrom);
+            formData.TryGetValue("LongTimeNoSeeTo", out string longTimeNoSeeTo);
 
             SixlineBet.Checked = Boolean.Parse(sixlineBet);
             SixlineBetAmount.Text = sixlineBetAmount;
@@ -109,6 +117,15 @@ namespace RouletteBot.Views
             ColorStreakAfterZeroAmount.Text = colorStreakAfterZeroAmount;
             RedAfterZero.Checked = Boolean.Parse(redAfterZero);
             RedAfterZeroAmount.Text = redAfterZeroAmount;
+            LongTimeNoSee.Checked = longTimeNoSee != null && Boolean.Parse(longTimeNoSee);
+            LongTimeNoSeeAmount.Text = longTimeNoSeeAmount;
+            LongTimeNoSeeFrom.Text = longTimeNoSeeFrom;
+            LongTimeNoSeeTo.Text = longTimeNoSeeTo;
+        }
+
+        private void BetEvaluationConfigurator_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

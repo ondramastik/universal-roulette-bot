@@ -9,7 +9,6 @@ namespace RouletteBot.Models
     {
         public int Number { get; }
 
-
         public NumberBet(int number)
         {
             this.Number = number;

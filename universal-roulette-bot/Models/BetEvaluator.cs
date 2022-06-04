@@ -39,8 +39,8 @@ namespace RouletteBot.Models
                 bets.AddRange(getFirstFiveBlackBet(numbers));
             if (Config.ColorStreakAfterZero)
                 bets.AddRange(getSameColorStreakAfterZeroBet(numbers));
-            //if (Config.ColorStreakAfterZero)
-            bets.AddRange(getLongTimeNoSeeBet(numbers));
+            if (Config.LongTimeNoSee)
+                bets.AddRange(getLongTimeNoSeeBet(numbers));
 
             if (bets.Count == 0)
             {
@@ -281,40 +281,29 @@ namespace RouletteBot.Models
 
             for (int i = 0; i < numbers.Length; i++)
             {
-                int roundsWithoutSeeTmp = 0;
-                for (int y = i; y < numbers.Length; y++)
-                {
-                    if (i == y) continue;
-                    if (numbers[i] != numbers[y])
-                    {
-                        roundsWithoutSeeTmp++;
-                    }
-                    else
-                    {
-                        roundsWithoutSeeTmp = 0;
-                    }
-                }
+                int lastOccurance = RouletteHelper.GetLastOccurance(numbers, numbers[i]);
 
                 if(lastSeeNumbers.ContainsKey(numbers[i]))
                 {
-                    lastSeeNumbers[numbers[i]] = roundsWithoutSeeTmp;
+                    lastSeeNumbers[numbers[i]] = lastOccurance;
                 }
                 else
                 {
-                    lastSeeNumbers.Add(numbers[i], roundsWithoutSeeTmp);
+                    lastSeeNumbers.Add(numbers[i], lastOccurance);
                 }
             }
 
             lastSeeNumbers = lastSeeNumbers.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
             var bets = new List<Bet>();
+
             foreach(var number in lastSeeNumbers.Skip(Math.Max(0, lastSeeNumbers.Count() - 3)))
             {
-
-                if (number.Key >= 0 && number.Value >= 74 && number.Value < 148)
+                if (number.Key >= 0 && number.Value >= Config.LongTimeNoSeeFrom && number.Value <= Config.LongTimeNoSeeTo)
                 {
-                    int multiplier = Convert.ToInt32(Math.Pow(2, ((number.Value - 74) / 37) + 1)) / 2;
-                    bets.Add(new NumberBet(number.Key) { RuleName = "LongTimeNoSee", Multiplier = multiplier });
+                    int seriesWithoutSee = (number.Value + 1 - Config.LongTimeNoSeeFrom) / 33;
+                    int multiplier = Convert.ToInt32(Math.Pow(2, Convert.ToDouble(seriesWithoutSee)));
+                    bets.Add(new NumberBet(number.Key) { RuleName = "LongTimeNoSee", Multiplier = multiplier * Config.LongTimeNoSeeAmount });
                 }
             }
 

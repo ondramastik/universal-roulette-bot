@@ -34,5 +34,24 @@ namespace RouletteBot.Models
             throw new ArgumentException(
                 String.Format("Input must be number from 0 to 36. Got '{0}'", number));
         }
+
+        public static int GetLastOccurance(int[] numbers, int number, bool previous = false)
+        {
+            int roundsWithoutSee = 0;
+
+            for (int i = 0; i < numbers.Length - (previous ? 1 : 0); i++)
+            {
+                if (numbers[i] != number)
+                {
+                    roundsWithoutSee++;
+                }
+                else if(numbers[i] == number)
+                {
+                    roundsWithoutSee = 0;
+                }
+            }
+
+            return roundsWithoutSee;
+        }
     }
 }

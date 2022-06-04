@@ -29,6 +29,7 @@ namespace RouletteBot.Views
 
         private void playRoundClick(object sender, System.EventArgs e)
         {
+            int[] num = null;
             var mappingConf = new MappingConfig();
             Game = new Game(
                 new MouseRouletteControls(mappingConf),
@@ -59,6 +60,19 @@ namespace RouletteBot.Views
                         this.numbersView.Invoke((MethodInvoker)delegate
                         {
                             this.numbersView.Text = string.Format("Hraje se {0}. kolo", counter) + "\r\n" + string.Join(", ", numbers);
+
+                            if (num != null && num.Length > 1)
+                            {
+                                this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 1: {0}\r\nVýskyt naposled před: {1}", num[0], num[1]);
+                            }
+                            if (num != null && num.Length > 3)
+                            {
+                                this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 2: {0}\r\nVýskyt naposled před: {1}", num[2], num[3]);
+                            }
+                            if (num != null && num.Length > 5)
+                            {
+                                this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 3: {0}\r\nVýskyt naposled před: {1}", num[4], num[5]);
+                            }
                         });
                     }
 
@@ -69,22 +83,7 @@ namespace RouletteBot.Views
                         ready = tableReader.IsRoundReady();
                     }
 
-                    this.numbersView.Invoke((MethodInvoker)delegate
-                    {
-                        int[] num = getLongTimeNoSeeNumber(Game.playRound(number, counter));
-                        if(num.Length > 1)
-                        {
-                            this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 1: {0}\r\nVýskyt naposled před: {1}", num[0], num[1]);
-                        }
-                        if (num.Length > 3)
-                        {
-                            this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 2: {0}\r\nVýskyt naposled před: {1}", num[2], num[3]);
-                        }
-                        if (num.Length > 5)
-                        {
-                            this.numbersView.Text += string.Format("\r\nNejvzácnější číslo 3: {0}\r\nVýskyt naposled před: {1}", num[4], num[5]);
-                        }
-                    });
+                    num = getLongTimeNoSeeNumber(Game.playRound(number, counter));
 
                     while (ready)
                     {
@@ -137,19 +136,7 @@ namespace RouletteBot.Views
 
             for (int i = 0; i < numbers.Length; i++)
             {
-                int roundsWithoutSeeTmp = 0;
-                for (int y = i; y < numbers.Length; y++)
-                {
-                    if (i == y) continue;
-                    if (numbers[i] != numbers[y])
-                    {
-                        roundsWithoutSeeTmp++;
-                    }
-                    else
-                    {
-                        roundsWithoutSeeTmp = 0;
-                    }
-                }
+                int roundsWithoutSeeTmp = RouletteHelper.GetLastOccurance(numbers, numbers[i]);
 
                 if(lastSeeNumbers.ContainsKey(numbers[i]))
                 {

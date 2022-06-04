@@ -42,7 +42,7 @@ namespace RouletteBot.Models
 
             foreach (Bet sb in previousBets)
             {
-                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin, number, RouletteType);
+                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin, number, RouletteType, RouletteHelper.GetLastOccurance(Numbers.ToArray(), number, true));
             }
 
             BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);

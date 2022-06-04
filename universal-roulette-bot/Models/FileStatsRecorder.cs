@@ -16,7 +16,7 @@ namespace RouletteBot.Models
             }
         }
 
-        public void recordBetResult(Bet bet, int betAmount, int resultAmount, string gameId, int spin, int number, string rouletteType)
+        public void recordBetResult(Bet bet, int betAmount, int resultAmount, string gameId, int spin, int number, string rouletteType, int lastbefore)
         {
             File.AppendAllText(fileName, string.Format("{0},{1},{2},{3}\r\n",
                 bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString()));

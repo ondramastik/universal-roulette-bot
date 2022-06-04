@@ -14,8 +14,9 @@ namespace RouletteBot.Models
         int spin;
         int number;
         string rouletteType;
+        int lastBefore;
 
-        public BulkInsertRow(Bet bet, string gameId, int betAmount, int resultAmount, int spin, int number, string rouletteType)
+        public BulkInsertRow(Bet bet, string gameId, int betAmount, int resultAmount, int spin, int number, string rouletteType, int lastBefore)
         {
             this.bet = bet;
             this.gameId = gameId;
@@ -24,11 +25,12 @@ namespace RouletteBot.Models
             this.spin = spin;
             this.number = number;
             this.rouletteType = rouletteType;
+            this.lastBefore = lastBefore;
         }
 
         public string getInsertRow()
         {
-            return string.Format("('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{8}','{9}')", gameId, Environment.UserName, bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString(), spin, number, "NO BETS PLACED, JUST READING", rouletteType);
+            return string.Format("('{0}','{1}','{2}','{3}',{4},{5},{6},{7},'{8}','{9}',{10})", gameId, Environment.UserName, bet.GetType().Name, bet.RuleName, betAmount.ToString(), resultAmount.ToString(), spin, number, "1.4.0", rouletteType, lastBefore);
         }
     }
 
@@ -55,10 +57,10 @@ namespace RouletteBot.Models
             }
         }
 
-        public void recordBetResult(Bet bet, int betAmount, int resultAmount, string gameId, int spin, int number, string rouletteType)
+        public void recordBetResult(Bet bet, int betAmount, int resultAmount, string gameId, int spin, int number, string rouletteType, int lastBefore)
         {
 
-            rows.Add(new BulkInsertRow(bet, gameId, betAmount, resultAmount, spin, number, rouletteType));
+            rows.Add(new BulkInsertRow(bet, gameId, betAmount, resultAmount, spin, number, rouletteType, lastBefore));
 
 
             if(rows.Count > 20)
@@ -68,7 +70,7 @@ namespace RouletteBot.Models
                 {
                     data.Add(row.getInsertRow());
                 }
-                string sql = string.Format("INSERT INTO bets(game_id, client_id, bet_name, rule_name, bet_amount, bet_result, spin, number, version, roulette_type) VALUES{0};", String.Join(",", data));
+                string sql = string.Format("INSERT INTO bets(game_id, client_id, bet_name, rule_name, bet_amount, bet_result, spin, number, version, roulette_type, last_before) VALUES{0};", String.Join(",", data));
 
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);

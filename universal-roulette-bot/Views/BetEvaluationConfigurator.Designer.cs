@@ -51,6 +51,12 @@
             this.SecondSixlineBetNumberBefore = new System.Windows.Forms.CheckBox();
             this.save = new System.Windows.Forms.Button();
             this.close = new System.Windows.Forms.Button();
+            this.LongTimeNoSeeAmount = new System.Windows.Forms.NumericUpDown();
+            this.LongTimeNoSee = new System.Windows.Forms.CheckBox();
+            this.LongTimeNoSeeFrom = new System.Windows.Forms.NumericUpDown();
+            this.LongTimeNoSeeTo = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SixlineBetAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecondSixlineBetAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ThreeOfFourAmount)).BeginInit();
@@ -61,6 +67,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.RedAfterZeroAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SixlineBetNumberBeforeAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecondSixlineBetNumberBeforeAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeFrom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeTo)).BeginInit();
             this.SuspendLayout();
             // 
             // SixlineBet
@@ -244,7 +253,7 @@
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(121, 254);
+            this.save.Location = new System.Drawing.Point(121, 304);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(75, 23);
             this.save.TabIndex = 23;
@@ -254,7 +263,7 @@
             // 
             // close
             // 
-            this.close.Location = new System.Drawing.Point(40, 254);
+            this.close.Location = new System.Drawing.Point(40, 304);
             this.close.Name = "close";
             this.close.Size = new System.Drawing.Size(75, 23);
             this.close.TabIndex = 24;
@@ -262,11 +271,76 @@
             this.close.UseVisualStyleBackColor = true;
             this.close.Click += new System.EventHandler(this.closeClick);
             // 
+            // LongTimeNoSeeAmount
+            // 
+            this.LongTimeNoSeeAmount.Location = new System.Drawing.Point(135, 251);
+            this.LongTimeNoSeeAmount.Name = "LongTimeNoSeeAmount";
+            this.LongTimeNoSeeAmount.Size = new System.Drawing.Size(37, 20);
+            this.LongTimeNoSeeAmount.TabIndex = 26;
+            // 
+            // LongTimeNoSee
+            // 
+            this.LongTimeNoSee.AutoSize = true;
+            this.LongTimeNoSee.Location = new System.Drawing.Point(12, 254);
+            this.LongTimeNoSee.Name = "LongTimeNoSee";
+            this.LongTimeNoSee.Size = new System.Drawing.Size(101, 17);
+            this.LongTimeNoSee.TabIndex = 25;
+            this.LongTimeNoSee.Text = "Dlouho nepadlo";
+            this.LongTimeNoSee.UseVisualStyleBackColor = true;
+            // 
+            // LongTimeNoSeeFrom
+            // 
+            this.LongTimeNoSeeFrom.Location = new System.Drawing.Point(71, 277);
+            this.LongTimeNoSeeFrom.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.LongTimeNoSeeFrom.Name = "LongTimeNoSeeFrom";
+            this.LongTimeNoSeeFrom.Size = new System.Drawing.Size(37, 20);
+            this.LongTimeNoSeeFrom.TabIndex = 27;
+            // 
+            // LongTimeNoSeeTo
+            // 
+            this.LongTimeNoSeeTo.Location = new System.Drawing.Point(135, 277);
+            this.LongTimeNoSeeTo.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.LongTimeNoSeeTo.Name = "LongTimeNoSeeTo";
+            this.LongTimeNoSeeTo.Size = new System.Drawing.Size(37, 20);
+            this.LongTimeNoSeeTo.TabIndex = 28;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(44, 279);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(21, 13);
+            this.label2.TabIndex = 29;
+            this.label2.Text = "Od";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(108, 279);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(21, 13);
+            this.label3.TabIndex = 30;
+            this.label3.Text = "Do";
+            // 
             // BetEvaluationConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(208, 284);
+            this.ClientSize = new System.Drawing.Size(208, 339);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.LongTimeNoSeeTo);
+            this.Controls.Add(this.LongTimeNoSeeFrom);
+            this.Controls.Add(this.LongTimeNoSeeAmount);
+            this.Controls.Add(this.LongTimeNoSee);
             this.Controls.Add(this.close);
             this.Controls.Add(this.save);
             this.Controls.Add(this.SecondSixlineBetNumberBeforeAmount);
@@ -293,6 +367,7 @@
             this.Name = "BetEvaluationConfigurator";
             this.Text = "Konfigurace sázek";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.BetEvaluationConfigurator_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SixlineBetAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecondSixlineBetAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ThreeOfFourAmount)).EndInit();
@@ -303,6 +378,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.RedAfterZeroAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SixlineBetNumberBeforeAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecondSixlineBetNumberBeforeAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeFrom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeTo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,5 +411,11 @@
         private System.Windows.Forms.CheckBox SecondSixlineBetNumberBefore;
         private System.Windows.Forms.Button save;
         private System.Windows.Forms.Button close;
+        private System.Windows.Forms.NumericUpDown LongTimeNoSeeAmount;
+        private System.Windows.Forms.CheckBox LongTimeNoSee;
+        private System.Windows.Forms.NumericUpDown LongTimeNoSeeFrom;
+        private System.Windows.Forms.NumericUpDown LongTimeNoSeeTo;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
