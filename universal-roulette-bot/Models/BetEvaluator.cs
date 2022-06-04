@@ -13,7 +13,7 @@ namespace RouletteBot.Models
         public BetEvaluator(BetEvaluationConfig evaluationConfig = null)
         {
             if(evaluationConfig == null)
-                Config = new BetEvaluationConfig();
+                Config = new BetEvaluationFileConfig();
             else
                 Config = evaluationConfig;
         }
@@ -42,7 +42,7 @@ namespace RouletteBot.Models
             if (Config.LongTimeNoSee)
                 bets.AddRange(getLongTimeNoSeeBet(numbers));
 
-            if (bets.Count == 0)
+            if (bets.Count == 0 && Config.EnableNeutralBet)
             {
                 // If no bet is suggested, bet neutral.
                 bets.Add(new ColorBet(true) { RuleName = "NeutralBet", isVirtualBet = false});

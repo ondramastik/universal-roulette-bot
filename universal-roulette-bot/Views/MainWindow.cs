@@ -34,7 +34,7 @@ namespace RouletteBot.Views
             Game = new Game(
                 new MouseRouletteControls(mappingConf),
                 new MysqlStatsRecorder(),
-                new BetEvaluationConfig(),
+                new BetEvaluationFileConfig(),
                 getRuletteType(mappingConf));
 
             this.tableReader = new GameTableReader(mappingConf);

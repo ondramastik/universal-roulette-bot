@@ -224,6 +224,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BetEvaluationConfig.cs" />
+    <Compile Include="Models\BetEvaluationTestConfig.cs" />
     <Compile Include="Models\MysqlStatsRecorder.cs" />
     <Compile Include="Models\MappingConfig.cs" />
     <Compile Include="Models\Bets\NumberBet.cs" />
@@ -232,7 +234,7 @@
     <Compile Include="Models\Bets\Bet.cs" />
     <Compile Include="Models\BetEvaluator.cs" />
     <Compile Include="Models\BetProcessor.cs" />
-    <Compile Include="Models\BetEvaluationConfig.cs" />
+    <Compile Include="Models\BetEvaluationFileConfig.cs" />
     <Compile Include="Models\FileStatsRecorder.cs" />
     <Compile Include="Models\GameTableReader.cs" />
     <Compile Include="Models\Game.cs" />

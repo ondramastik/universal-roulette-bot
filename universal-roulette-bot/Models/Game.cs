@@ -18,11 +18,11 @@ namespace RouletteBot.Models
 
         private string RouletteType;
 
-        public BetEvaluationConfig EvaluationConfig { get; set; }
+        public BetEvaluationFileConfig EvaluationConfig { get; set; }
 
 
 
-        public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationConfig config, string rouletteType)
+        public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationFileConfig config, string rouletteType)
         {
             this.GameId = Guid.NewGuid().ToString();
             this.rouletteControls = rouletteControls;
