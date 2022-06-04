@@ -9,7 +9,7 @@ namespace RouletteBotTests
     [TestClass]
     public class BetEvaluatorTests
     {
-        private readonly BetEvaluator _betEvaluator = new(new BetEvaluationTestConfig());
+        private readonly RulesEvaluator _rulesEvaluator = new(new BetEvaluationTestConfig());
 
         [TestMethod("Checks correct try SixLine bets for normal case")]
         public void SixLines_CorrectBetsAreCreated()
@@ -18,7 +18,7 @@ namespace RouletteBotTests
             var numbers = new[] { 1, 2, 3, 7, 15 };
 
             // Act
-            Bet[] bets = _betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _rulesEvaluator.GetEligibleRules(numbers);
 
             // Assert
             Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
@@ -49,7 +49,7 @@ namespace RouletteBotTests
             var numbers = new[] { 1, 2, 3, 7, 15, 3 };
 
             // Act
-            Bet[] bets = _betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _rulesEvaluator.GetEligibleRules(numbers);
 
             // Assert
             Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
@@ -78,7 +78,7 @@ namespace RouletteBotTests
                 var numbers = new[] { 20, 20, 22, 13, i };
 
                 // Act
-                Bet[] bets = _betEvaluator.GetSuggestions(numbers);
+                Bet[] bets = _rulesEvaluator.GetEligibleRules(numbers);
 
                 // Assert
                 Assert.AreEqual(4, bets.Length, "There must be exactly 4 bets");
@@ -107,7 +107,7 @@ namespace RouletteBotTests
             var numbers = new[] { 3, 2, 1, 3 };
 
             // Act
-            Bet[] bets = _betEvaluator.GetSuggestions(numbers)
+            Bet[] bets = _rulesEvaluator.GetEligibleRules(numbers)
                 .Where(v => v.RuleName == "TwoColorsInRow").ToArray();
 
             // Assert
@@ -125,7 +125,7 @@ namespace RouletteBotTests
             var numbers = new[] { 9, 12 };
 
             // Act
-            Bet[] bets = _betEvaluator.GetSuggestions(numbers)
+            Bet[] bets = _rulesEvaluator.GetEligibleRules(numbers)
                 .Where(v => v.RuleName == "TwoColorsInRow").ToArray();
 
             // Assert
@@ -139,7 +139,7 @@ namespace RouletteBotTests
             var numbers = new[] { 1, 2, 3, 4, 5 };
 
             // Act
-            Bet[] bets = _betEvaluator.GetSuggestions(numbers)
+            Bet[] bets = _rulesEvaluator.GetEligibleRules(numbers)
                 .Where(v => v.RuleName == "ColorsSwitching").ToArray();
 
             // Assert
@@ -158,7 +158,7 @@ namespace RouletteBotTests
             var numbers = new[] { 3, 4, 3 };
 
             // Act
-            Bet[] bets = _betEvaluator.GetSuggestions(numbers)
+            Bet[] bets = _rulesEvaluator.GetEligibleRules(numbers)
                 .Where(v => v.RuleName == "ThreeOfFour").ToArray();
 
             // Assert
@@ -183,7 +183,7 @@ namespace RouletteBotTests
             var numbers = new[] { 1, 8, 9, 25, 12, 0, 9, 12 };
 
             // Act
-            Bet[] bets = _betEvaluator.GetSuggestions(numbers);
+            Bet[] bets = _rulesEvaluator.GetEligibleRules(numbers);
 
             // Assert
             Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");

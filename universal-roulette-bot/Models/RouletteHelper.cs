@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace RouletteBot.Models
@@ -52,6 +53,29 @@ namespace RouletteBot.Models
             }
 
             return roundsWithoutSee;
+        }
+
+        public static List<Point> FindIndexes(IEnumerable<int> numbers)
+        {
+            var grid = getNumbersGrid();
+
+            var indexes = new List<Point>();
+
+            foreach (var number in numbers)
+            {
+                for (var y = 0; y < grid.Length; y++)
+                {
+                    for (var x = 0; x < grid[y].Length; x++)
+                    {
+                        if (grid[y][x] == number)
+                        {
+                            indexes.Add(new Point(x, y));
+                        }
+                    }
+                }
+            }
+
+            return indexes;
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RouletteBot.Controllers;
 using RouletteBot.Models.Bets;
+using RouletteBot.Models.Rules;
 
 namespace RouletteBot.Models
 {
@@ -13,7 +15,9 @@ namespace RouletteBot.Models
 
         private IStatsRecorder statsRecorder;
 
-        private Bet[] previousBets;
+        private List<Rule> activeRules;
+
+        private IReadOnlyCollection<Bet> previousBets;
 
         private string GameId;
 
@@ -28,7 +32,8 @@ namespace RouletteBot.Models
             GameId = Guid.NewGuid().ToString();
             this.rouletteControls = rouletteControls;
             this.statsRecorder = statsRecorder;
-            previousBets = new Bet[0];
+            activeRules = new List<Rule>();
+            previousBets = Array.Empty<Bet>();
             Numbers = new List<int>();
             EvaluationConfig = config;
             RouletteType = rouletteType;
@@ -41,18 +46,30 @@ namespace RouletteBot.Models
                 Numbers.Add(number);
             }
 
-            foreach (Bet sb in previousBets)
+            foreach (var sb in previousBets)
             {
                 statsRecorder.RecordBetResult(sb, sb.Multiplier, sb.CalculateBetResult(number), GameId, spin, number,
                     RouletteType, RouletteHelper.GetLastOccurance(Numbers.ToArray(), number, true));
             }
 
-            BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);
-            Bet[] suggestedBets = betEvaluator.GetSuggestions(Numbers.ToArray(), previousBets);
-            BetProcessor betProcessor = new BetProcessor(rouletteControls);
-            betProcessor.ProcessBets(suggestedBets);
-            rouletteControls.spin();
+            foreach (var rule in activeRules)
+            {
+                rule.Evaluate(number);
+            }
 
+            var rulesEvaluator = new RulesEvaluator(EvaluationConfig);
+            var suggestedRules = rulesEvaluator.GetEligibleRules(Numbers.ToArray());
+
+            activeRules = activeRules.Where(rule => !rule.Fulfilled).ToList();
+            activeRules.AddRange(suggestedRules);
+            
+            var suggestedBets = activeRules.SelectMany(rule => rule.GetBets(Numbers, spin, EvaluationConfig)).ToList();
+            suggestedBets.Add(new ColorBet(true) { RuleName = "NeutralBet" });
+            suggestedBets.Add(new ColorBet(false) { RuleName = "NeutralBet" });
+            
+            var betProcessor = new BetProcessor(rouletteControls);
+            betProcessor.ProcessBets(suggestedBets.ToArray());
+            rouletteControls.spin();
             previousBets = suggestedBets;
 
             return Numbers.ToArray();
