@@ -1,4 +1,5 @@
 ﻿using RouletteBot.Controllers;
+using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models
 {
@@ -11,15 +12,15 @@ namespace RouletteBot.Models
             this.Number = number;
         }
 
-        public override void place(IRouletteControls rouletteControls)
+        public override void Place(IRouletteControls rouletteControls)
         {
-            if (!isVirtualBet)
+            if (!IsVirtualBet)
             {
                 rouletteControls.betOnNumber(Number, Multiplier);
             }
         }
 
-        public override int calculateBetResult(int lastNumber)
+        public override int CalculateBetResult(int lastNumber)
         {
             if (Number == lastNumber)
             {

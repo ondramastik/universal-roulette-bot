@@ -1,4 +1,6 @@
-﻿namespace RouletteBot.Models
+﻿using RouletteBot.Models.Bets;
+
+namespace RouletteBot.Models
 {
     public interface IStatsRecorder
     {

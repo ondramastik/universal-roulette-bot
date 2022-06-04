@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RouletteBot.Controllers;
+using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models
 {
@@ -42,13 +43,13 @@ namespace RouletteBot.Models
 
             foreach (Bet sb in previousBets)
             {
-                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.calculateBetResult(number), GameId, spin, number,
+                statsRecorder.recordBetResult(sb, sb.Multiplier, sb.CalculateBetResult(number), GameId, spin, number,
                     RouletteType, RouletteHelper.GetLastOccurance(Numbers.ToArray(), number, true));
             }
 
             BetEvaluator betEvaluator = new BetEvaluator(EvaluationConfig);
 
-            Bet[] suggestedBets = betEvaluator.getSuggestions(Numbers.ToArray());
+            Bet[] suggestedBets = betEvaluator.GetSuggestions(Numbers.ToArray());
 
             BetProcessor betProcessor = new BetProcessor(rouletteControls);
 

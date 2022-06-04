@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models
 {

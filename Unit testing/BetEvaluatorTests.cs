@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RouletteBot.Models;
+using RouletteBot.Models.Bets;
 
 namespace RouletteBotTests
 {
@@ -17,7 +18,7 @@ namespace RouletteBotTests
             int[] numbers = new int[] { 1, 2, 3, 7, 15 };
 
             // Act
-            Bet[] bets = betEvaluator.getSuggestions(numbers);
+            Bet[] bets = betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
@@ -48,7 +49,7 @@ namespace RouletteBotTests
             int[] numbers = new int[] { 1, 2, 3, 7, 15, 3 };
 
             // Act
-            Bet[] bets = betEvaluator.getSuggestions(numbers);
+            Bet[] bets = betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
@@ -77,7 +78,7 @@ namespace RouletteBotTests
                 int[] numbers = new int[] { 20, 20, 22, 13, i };
 
                 // Act
-                Bet[] bets = betEvaluator.getSuggestions(numbers);
+                Bet[] bets = betEvaluator.GetSuggestions(numbers);
 
                 // Assert
                 Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
@@ -101,7 +102,7 @@ namespace RouletteBotTests
             int[] numbers = new int[] { 3, 2, 1, 3 };
 
             // Act
-            Bet[] bets = betEvaluator.getSuggestions(numbers);
+            Bet[] bets = betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");
@@ -119,7 +120,7 @@ namespace RouletteBotTests
             int[] numbers = new int[] { 9, 12 };
 
             // Act
-            Bet[] bets = betEvaluator.getSuggestions(numbers);
+            Bet[] bets = betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(0, bets.Length, "There must be no bet");
@@ -132,7 +133,7 @@ namespace RouletteBotTests
             int[] numbers = new int[] { 1, 2, 3, 4, 5 };
 
             // Act
-            Bet[] bets = betEvaluator.getSuggestions(numbers);
+            Bet[] bets = betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");
@@ -151,7 +152,7 @@ namespace RouletteBotTests
             int[] numbers = new int[] { 3, 4, 3 };
 
             // Act
-            Bet[] bets = betEvaluator.getSuggestions(numbers);
+            Bet[] bets = betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(4, bets.Length, "There must be exactly 4 bets");
@@ -176,7 +177,7 @@ namespace RouletteBotTests
             int[] numbers = new int[] { 1, 8, 9, 25, 12, 0, 9, 12 };
 
             // Act
-            Bet[] bets = betEvaluator.getSuggestions(numbers);
+            Bet[] bets = betEvaluator.GetSuggestions(numbers);
 
             // Assert
             Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");

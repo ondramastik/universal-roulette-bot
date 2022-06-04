@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using RouletteBot.Controllers;
+using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models
 {
@@ -13,15 +14,15 @@ namespace RouletteBot.Models
             this.Red = red;
         }
 
-        public override void place(IRouletteControls rouletteControls)
+        public override void Place(IRouletteControls rouletteControls)
         {
-            if (!isVirtualBet)
+            if (!IsVirtualBet)
             {
                 rouletteControls.betOnColor(Red, Multiplier);
             }
         }
 
-        public override int calculateBetResult(int lastNumber)
+        public override int CalculateBetResult(int lastNumber)
         {
             if (lastNumber == 0) return 0;
             else if (Red == RouletteHelper.getRedNumbers().Contains(lastNumber))

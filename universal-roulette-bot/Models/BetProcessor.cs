@@ -1,4 +1,5 @@
 ﻿using RouletteBot.Controllers;
+using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models
 {
@@ -15,7 +16,7 @@ namespace RouletteBot.Models
         {
             foreach (Bet bet in bets)
             {
-                bet.place(rouletteControls);
+                bet.Place(rouletteControls);
             }
 
             rouletteControls.spin();

@@ -1,4 +1,5 @@
 ﻿using RouletteBot.Controllers;
+using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models
 {
@@ -11,15 +12,15 @@ namespace RouletteBot.Models
             this.Index = number;
         }
 
-        public override void place(IRouletteControls rouletteControls)
+        public override void Place(IRouletteControls rouletteControls)
         {
-            if (!isVirtualBet)
+            if (!IsVirtualBet)
             {
                 rouletteControls.betOnSixLine(Index >= 0 ? Index : 0, Multiplier);
             }
         }
 
-        public override int calculateBetResult(int lastNumber)
+        public override int CalculateBetResult(int lastNumber)
         {
             int lastX = RouletteHelper.getNumberGridIndex(lastNumber).X;
 
