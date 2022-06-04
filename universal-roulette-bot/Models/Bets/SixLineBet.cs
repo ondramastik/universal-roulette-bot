@@ -15,7 +15,7 @@ namespace RouletteBot.Models
         {
             if (!isVirtualBet)
             {
-                rouletteControls.betOnSixline(Index >= 0 ? Index : 0, Multiplier);
+                rouletteControls.betOnSixLine(Index >= 0 ? Index : 0, Multiplier);
             }
         }
 

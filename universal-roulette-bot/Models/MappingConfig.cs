@@ -37,99 +37,96 @@ namespace RouletteBot.Models
                              @"\RouletteBot\roulette-config.conf";
             }
 
-            if (File.Exists(configPath))
+            if (!File.Exists(configPath)) return;
+            var data = File.ReadAllText(configPath);
+            var dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
+
+            if (dictionary == null)
             {
-                string data = File.ReadAllText(configPath);
-                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
-
-                dictionary.TryGetValue("forResolutionX", out string forResolutionX);
-                dictionary.TryGetValue("forResolutionY", out string forResolutionY);
-                dictionary.TryGetValue("recalculateForX", out string recalculateForX);
-                dictionary.TryGetValue("recalculateForY", out string recalculateForY);
-                dictionary.TryGetValue("gridLeftTopCornerX", out string gridLeftTopCornerX);
-                dictionary.TryGetValue("gridLeftTopCornerY", out string gridLeftTopCornerY);
-                dictionary.TryGetValue("gridRightBottomCornerX", out string gridRightBottomCornerX);
-                dictionary.TryGetValue("gridRightBottomCornerY", out string gridRightBottomCornerY);
-                dictionary.TryGetValue("blackBetX", out string blackBetX);
-                dictionary.TryGetValue("blackBetY", out string blackBetY);
-                dictionary.TryGetValue("redBetX", out string redBetX);
-                dictionary.TryGetValue("redBetY", out string redBetY);
-                dictionary.TryGetValue("confirmBetX", out string confirmBetX);
-                dictionary.TryGetValue("confirmBetY", out string confirmBetY);
-                dictionary.TryGetValue("spinReadyCheckX", out string spinReadyCheckX);
-                dictionary.TryGetValue("spinReadyCheckY", out string spinReadyCheckY);
-                dictionary.TryGetValue("sixLineBetY", out string sixLineBetY);
-                dictionary.TryGetValue("numberCheckOffsetX", out string numberCheckOffsetX);
-                dictionary.TryGetValue("numberCheckOffsetY", out string numberCheckOffsetY);
-                dictionary.TryGetValue("isMulti", out string isMulti);
-                dictionary.TryGetValue("isDemo", out string isDemo);
-
-                ForResolutionX = Double.TryParse(forResolutionX, out double forResolutionXdouble)
-                    ? forResolutionXdouble
-                    : 0;
-                ForResolutionY = Double.TryParse(forResolutionY, out double forResolutionYdouble)
-                    ? forResolutionYdouble
-                    : 0;
-                RecalculateForX = Double.TryParse(recalculateForX, out double recalculateForXdouble)
-                    ? recalculateForXdouble
-                    : 0;
-                RecalculateForY = Double.TryParse(recalculateForY, out double recalculateForYdouble)
-                    ? recalculateForYdouble
-                    : 0;
-                GridLeftTopCornerX = Int32.TryParse(gridLeftTopCornerX, out int gridLeftTopCornerXint)
-                    ? recalculateX(gridLeftTopCornerXint)
-                    : 0;
-                GridLeftTopCornerY = Int32.TryParse(gridLeftTopCornerY, out int gridLeftTopCornerYint)
-                    ? recalculateY(gridLeftTopCornerYint)
-                    : 0;
-                GridRightBottomCornerX = Int32.TryParse(gridRightBottomCornerX, out int gridRightBottomCornerXint)
-                    ? recalculateX(gridRightBottomCornerXint)
-                    : 0;
-                GridRightBottomCornerY = Int32.TryParse(gridRightBottomCornerY, out int gridRightBottomCornerYint)
-                    ? recalculateY(gridRightBottomCornerYint)
-                    : 0;
-                BlackBetX = Int32.TryParse(blackBetX, out int blackBetXint) ? recalculateX(blackBetXint) : 0;
-                BlackBetY = Int32.TryParse(blackBetY, out int blackBetYint) ? recalculateY(blackBetYint) : 0;
-                RedBetX = Int32.TryParse(redBetX, out int redBetXint) ? recalculateX(redBetXint) : 0;
-                RedBetY = Int32.TryParse(redBetY, out int redBetYint) ? recalculateY(redBetYint) : 0;
-                ConfirmBetX = Int32.TryParse(confirmBetX, out int confirmBetXint) ? recalculateX(confirmBetXint) : 0;
-                ConfirmBetY = Int32.TryParse(confirmBetY, out int confirmBetYint) ? recalculateY(confirmBetYint) : 0;
-                SpinReadyCheckX = Int32.TryParse(spinReadyCheckX, out int spinReadyCheckXint)
-                    ? recalculateX(spinReadyCheckXint)
-                    : 0;
-                SpinReadyCheckY = Int32.TryParse(spinReadyCheckY, out int spinReadyCheckYint)
-                    ? recalculateY(spinReadyCheckYint)
-                    : 0;
-                SixLineBetY = Int32.TryParse(sixLineBetY, out int sixLineBetYint) ? recalculateY(sixLineBetYint) : 0;
-                NumberCheckOffsetX = Int32.TryParse(numberCheckOffsetX, out int numberCheckOffsetXint)
-                    ? recalculateX(numberCheckOffsetXint)
-                    : 0;
-                NumberCheckOffsetY = Int32.TryParse(numberCheckOffsetY, out int numberCheckOffsetYint)
-                    ? recalculateY(numberCheckOffsetYint)
-                    : 0;
-                IsMulti = Boolean.TryParse(isMulti, out bool isMultiBool) ? isMultiBool : false;
-                IsDemo = Boolean.TryParse(isDemo, out bool isDemoBool) ? isDemoBool : true;
+                throw new InvalidDataException("Invalid config file");
             }
+
+            dictionary.TryGetValue("forResolutionX", out var forResolutionX);
+            dictionary.TryGetValue("forResolutionY", out var forResolutionY);
+            dictionary.TryGetValue("recalculateForX", out var recalculateForX);
+            dictionary.TryGetValue("recalculateForY", out var recalculateForY);
+            dictionary.TryGetValue("gridLeftTopCornerX", out var gridLeftTopCornerX);
+            dictionary.TryGetValue("gridLeftTopCornerY", out var gridLeftTopCornerY);
+            dictionary.TryGetValue("gridRightBottomCornerX", out var gridRightBottomCornerX);
+            dictionary.TryGetValue("gridRightBottomCornerY", out var gridRightBottomCornerY);
+            dictionary.TryGetValue("blackBetX", out var blackBetX);
+            dictionary.TryGetValue("blackBetY", out var blackBetY);
+            dictionary.TryGetValue("redBetX", out var redBetX);
+            dictionary.TryGetValue("redBetY", out var redBetY);
+            dictionary.TryGetValue("confirmBetX", out var confirmBetX);
+            dictionary.TryGetValue("confirmBetY", out var confirmBetY);
+            dictionary.TryGetValue("spinReadyCheckX", out var spinReadyCheckX);
+            dictionary.TryGetValue("spinReadyCheckY", out var spinReadyCheckY);
+            dictionary.TryGetValue("SixLineBetY", out var sixLineBetY);
+            dictionary.TryGetValue("numberCheckOffsetX", out var numberCheckOffsetX);
+            dictionary.TryGetValue("numberCheckOffsetY", out var numberCheckOffsetY);
+            dictionary.TryGetValue("isMulti", out var isMulti);
+            dictionary.TryGetValue("isDemo", out var isDemo);
+
+            ForResolutionX = double.TryParse(forResolutionX, out var forResolutionXDouble)
+                ? forResolutionXDouble
+                : 0;
+            ForResolutionY = double.TryParse(forResolutionY, out var forResolutionYDouble)
+                ? forResolutionYDouble
+                : 0;
+            RecalculateForX = double.TryParse(recalculateForX, out var recalculateForXDouble)
+                ? recalculateForXDouble
+                : 0;
+            RecalculateForY = double.TryParse(recalculateForY, out var recalculateForYDouble)
+                ? recalculateForYDouble
+                : 0;
+            GridLeftTopCornerX = int.TryParse(gridLeftTopCornerX, out var gridLeftTopCornerXInt)
+                ? RecalculateX(gridLeftTopCornerXInt)
+                : 0;
+            GridLeftTopCornerY = int.TryParse(gridLeftTopCornerY, out var gridLeftTopCornerYInt)
+                ? RecalculateY(gridLeftTopCornerYInt)
+                : 0;
+            GridRightBottomCornerX = int.TryParse(gridRightBottomCornerX, out var gridRightBottomCornerXInt)
+                ? RecalculateX(gridRightBottomCornerXInt)
+                : 0;
+            GridRightBottomCornerY = int.TryParse(gridRightBottomCornerY, out var gridRightBottomCornerYInt)
+                ? RecalculateY(gridRightBottomCornerYInt)
+                : 0;
+            BlackBetX = int.TryParse(blackBetX, out var blackBetXInt) ? RecalculateX(blackBetXInt) : 0;
+            BlackBetY = int.TryParse(blackBetY, out var blackBetYInt) ? RecalculateY(blackBetYInt) : 0;
+            RedBetX = int.TryParse(redBetX, out var redBetXInt) ? RecalculateX(redBetXInt) : 0;
+            RedBetY = int.TryParse(redBetY, out var redBetYInt) ? RecalculateY(redBetYInt) : 0;
+            ConfirmBetX = int.TryParse(confirmBetX, out var confirmBetXInt) ? RecalculateX(confirmBetXInt) : 0;
+            ConfirmBetY = int.TryParse(confirmBetY, out var confirmBetYInt) ? RecalculateY(confirmBetYInt) : 0;
+            SpinReadyCheckX = int.TryParse(spinReadyCheckX, out var spinReadyCheckXInt)
+                ? RecalculateX(spinReadyCheckXInt)
+                : 0;
+            SpinReadyCheckY = int.TryParse(spinReadyCheckY, out var spinReadyCheckYInt)
+                ? RecalculateY(spinReadyCheckYInt)
+                : 0;
+            SixLineBetY = int.TryParse(sixLineBetY, out var sixLineBetYInt) ? RecalculateY(sixLineBetYInt) : 0;
+            NumberCheckOffsetX = int.TryParse(numberCheckOffsetX, out var numberCheckOffsetXInt)
+                ? RecalculateX(numberCheckOffsetXInt)
+                : 0;
+            NumberCheckOffsetY = int.TryParse(numberCheckOffsetY, out var numberCheckOffsetYInt)
+                ? RecalculateY(numberCheckOffsetYInt)
+                : 0;
+            IsMulti = bool.TryParse(isMulti, out var isMultiBool) && isMultiBool;
+            IsDemo = !bool.TryParse(isDemo, out var isDemoBool) || isDemoBool;
         }
 
-        private int recalculateX(int toRecalculateX)
+        private int RecalculateX(int toRecalculateX)
         {
-            if (RecalculateForX > 0)
-            {
-                return Convert.ToInt32(RecalculateForX / ForResolutionX * Convert.ToDouble(toRecalculateX));
-            }
-
-            return toRecalculateX;
+            return RecalculateForX > 0
+                ? Convert.ToInt32(RecalculateForX / ForResolutionX * Convert.ToDouble(toRecalculateX))
+                : toRecalculateX;
         }
 
-        private int recalculateY(int toRecalculateY)
+        private int RecalculateY(int toRecalculateY)
         {
-            if (RecalculateForY > 0)
-            {
-                return Convert.ToInt32(RecalculateForY / ForResolutionY * Convert.ToDouble(toRecalculateY));
-            }
-
-            return toRecalculateY;
+            return RecalculateForY > 0
+                ? Convert.ToInt32(RecalculateForY / ForResolutionY * Convert.ToDouble(toRecalculateY))
+                : toRecalculateY;
         }
     }
 }

@@ -30,9 +30,9 @@ namespace RouletteBot.Models
                 bets.AddRange(getColorsSwitchingBet(numbers));
             if (Config.RedAfterZero)
                 bets.AddRange(getAfterZeroBet(numbers));
-            if (Config.SixlineBet)
+            if (Config.SixLineBet)
                 bets.AddRange(getSixLinesBet(numbers));
-            if (Config.SecondSixlineBet)
+            if (Config.SecondSixLineBet)
                 bets.AddRange(getSixLinesBet(numbers, true));
             if (Config.FirstFiveBlack)
                 bets.AddRange(getFirstFiveBlackBet(numbers));
@@ -239,9 +239,9 @@ namespace RouletteBot.Models
             List<Bet> result = new List<Bet>();
 
 
-            if ((!secondTry && Config.SixlineBet) || (secondTry && Config.SecondSixlineBet))
+            if ((!secondTry && Config.SixLineBet) || (secondTry && Config.SecondSixLineBet))
             {
-                int multiplier = secondTry ? Config.SecondSixlineBetAmount : Config.SixlineBetAmount;
+                int multiplier = secondTry ? Config.SecondSixLineBetAmount : Config.SixLineBetAmount;
 
                 if (last.X == 12)
                 {
@@ -267,7 +267,7 @@ namespace RouletteBot.Models
 
 
             int numberBeforeMultiplier =
-                secondTry ? Config.SecondSixlineBetNumberBeforeAmount : Config.SixlineBetNumberBeforeAmount;
+                secondTry ? Config.SecondSixLineBetNumberBeforeAmount : Config.SixLineBetNumberBeforeAmount;
             int numberToBet = secondTry ? lastFive[4] : lastFive[3];
             for (int i = last.X - 1; i <= last.X + 1; i++)
             {

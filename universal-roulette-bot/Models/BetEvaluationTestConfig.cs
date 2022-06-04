@@ -5,14 +5,14 @@
         public BetEvaluationTestConfig()
         {
             EnableNeutralBet = false;
-            SixlineBet = true;
-            SixlineBetAmount = 1;
-            SixlineBetNumberBefore = true;
-            SixlineBetNumberBeforeAmount = 1;
-            SecondSixlineBet = true;
-            SecondSixlineBetAmount = 1;
-            SecondSixlineBetNumberBefore = true;
-            SecondSixlineBetNumberBeforeAmount = 1;
+            SixLineBet = true;
+            SixLineBetAmount = 1;
+            SixLineBetNumberBefore = true;
+            SixLineBetNumberBeforeAmount = 1;
+            SecondSixLineBet = true;
+            SecondSixLineBetAmount = 1;
+            SecondSixLineBetNumberBefore = true;
+            SecondSixLineBetNumberBeforeAmount = 1;
             ThreeOfFour = true;
             ThreeOfFourAmount = 1;
             FirstFiveBlack = true;

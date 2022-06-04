@@ -1,6 +1,6 @@
 ﻿namespace RouletteBot.Views
 {
-    partial class UIMappingConfigurator
+    partial class UiMappingConfigurator
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIMappingConfigurator));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UiMappingConfigurator));
             this.GridLeftTopCornerX = new System.Windows.Forms.TextBox();
             this.GridLeftTopCornerY = new System.Windows.Forms.TextBox();
             this.GridRightBottomCornerX = new System.Windows.Forms.TextBox();
@@ -349,7 +349,7 @@
             this.saveMapping.TabIndex = 35;
             this.saveMapping.Text = "Uložit";
             this.saveMapping.UseVisualStyleBackColor = true;
-            this.saveMapping.Click += new System.EventHandler(this.saveClick);
+            this.saveMapping.Click += new System.EventHandler(this.SaveClick);
             // 
             // button1
             // 
@@ -359,7 +359,7 @@
             this.button1.TabIndex = 36;
             this.button1.Text = "Zavřít";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.closeClick);
+            this.button1.Click += new System.EventHandler(this.CloseClick);
             // 
             // label19
             // 
@@ -368,7 +368,7 @@
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(100, 13);
             this.label19.TabIndex = 37;
-            this.label19.Text = "Pozice sixline sázky";
+            this.label19.Text = "Pozice SixLine sázky";
             // 
             // SixLineBetY
             // 
@@ -589,7 +589,7 @@
             this.Controls.Add(this.GridRightBottomCornerX);
             this.Controls.Add(this.GridLeftTopCornerY);
             this.Controls.Add(this.GridLeftTopCornerX);
-            this.Name = "UIMappingConfigurator";
+            this.Name = "UiMappingConfigurator";
             this.Text = "Konfigurace mapování UI";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

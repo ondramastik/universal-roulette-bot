@@ -6,90 +6,91 @@ using Newtonsoft.Json;
 
 namespace RouletteBot.Views
 {
-    public partial class UIMappingConfigurator : Form
+    public partial class UiMappingConfigurator : Form
     {
-        private string path;
+        private readonly string _path;
 
-        public UIMappingConfigurator(string configPath = null)
+        public UiMappingConfigurator(string configPath = null)
         {
             InitializeComponent();
 
             if (configPath == null)
             {
-                this.path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                _path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
                             @"\RouletteBot\roulette-config.conf";
             }
             else
             {
-                this.path = configPath;
+                _path = configPath;
             }
 
-            if (File.Exists(this.path))
+            if (File.Exists(_path))
             {
-                string data = File.ReadAllText(this.path);
-                assignFormData(JsonConvert.DeserializeObject<Dictionary<string, string>>(data));
+                var data = File.ReadAllText(_path);
+                AssignFormData(JsonConvert.DeserializeObject<Dictionary<string, string>>(data));
             }
         }
 
-        private void saveClick(object sender, EventArgs e)
+        private void SaveClick(object sender, EventArgs e)
         {
-            var data = new Dictionary<string, string>();
+            var data = new Dictionary<string, string>
+            {
+                { "gridLeftTopCornerX", GridLeftTopCornerX.Text },
+                { "gridLeftTopCornerY", GridLeftTopCornerY.Text },
+                { "gridRightBottomCornerX", GridRightBottomCornerX.Text },
+                { "gridRightBottomCornerY", GridRightBottomCornerY.Text },
+                { "blackBetX", BlackBetX.Text },
+                { "blackBetY", BlackBetY.Text },
+                { "redBetX", RedBetX.Text },
+                { "redBetY", RedBetY.Text },
+                { "confirmBetX", ConfirmBetX.Text },
+                { "confirmBetY", ConfirmBetY.Text },
+                { "spinReadyCheckX", SpinReadyCheckX.Text },
+                { "spinReadyCheckY", SpinReadyCheckY.Text },
+                { "SixLineBetY", SixLineBetY.Text },
+                { "numberCheckOffsetX", NumberCheckOffsetX.Text },
+                { "numberCheckOffsetY", NumberCheckOffsetY.Text },
+                { "forResolutionX", ForResolutionX.Text },
+                { "forResolutionY", ForResolutionY.Text },
+                { "recalculateForX", RecalculateForX.Text },
+                { "recalculateForY", RecalculateForY.Text },
+                { "isMulti", IsMulti.Checked.ToString() },
+                { "isDemo", IsDemo.Checked.ToString() }
+            };
 
-            data.Add("gridLeftTopCornerX", GridLeftTopCornerX.Text);
-            data.Add("gridLeftTopCornerY", GridLeftTopCornerY.Text);
-            data.Add("gridRightBottomCornerX", GridRightBottomCornerX.Text);
-            data.Add("gridRightBottomCornerY", GridRightBottomCornerY.Text);
-            data.Add("blackBetX", BlackBetX.Text);
-            data.Add("blackBetY", BlackBetY.Text);
-            data.Add("redBetX", RedBetX.Text);
-            data.Add("redBetY", RedBetY.Text);
-            data.Add("confirmBetX", ConfirmBetX.Text);
-            data.Add("confirmBetY", ConfirmBetY.Text);
-            data.Add("spinReadyCheckX", SpinReadyCheckX.Text);
-            data.Add("spinReadyCheckY", SpinReadyCheckY.Text);
-            data.Add("sixLineBetY", SixLineBetY.Text);
-            data.Add("numberCheckOffsetX", NumberCheckOffsetX.Text);
-            data.Add("numberCheckOffsetY", NumberCheckOffsetY.Text);
-            data.Add("forResolutionX", ForResolutionX.Text);
-            data.Add("forResolutionY", ForResolutionY.Text);
-            data.Add("recalculateForX", RecalculateForX.Text);
-            data.Add("recalculateForY", RecalculateForY.Text);
-            data.Add("isMulti", IsMulti.Checked.ToString());
-            data.Add("isDemo", IsDemo.Checked.ToString());
 
-
-            File.WriteAllText(this.path, JsonConvert.SerializeObject(data));
-            this.Close();
+            File.WriteAllText(_path, JsonConvert.SerializeObject(data));
+            Close();
         }
 
-        private void closeClick(object sender, EventArgs e)
+        private void CloseClick(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void assignFormData(Dictionary<string, string> formData)
+        private void AssignFormData(IReadOnlyDictionary<string, string> formData)
         {
-            formData.TryGetValue("gridLeftTopCornerX", out string gridLeftTopCornerX);
-            formData.TryGetValue("gridLeftTopCornerY", out string gridLeftTopCornerY);
-            formData.TryGetValue("gridRightBottomCornerX", out string gridRightBottomCornerX);
-            formData.TryGetValue("gridRightBottomCornerY", out string gridRightBottomCornerY);
-            formData.TryGetValue("blackBetX", out string blackBetX);
-            formData.TryGetValue("blackBetY", out string blackBetY);
-            formData.TryGetValue("redBetX", out string redBetX);
-            formData.TryGetValue("redBetY", out string redBetY);
-            formData.TryGetValue("confirmBetX", out string confirmBetX);
-            formData.TryGetValue("confirmBetY", out string confirmBetY);
-            formData.TryGetValue("spinReadyCheckX", out string spinReadyCheckX);
-            formData.TryGetValue("spinReadyCheckY", out string spinReadyCheckY);
-            formData.TryGetValue("sixLineBetY", out string sixLineBetY);
-            formData.TryGetValue("numberCheckOffsetX", out string numberCheckOffsetX);
-            formData.TryGetValue("numberCheckOffsetY", out string numberCheckOffsetY);
-            formData.TryGetValue("forResolutionX", out string forResolutionX);
-            formData.TryGetValue("forResolutionY", out string forResolutionY);
-            formData.TryGetValue("recalculateForX", out string recalculateForX);
-            formData.TryGetValue("recalculateForY", out string recalculateForY);
-            formData.TryGetValue("isMulti", out string isMulti);
-            formData.TryGetValue("isDemo", out string isDemo);
+            formData.TryGetValue("gridLeftTopCornerX", out var gridLeftTopCornerX);
+            formData.TryGetValue("gridLeftTopCornerY", out var gridLeftTopCornerY);
+            formData.TryGetValue("gridRightBottomCornerX", out var gridRightBottomCornerX);
+            formData.TryGetValue("gridRightBottomCornerY", out var gridRightBottomCornerY);
+            formData.TryGetValue("blackBetX", out var blackBetX);
+            formData.TryGetValue("blackBetY", out var blackBetY);
+            formData.TryGetValue("redBetX", out var redBetX);
+            formData.TryGetValue("redBetY", out var redBetY);
+            formData.TryGetValue("confirmBetX", out var confirmBetX);
+            formData.TryGetValue("confirmBetY", out var confirmBetY);
+            formData.TryGetValue("spinReadyCheckX", out var spinReadyCheckX);
+            formData.TryGetValue("spinReadyCheckY", out var spinReadyCheckY);
+            formData.TryGetValue("SixLineBetY", out var sixLineBetY);
+            formData.TryGetValue("numberCheckOffsetX", out var numberCheckOffsetX);
+            formData.TryGetValue("numberCheckOffsetY", out var numberCheckOffsetY);
+            formData.TryGetValue("forResolutionX", out var forResolutionX);
+            formData.TryGetValue("forResolutionY", out var forResolutionY);
+            formData.TryGetValue("recalculateForX", out var recalculateForX);
+            formData.TryGetValue("recalculateForY", out var recalculateForY);
+            formData.TryGetValue("isMulti", out var isMulti);
+            formData.TryGetValue("isDemo", out var isDemo);
 
             GridLeftTopCornerX.Text = gridLeftTopCornerX;
             GridLeftTopCornerY.Text = gridLeftTopCornerY;
@@ -110,8 +111,8 @@ namespace RouletteBot.Views
             ForResolutionY.Text = forResolutionY;
             RecalculateForX.Text = recalculateForX;
             RecalculateForY.Text = recalculateForY;
-            IsMulti.Checked = Boolean.TryParse(isMulti, out bool isMultiBool) ? isMultiBool : false;
-            IsDemo.Checked = Boolean.TryParse(isDemo, out bool isDemoBool) ? isDemoBool : true;
+            IsMulti.Checked = bool.TryParse(isMulti, out var isMultiBool) && isMultiBool;
+            IsDemo.Checked = !bool.TryParse(isDemo, out var isDemoBool) || isDemoBool;
         }
     }
 }

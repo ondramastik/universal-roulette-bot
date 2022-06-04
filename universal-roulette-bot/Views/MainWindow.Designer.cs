@@ -44,7 +44,7 @@
             this.playRound.TabIndex = 0;
             this.playRound.Text = "Start";
             this.playRound.UseVisualStyleBackColor = true;
-            this.playRound.Click += new System.EventHandler(this.playRoundClick);
+            this.playRound.Click += new System.EventHandler(this.PlayRoundClick);
             // 
             // numbersView
             // 

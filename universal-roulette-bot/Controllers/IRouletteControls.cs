@@ -27,7 +27,7 @@
         /// <returns>bool</returns>
         bool betOnColumn(int index, int amount);
 
-        bool betOnSixline(int columnIndex, int amount);
+        bool betOnSixLine(int columnIndex, int amount);
 
         bool spin();
     }

@@ -10,16 +10,16 @@ namespace RouletteBot.Views
 {
     public partial class MainWindow : Form
     {
-        private Game Game;
+        private Game _game;
 
-        private GameTableReader tableReader;
+        private GameTableReader _tableReader;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private string getRuletteType(MappingConfig config)
+        private static string GetRouletteType(MappingConfig config)
         {
             string result = config.IsMulti ? "multi" : "platinum";
 
@@ -28,28 +28,28 @@ namespace RouletteBot.Views
             return result;
         }
 
-        private void playRoundClick(object sender, EventArgs e)
+        private void PlayRoundClick(object sender, EventArgs e)
         {
             int[] num = null;
             var mappingConf = new MappingConfig();
-            Game = new Game(
+            _game = new Game(
                 new MouseRouletteControls(mappingConf),
                 new MysqlStatsRecorder(),
                 new BetEvaluationFileConfig(),
-                getRuletteType(mappingConf));
+                GetRouletteType(mappingConf));
 
-            this.tableReader = new GameTableReader(mappingConf);
-            tableReader.readReadyCheckColor();
+            _tableReader = new GameTableReader(mappingConf);
+            _tableReader.ReadReadyCheckColor();
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
 
                 var numbers = new List<int>();
-                int counter = 1;
+                var counter = 1;
                 while (true)
                 {
-                    int number = counter == 1 ? -1 : tableReader.ReadNumber();
+                    var number = counter == 1 ? -1 : _tableReader.ReadNumber();
                     if (number >= 0)
                     {
                         numbers.Add(number);
@@ -58,28 +58,28 @@ namespace RouletteBot.Views
                             numbers = numbers.Skip(1).ToList();
                         }
 
-                        this.numbersView.Invoke((MethodInvoker)delegate
+                        numbersView.Invoke((MethodInvoker)delegate
                         {
-                            this.numbersView.Text = string.Format("Hraje se {0}. kolo", counter) + "\r\n" +
+                            numbersView.Text = string.Format("Hraje se {0}. kolo", counter) + "\r\n" +
                                                     string.Join(", ", numbers);
 
                             if (num != null && num.Length > 1)
                             {
-                                this.numbersView.Text +=
+                                numbersView.Text +=
                                     string.Format("\r\nNejvzácnější číslo 1: {0}\r\nVýskyt naposled před: {1}", num[0],
                                         num[1]);
                             }
 
                             if (num != null && num.Length > 3)
                             {
-                                this.numbersView.Text +=
+                                numbersView.Text +=
                                     string.Format("\r\nNejvzácnější číslo 2: {0}\r\nVýskyt naposled před: {1}", num[2],
                                         num[3]);
                             }
 
                             if (num != null && num.Length > 5)
                             {
-                                this.numbersView.Text +=
+                                numbersView.Text +=
                                     string.Format("\r\nNejvzácnější číslo 3: {0}\r\nVýskyt naposled před: {1}", num[4],
                                         num[5]);
                             }
@@ -90,15 +90,15 @@ namespace RouletteBot.Views
                     while (!ready)
                     {
                         Thread.Sleep(50);
-                        ready = tableReader.IsRoundReady();
+                        ready = _tableReader.IsRoundReady();
                     }
 
-                    num = getLongTimeNoSeeNumber(Game.playRound(number, counter));
+                    num = getLongTimeNoSeeNumber(_game.playRound(number, counter));
 
                     while (ready)
                     {
                         Thread.Sleep(50);
-                        ready = tableReader.IsRoundReady();
+                        ready = _tableReader.IsRoundReady();
                     }
 
                     if (!mappingConf.IsMulti)
@@ -108,10 +108,10 @@ namespace RouletteBot.Views
                         while (!ready)
                         {
                             Thread.Sleep(50);
-                            ready = tableReader.IsSkipReady();
+                            ready = _tableReader.IsSkipReady();
                         }
 
-                        Game.Spin();
+                        _game.Spin();
                     }
 
                     counter++;
@@ -121,7 +121,7 @@ namespace RouletteBot.Views
 
         private void showEditMappingForm(object sender, EventArgs e)
         {
-            var configurator = new UIMappingConfigurator();
+            var configurator = new UiMappingConfigurator();
 
             configurator.Show();
         }
@@ -137,8 +137,8 @@ namespace RouletteBot.Views
         {
             //MessageBox.Show("Nezkoušet na opravdové ruletě, místo toho udělat sceenshot rulety, otevřít ho na fullscreen a až poté testovat a upravovat. Ruleta se přerendrovává příliš vysokou frekvencí a tak to přepisuje a poblikává to.");
             var mappingConf = new MappingConfig();
-            this.tableReader = new GameTableReader(mappingConf);
-            tableReader.HighlightConfiguredMapping();
+            _tableReader = new GameTableReader(mappingConf);
+            _tableReader.HighlightConfiguredMapping();
         }
 
         private int[] getLongTimeNoSeeNumber(int[] numbers)

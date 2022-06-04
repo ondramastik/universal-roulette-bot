@@ -3,14 +3,14 @@
     public abstract class BetEvaluationConfig
     {
         public bool EnableNeutralBet { get; set; }
-        public bool SixlineBet { get; set; }
-        public int SixlineBetAmount { get; set; }
-        public bool SixlineBetNumberBefore { get; set; }
-        public int SixlineBetNumberBeforeAmount { get; set; }
-        public bool SecondSixlineBet { get; set; }
-        public int SecondSixlineBetAmount { get; set; }
-        public bool SecondSixlineBetNumberBefore { get; set; }
-        public int SecondSixlineBetNumberBeforeAmount { get; set; }
+        public bool SixLineBet { get; set; }
+        public int SixLineBetAmount { get; set; }
+        public bool SixLineBetNumberBefore { get; set; }
+        public int SixLineBetNumberBeforeAmount { get; set; }
+        public bool SecondSixLineBet { get; set; }
+        public int SecondSixLineBetAmount { get; set; }
+        public bool SecondSixLineBetNumberBefore { get; set; }
+        public int SecondSixLineBetNumberBeforeAmount { get; set; }
         public bool ThreeOfFour { get; set; }
         public int ThreeOfFourAmount { get; set; }
         public bool FirstFiveBlack { get; set; }

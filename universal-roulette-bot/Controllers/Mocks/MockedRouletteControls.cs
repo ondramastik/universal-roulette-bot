@@ -25,7 +25,7 @@ namespace RouletteBot.Models
             throw new NotImplementedException();
         }
 
-        bool IRouletteControls.betOnSixline(int columnIndex, int amount)
+        bool IRouletteControls.betOnSixLine(int columnIndex, int amount)
         {
             return true;
         }

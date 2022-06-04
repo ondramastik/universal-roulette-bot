@@ -10,8 +10,8 @@ namespace RouletteBotTests
     {
         private BetEvaluator betEvaluator = new BetEvaluator(new BetEvaluationTestConfig());
 
-        [TestMethod("Checks correct try sixline bets for normal case")]
-        public void Sixlines_CorrectBetsAreCreated()
+        [TestMethod("Checks correct try SixLine bets for normal case")]
+        public void SixLines_CorrectBetsAreCreated()
         {
             // Arrange
             int[] numbers = new int[] { 1, 2, 3, 7, 15 };
@@ -22,17 +22,17 @@ namespace RouletteBotTests
             // Assert
             Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
 
-            int[] sixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
+            int[] SixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
                 .Select(bet => ((SixLineBet)bet).Index).ToArray();
 
-            Assert.AreEqual(2, sixLineBetIndexes.Length, "There must be exactly 2 sixline bets");
-            Assert.IsTrue(Math.Abs(sixLineBetIndexes[0] - sixLineBetIndexes[1]) == 1,
-                "Sixline bets must be next to each other");
+            Assert.AreEqual(2, SixLineBetIndexes.Length, "There must be exactly 2 SixLine bets");
+            Assert.IsTrue(Math.Abs(SixLineBetIndexes[0] - SixLineBetIndexes[1]) == 1,
+                "SixLine bets must be next to each other");
 
             int lastNumberX = RouletteHelper.getNumberGridIndex(numbers[4]).X;
-            Array.Sort(sixLineBetIndexes);
+            Array.Sort(SixLineBetIndexes);
 
-            Assert.IsTrue(lastNumberX == sixLineBetIndexes[0], "First sixline bet index must be same as last number X");
+            Assert.IsTrue(lastNumberX == SixLineBetIndexes[0], "First SixLine bet index must be same as last number X");
 
             int[] numberBetNumbers = Array.FindAll(bets, bet => bet is NumberBet)
                 .Select(bet => ((NumberBet)bet).Number).ToArray();
@@ -41,8 +41,8 @@ namespace RouletteBotTests
             Assert.IsTrue((numberBetNumbers[0] % 10 == numbers[3] % 10), "Incorrect number bet");
         }
 
-        [TestMethod("Checks correct second try sixline bets for normal case")]
-        public void Sixlines_CorrectBetsAreCreated_SecondTryCase()
+        [TestMethod("Checks correct second try SixLine bets for normal case")]
+        public void SixLines_CorrectBetsAreCreated_SecondTryCase()
         {
             // Arrange
             int[] numbers = new int[] { 1, 2, 3, 7, 15, 3 };
@@ -53,23 +53,23 @@ namespace RouletteBotTests
             // Assert
             Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
 
-            int[] sixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
+            int[] SixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
                 .Select(bet => ((SixLineBet)bet).Index).ToArray();
 
-            Assert.AreEqual(2, sixLineBetIndexes.Length, "There must be exactly 3 sixline bets");
-            Assert.IsTrue(Math.Abs(sixLineBetIndexes[0] - sixLineBetIndexes[1]) == 1,
-                "Sixline bets must be next to each other");
+            Assert.AreEqual(2, SixLineBetIndexes.Length, "There must be exactly 3 SixLine bets");
+            Assert.IsTrue(Math.Abs(SixLineBetIndexes[0] - SixLineBetIndexes[1]) == 1,
+                "SixLine bets must be next to each other");
 
             int beforeLastNumberX = RouletteHelper.getNumberGridIndex(numbers[4]).X;
-            Array.Sort(sixLineBetIndexes);
+            Array.Sort(SixLineBetIndexes);
 
-            Assert.IsTrue(beforeLastNumberX == sixLineBetIndexes[0],
-                "First sixline bet index must be same as last number X");
+            Assert.IsTrue(beforeLastNumberX == SixLineBetIndexes[0],
+                "First SixLine bet index must be same as last number X");
         }
 
 
-        [TestMethod("Checks correct sixline bets for edge cases")]
-        public void Sixlines_CorrectBetsAreCreated_EdgeCase()
+        [TestMethod("Checks correct SixLine bets for edge cases")]
+        public void SixLines_CorrectBetsAreCreated_EdgeCase()
         {
             // 0, 34, 35, 36
             for (int i = 0; i < 10; i += (i == 0 ? 34 : 1))
@@ -87,10 +87,10 @@ namespace RouletteBotTests
 
                 Assert.AreEqual(1, numberBets.Length, "There must be exactly 1 number bet");
 
-                SixLineBet[] sixLineBets = bets.Where(bet => bet is SixLineBet)
+                SixLineBet[] SixLineBets = bets.Where(bet => bet is SixLineBet)
                     .Select(bet => (SixLineBet)bet).ToArray();
 
-                Assert.AreEqual(1, sixLineBets.Length, "There must be exactly 1 sixline bet");
+                Assert.AreEqual(1, SixLineBets.Length, "There must be exactly 1 SixLine bet");
             }
         }
 

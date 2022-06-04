@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SixlineBet = new System.Windows.Forms.CheckBox();
-            this.SixlineBetAmount = new System.Windows.Forms.NumericUpDown();
+            this.SixLineBet = new System.Windows.Forms.CheckBox();
+            this.SixLineBetAmount = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.SecondSixlineBet = new System.Windows.Forms.CheckBox();
+            this.SecondSixLineBet = new System.Windows.Forms.CheckBox();
             this.ThreeOfFour = new System.Windows.Forms.CheckBox();
             this.FirstFiveBlack = new System.Windows.Forms.CheckBox();
             this.ColorSwitching = new System.Windows.Forms.CheckBox();
             this.TwoColorsInRow = new System.Windows.Forms.CheckBox();
             this.ColorStreakAfterZero = new System.Windows.Forms.CheckBox();
             this.RedAfterZero = new System.Windows.Forms.CheckBox();
-            this.SecondSixlineBetAmount = new System.Windows.Forms.NumericUpDown();
+            this.SecondSixLineBetAmount = new System.Windows.Forms.NumericUpDown();
             this.ThreeOfFourAmount = new System.Windows.Forms.NumericUpDown();
             this.FirstFiveBlackAmount = new System.Windows.Forms.NumericUpDown();
             this.ColorSwitchingAmount = new System.Windows.Forms.NumericUpDown();
             this.TwoColorsInRowAmount = new System.Windows.Forms.NumericUpDown();
             this.ColorStreakAfterZeroAmount = new System.Windows.Forms.NumericUpDown();
             this.RedAfterZeroAmount = new System.Windows.Forms.NumericUpDown();
-            this.SixlineBetNumberBeforeAmount = new System.Windows.Forms.NumericUpDown();
-            this.SixlineBetNumberBefore = new System.Windows.Forms.CheckBox();
-            this.SecondSixlineBetNumberBeforeAmount = new System.Windows.Forms.NumericUpDown();
-            this.SecondSixlineBetNumberBefore = new System.Windows.Forms.CheckBox();
+            this.SixLineBetNumberBeforeAmount = new System.Windows.Forms.NumericUpDown();
+            this.SixLineBetNumberBefore = new System.Windows.Forms.CheckBox();
+            this.SecondSixLineBetNumberBeforeAmount = new System.Windows.Forms.NumericUpDown();
+            this.SecondSixLineBetNumberBefore = new System.Windows.Forms.CheckBox();
             this.save = new System.Windows.Forms.Button();
             this.close = new System.Windows.Forms.Button();
             this.LongTimeNoSeeAmount = new System.Windows.Forms.NumericUpDown();
@@ -57,37 +57,37 @@
             this.LongTimeNoSeeTo = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.SixlineBetAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SecondSixlineBetAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SixLineBetAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SecondSixLineBetAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ThreeOfFourAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FirstFiveBlackAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorSwitchingAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TwoColorsInRowAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorStreakAfterZeroAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedAfterZeroAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SixlineBetNumberBeforeAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SecondSixlineBetNumberBeforeAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SixLineBetNumberBeforeAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SecondSixLineBetNumberBeforeAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeTo)).BeginInit();
             this.SuspendLayout();
             // 
-            // SixlineBet
+            // SixLineBet
             // 
-            this.SixlineBet.AutoSize = true;
-            this.SixlineBet.Location = new System.Drawing.Point(12, 24);
-            this.SixlineBet.Name = "SixlineBet";
-            this.SixlineBet.Size = new System.Drawing.Size(87, 17);
-            this.SixlineBet.TabIndex = 2;
-            this.SixlineBet.Text = "Sixline sázka";
-            this.SixlineBet.UseVisualStyleBackColor = true;
+            this.SixLineBet.AutoSize = true;
+            this.SixLineBet.Location = new System.Drawing.Point(12, 24);
+            this.SixLineBet.Name = "SixLineBet";
+            this.SixLineBet.Size = new System.Drawing.Size(87, 17);
+            this.SixLineBet.TabIndex = 2;
+            this.SixLineBet.Text = "SixLine sázka";
+            this.SixLineBet.UseVisualStyleBackColor = true;
             // 
-            // SixlineBetAmount
+            // SixLineBetAmount
             // 
-            this.SixlineBetAmount.Location = new System.Drawing.Point(135, 21);
-            this.SixlineBetAmount.Name = "SixlineBetAmount";
-            this.SixlineBetAmount.Size = new System.Drawing.Size(37, 20);
-            this.SixlineBetAmount.TabIndex = 3;
+            this.SixLineBetAmount.Location = new System.Drawing.Point(135, 21);
+            this.SixLineBetAmount.Name = "SixLineBetAmount";
+            this.SixLineBetAmount.Size = new System.Drawing.Size(37, 20);
+            this.SixLineBetAmount.TabIndex = 3;
             // 
             // label1
             // 
@@ -98,15 +98,15 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Počet kliknutí";
             // 
-            // SecondSixlineBet
+            // SecondSixLineBet
             // 
-            this.SecondSixlineBet.AutoSize = true;
-            this.SecondSixlineBet.Location = new System.Drawing.Point(12, 70);
-            this.SecondSixlineBet.Name = "SecondSixlineBet";
-            this.SecondSixlineBet.Size = new System.Drawing.Size(117, 17);
-            this.SecondSixlineBet.TabIndex = 5;
-            this.SecondSixlineBet.Text = "Druhá sixline sázka";
-            this.SecondSixlineBet.UseVisualStyleBackColor = true;
+            this.SecondSixLineBet.AutoSize = true;
+            this.SecondSixLineBet.Location = new System.Drawing.Point(12, 70);
+            this.SecondSixLineBet.Name = "SecondSixLineBet";
+            this.SecondSixLineBet.Size = new System.Drawing.Size(117, 17);
+            this.SecondSixLineBet.TabIndex = 5;
+            this.SecondSixLineBet.Text = "Druhá SixLine sázka";
+            this.SecondSixLineBet.UseVisualStyleBackColor = true;
             // 
             // ThreeOfFour
             // 
@@ -168,12 +168,12 @@
             this.RedAfterZero.Text = "Červená po 0";
             this.RedAfterZero.UseVisualStyleBackColor = true;
             // 
-            // SecondSixlineBetAmount
+            // SecondSixLineBetAmount
             // 
-            this.SecondSixlineBetAmount.Location = new System.Drawing.Point(135, 67);
-            this.SecondSixlineBetAmount.Name = "SecondSixlineBetAmount";
-            this.SecondSixlineBetAmount.Size = new System.Drawing.Size(37, 20);
-            this.SecondSixlineBetAmount.TabIndex = 12;
+            this.SecondSixLineBetAmount.Location = new System.Drawing.Point(135, 67);
+            this.SecondSixLineBetAmount.Name = "SecondSixLineBetAmount";
+            this.SecondSixLineBetAmount.Size = new System.Drawing.Size(37, 20);
+            this.SecondSixLineBetAmount.TabIndex = 12;
             // 
             // ThreeOfFourAmount
             // 
@@ -217,39 +217,39 @@
             this.RedAfterZeroAmount.Size = new System.Drawing.Size(37, 20);
             this.RedAfterZeroAmount.TabIndex = 18;
             // 
-            // SixlineBetNumberBeforeAmount
+            // SixLineBetNumberBeforeAmount
             // 
-            this.SixlineBetNumberBeforeAmount.Location = new System.Drawing.Point(135, 44);
-            this.SixlineBetNumberBeforeAmount.Name = "SixlineBetNumberBeforeAmount";
-            this.SixlineBetNumberBeforeAmount.Size = new System.Drawing.Size(37, 20);
-            this.SixlineBetNumberBeforeAmount.TabIndex = 20;
+            this.SixLineBetNumberBeforeAmount.Location = new System.Drawing.Point(135, 44);
+            this.SixLineBetNumberBeforeAmount.Name = "SixLineBetNumberBeforeAmount";
+            this.SixLineBetNumberBeforeAmount.Size = new System.Drawing.Size(37, 20);
+            this.SixLineBetNumberBeforeAmount.TabIndex = 20;
             // 
-            // SixlineBetNumberBefore
+            // SixLineBetNumberBefore
             // 
-            this.SixlineBetNumberBefore.AutoSize = true;
-            this.SixlineBetNumberBefore.Location = new System.Drawing.Point(12, 47);
-            this.SixlineBetNumberBefore.Name = "SixlineBetNumberBefore";
-            this.SixlineBetNumberBefore.Size = new System.Drawing.Size(65, 17);
-            this.SixlineBetNumberBefore.TabIndex = 19;
-            this.SixlineBetNumberBefore.Text = "Číslo ob";
-            this.SixlineBetNumberBefore.UseVisualStyleBackColor = true;
+            this.SixLineBetNumberBefore.AutoSize = true;
+            this.SixLineBetNumberBefore.Location = new System.Drawing.Point(12, 47);
+            this.SixLineBetNumberBefore.Name = "SixLineBetNumberBefore";
+            this.SixLineBetNumberBefore.Size = new System.Drawing.Size(65, 17);
+            this.SixLineBetNumberBefore.TabIndex = 19;
+            this.SixLineBetNumberBefore.Text = "Číslo ob";
+            this.SixLineBetNumberBefore.UseVisualStyleBackColor = true;
             // 
-            // SecondSixlineBetNumberBeforeAmount
+            // SecondSixLineBetNumberBeforeAmount
             // 
-            this.SecondSixlineBetNumberBeforeAmount.Location = new System.Drawing.Point(135, 90);
-            this.SecondSixlineBetNumberBeforeAmount.Name = "SecondSixlineBetNumberBeforeAmount";
-            this.SecondSixlineBetNumberBeforeAmount.Size = new System.Drawing.Size(37, 20);
-            this.SecondSixlineBetNumberBeforeAmount.TabIndex = 22;
+            this.SecondSixLineBetNumberBeforeAmount.Location = new System.Drawing.Point(135, 90);
+            this.SecondSixLineBetNumberBeforeAmount.Name = "SecondSixLineBetNumberBeforeAmount";
+            this.SecondSixLineBetNumberBeforeAmount.Size = new System.Drawing.Size(37, 20);
+            this.SecondSixLineBetNumberBeforeAmount.TabIndex = 22;
             // 
-            // SecondSixlineBetNumberBefore
+            // SecondSixLineBetNumberBefore
             // 
-            this.SecondSixlineBetNumberBefore.AutoSize = true;
-            this.SecondSixlineBetNumberBefore.Location = new System.Drawing.Point(12, 93);
-            this.SecondSixlineBetNumberBefore.Name = "SecondSixlineBetNumberBefore";
-            this.SecondSixlineBetNumberBefore.Size = new System.Drawing.Size(95, 17);
-            this.SecondSixlineBetNumberBefore.TabIndex = 21;
-            this.SecondSixlineBetNumberBefore.Text = "Číslo ob druhé";
-            this.SecondSixlineBetNumberBefore.UseVisualStyleBackColor = true;
+            this.SecondSixLineBetNumberBefore.AutoSize = true;
+            this.SecondSixLineBetNumberBefore.Location = new System.Drawing.Point(12, 93);
+            this.SecondSixLineBetNumberBefore.Name = "SecondSixLineBetNumberBefore";
+            this.SecondSixLineBetNumberBefore.Size = new System.Drawing.Size(95, 17);
+            this.SecondSixLineBetNumberBefore.TabIndex = 21;
+            this.SecondSixLineBetNumberBefore.Text = "Číslo ob druhé";
+            this.SecondSixLineBetNumberBefore.UseVisualStyleBackColor = true;
             // 
             // save
             // 
@@ -259,7 +259,7 @@
             this.save.TabIndex = 23;
             this.save.Text = "Uložit";
             this.save.UseVisualStyleBackColor = true;
-            this.save.Click += new System.EventHandler(this.saveClick);
+            this.save.Click += new System.EventHandler(this.SaveClick);
             // 
             // close
             // 
@@ -269,7 +269,7 @@
             this.close.TabIndex = 24;
             this.close.Text = "Zrušit";
             this.close.UseVisualStyleBackColor = true;
-            this.close.Click += new System.EventHandler(this.closeClick);
+            this.close.Click += new System.EventHandler(this.CloseClick);
             // 
             // LongTimeNoSeeAmount
             // 
@@ -343,41 +343,41 @@
             this.Controls.Add(this.LongTimeNoSee);
             this.Controls.Add(this.close);
             this.Controls.Add(this.save);
-            this.Controls.Add(this.SecondSixlineBetNumberBeforeAmount);
-            this.Controls.Add(this.SecondSixlineBetNumberBefore);
-            this.Controls.Add(this.SixlineBetNumberBeforeAmount);
-            this.Controls.Add(this.SixlineBetNumberBefore);
+            this.Controls.Add(this.SecondSixLineBetNumberBeforeAmount);
+            this.Controls.Add(this.SecondSixLineBetNumberBefore);
+            this.Controls.Add(this.SixLineBetNumberBeforeAmount);
+            this.Controls.Add(this.SixLineBetNumberBefore);
             this.Controls.Add(this.RedAfterZeroAmount);
             this.Controls.Add(this.ColorStreakAfterZeroAmount);
             this.Controls.Add(this.TwoColorsInRowAmount);
             this.Controls.Add(this.ColorSwitchingAmount);
             this.Controls.Add(this.FirstFiveBlackAmount);
             this.Controls.Add(this.ThreeOfFourAmount);
-            this.Controls.Add(this.SecondSixlineBetAmount);
+            this.Controls.Add(this.SecondSixLineBetAmount);
             this.Controls.Add(this.RedAfterZero);
             this.Controls.Add(this.ColorStreakAfterZero);
             this.Controls.Add(this.TwoColorsInRow);
             this.Controls.Add(this.ColorSwitching);
             this.Controls.Add(this.FirstFiveBlack);
             this.Controls.Add(this.ThreeOfFour);
-            this.Controls.Add(this.SecondSixlineBet);
+            this.Controls.Add(this.SecondSixLineBet);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.SixlineBetAmount);
-            this.Controls.Add(this.SixlineBet);
+            this.Controls.Add(this.SixLineBetAmount);
+            this.Controls.Add(this.SixLineBet);
             this.Name = "BetEvaluationConfigurator";
             this.Text = "Konfigurace sázek";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.BetEvaluationConfigurator_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.SixlineBetAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SecondSixlineBetAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SixLineBetAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SecondSixLineBetAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ThreeOfFourAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FirstFiveBlackAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorSwitchingAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TwoColorsInRowAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorStreakAfterZeroAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedAfterZeroAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SixlineBetNumberBeforeAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SecondSixlineBetNumberBeforeAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SixLineBetNumberBeforeAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SecondSixLineBetNumberBeforeAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LongTimeNoSeeTo)).EndInit();
@@ -388,27 +388,27 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox SixlineBet;
-        private System.Windows.Forms.NumericUpDown SixlineBetAmount;
+        private System.Windows.Forms.CheckBox SixLineBet;
+        private System.Windows.Forms.NumericUpDown SixLineBetAmount;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox SecondSixlineBet;
+        private System.Windows.Forms.CheckBox SecondSixLineBet;
         private System.Windows.Forms.CheckBox ThreeOfFour;
         private System.Windows.Forms.CheckBox FirstFiveBlack;
         private System.Windows.Forms.CheckBox ColorSwitching;
         private System.Windows.Forms.CheckBox TwoColorsInRow;
         private System.Windows.Forms.CheckBox ColorStreakAfterZero;
         private System.Windows.Forms.CheckBox RedAfterZero;
-        private System.Windows.Forms.NumericUpDown SecondSixlineBetAmount;
+        private System.Windows.Forms.NumericUpDown SecondSixLineBetAmount;
         private System.Windows.Forms.NumericUpDown ThreeOfFourAmount;
         private System.Windows.Forms.NumericUpDown FirstFiveBlackAmount;
         private System.Windows.Forms.NumericUpDown ColorSwitchingAmount;
         private System.Windows.Forms.NumericUpDown TwoColorsInRowAmount;
         private System.Windows.Forms.NumericUpDown ColorStreakAfterZeroAmount;
         private System.Windows.Forms.NumericUpDown RedAfterZeroAmount;
-        private System.Windows.Forms.NumericUpDown SixlineBetNumberBeforeAmount;
-        private System.Windows.Forms.CheckBox SixlineBetNumberBefore;
-        private System.Windows.Forms.NumericUpDown SecondSixlineBetNumberBeforeAmount;
-        private System.Windows.Forms.CheckBox SecondSixlineBetNumberBefore;
+        private System.Windows.Forms.NumericUpDown SixLineBetNumberBeforeAmount;
+        private System.Windows.Forms.CheckBox SixLineBetNumberBefore;
+        private System.Windows.Forms.NumericUpDown SecondSixLineBetNumberBeforeAmount;
+        private System.Windows.Forms.CheckBox SecondSixLineBetNumberBefore;
         private System.Windows.Forms.Button save;
         private System.Windows.Forms.Button close;
         private System.Windows.Forms.NumericUpDown LongTimeNoSeeAmount;

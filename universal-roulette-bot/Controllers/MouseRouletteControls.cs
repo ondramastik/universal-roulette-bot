@@ -70,7 +70,7 @@ namespace RouletteBot.Controllers
             throw new NotImplementedException();
         }
 
-        bool IRouletteControls.betOnSixline(int columnIndex, int amount)
+        bool IRouletteControls.betOnSixLine(int columnIndex, int amount)
         {
             int numberTileWidth = (config.GridRightBottomCornerX - config.GridLeftTopCornerX) / 12;
             WinAPI.MouseMove(config.GridLeftTopCornerX - numberTileWidth + (columnIndex * numberTileWidth),
