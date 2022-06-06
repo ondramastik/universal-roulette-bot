@@ -1,5 +1,4 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using RouletteBot.Models.Bets;
@@ -7,11 +6,11 @@ using RouletteBot.Models.Rules;
 
 namespace RouletteBot.Models
 {
-    public class RulesEvaluator
+    public class RulesGenerator
     {
         private readonly BetEvaluationConfig _config;
 
-        public RulesEvaluator(BetEvaluationConfig? evaluationConfig = null)
+        public RulesGenerator(BetEvaluationConfig evaluationConfig = null)
         {
             _config = evaluationConfig ?? new BetEvaluationFileConfig();
         }
@@ -19,7 +18,7 @@ namespace RouletteBot.Models
         public IReadOnlyCollection<Rule> GetEligibleRules(int[] numbers)
         {
             var rules = new List<Rule>();
-            
+
             /*if (_config.ThreeOfFour)
                 bets.AddRange(GetThreeOfFourBet(numbers));
             if (_config.TwoColorsInRow)
@@ -29,12 +28,12 @@ namespace RouletteBot.Models
             if (_config.RedAfterZero)
                 bets.AddRange(GetAfterZeroBet(numbers));*/
             if (_config.SixLineBet)
-                AddSixLinesRule(numbers, rules);
+                rules.Add(new SixLineRule(RouletteHelper.FindIndex(numbers[numbers.Length - 1]), _config));
             /*if (_config.FirstFiveBlack)
-                bets.AddRange(GetFirstFiveBlackBet(numbers));
+                bets.AddRange(GetFirstFiveBlackBet(numbers));*/
             if (_config.ColorStreakAfterZero)
-                bets.AddRange(GetSameColorStreakAfterZeroBet(numbers));
-            if (_config.LongTimeNoSee)
+                rules.Add(new SameColorStreakAfterZeroRule(_config));
+            /*if (_config.LongTimeNoSee)
                 bets.AddRange(GetLongTimeNoSeeBet(numbers));
 
             if (bets.Count == 0 && _config.EnableNeutralBet)
@@ -148,96 +147,6 @@ namespace RouletteBot.Models
             return Array.Empty<Bet>();
         }
 
-        private IEnumerable<Bet> GetSameColorStreakAfterZeroBet(IReadOnlyCollection<int> numbers)
-        {
-            if (numbers.Count < 3) return Array.Empty<Bet>();
-
-            var colorsAfterZero = new List<bool>();
-            var hasZero = false;
-
-            foreach (var number in numbers)
-            {
-                if (number == 0)
-                {
-                    if (hasZero)
-                    {
-                        colorsAfterZero.Clear();
-                    }
-                    else
-                    {
-                        hasZero = true;
-                    }
-                }
-                else if (hasZero)
-                {
-                    colorsAfterZero.Add(IsRed(number));
-                }
-            }
-
-            var distinctValues = colorsAfterZero.Distinct().ToArray();
-
-            if (colorsAfterZero.Count >= 2 && distinctValues.Length == 1)
-                return new Bet[]
-                {
-                    new ColorBet(distinctValues[0])
-                        { RuleName = "SameColorStreakAfterZero", Multiplier = _config.ColorStreakAfterZeroAmount }
-                };
-
-            return Array.Empty<Bet>();
-        }
-
-        private void AddSixLinesRule(IReadOnlyCollection<int> numbers, ICollection<Rule> rules)
-        {
-            if (numbers.Count < 5) return;
-            var lastFive = numbers.Skip(Math.Max(0, numbers.Count - 5)).ToArray();
-
-            var indexes = RouletteHelper.FindIndexes(lastFive);
-
-            var last = indexes.Last();
-            for (var i = 0; i < indexes.Count - 1; i++)
-            {
-                var checkX = last.X == 0 ? 1 : last.X;
-                if (indexes[i].X == checkX || indexes[i].X == checkX + 1 || indexes[i].X == checkX - 1)
-                {
-                    return;
-                }
-            }
-
-            var result = new List<Bet>();
-            var multiplier = _config.SixLineBetAmount;
-
-            switch (last.X)
-            {
-                case 12:
-                    result.Add(new SixLineBet(last.X)
-                        { Multiplier = 2 * multiplier });
-                    break;
-                case 1:
-                case 0:
-                    result.Add(new NumberBet(0)
-                        { Multiplier = multiplier });
-                    result.Add(new SixLineBet(2)
-                        { Multiplier = multiplier * 2 });
-                    break;
-                case 2:
-                    result.Add(new NumberBet(0)
-                        { Multiplier = multiplier });
-                    result.Add(new SixLineBet(last.X)
-                        { Multiplier = multiplier });
-                    result.Add(new SixLineBet(last.X + 1)
-                        { Multiplier = multiplier });
-                    break;
-                default:
-                    result.Add(new SixLineBet(last.X)
-                        { Multiplier = multiplier });
-                    result.Add(new SixLineBet(last.X + 1)
-                        { Multiplier = multiplier });
-                    break;
-            }
-
-            rules.Add(new SixLineRule(result.ToArray(), last));
-        }
-
         private IEnumerable<Bet> GetLongTimeNoSeeBet(int[] numbers)
         {
             var lastSeeNumbers = new Dictionary<int, int>();
@@ -275,7 +184,7 @@ namespace RouletteBot.Models
 
         private static bool IsRed(int number)
         {
-            return RouletteHelper.getRedNumbers().Contains(number);
+            return RouletteHelper.GetRedNumbers().Contains(number);
         }
     }
 }

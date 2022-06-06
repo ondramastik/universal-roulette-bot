@@ -109,7 +109,7 @@ namespace RouletteBot.Models
 
         private void HighlightNumberCheckPixels(int thickness)
         {
-            var grid = RouletteHelper.getNumbersGrid();
+            var grid = RouletteHelper.GetNumbersGrid();
 
             var gridLocX = _config.GridLeftTopCornerX;
             var gridLocY = _config.GridLeftTopCornerY;
@@ -134,7 +134,7 @@ namespace RouletteBot.Models
 
         private Dictionary<int, Color> ReadActiveNumberColors()
         {
-            var grid = RouletteHelper.getNumbersGrid();
+            var grid = RouletteHelper.GetNumbersGrid();
             var colors = new Dictionary<int, Color>();
 
             WinAPI.MouseMove(_config.RedBetX, _config.RedBetY);
@@ -151,7 +151,7 @@ namespace RouletteBot.Models
                 {
                     if (grid[y][x] < 0) continue;
 
-                    if (Array.IndexOf(RouletteHelper.getRedNumbers(), grid[y][x]) >= 0)
+                    if (Array.IndexOf(RouletteHelper.GetRedNumbers(), grid[y][x]) >= 0)
                     {
                         colors.Add(grid[y][x], GetNumberColor(grid[y][x], gridScreenshotRedActive, x, y));
                     }
@@ -167,7 +167,7 @@ namespace RouletteBot.Models
 
         private Dictionary<int, Color> ReadNumberColors()
         {
-            var grid = RouletteHelper.getNumbersGrid();
+            var grid = RouletteHelper.GetNumbersGrid();
             var colors = new Dictionary<int, Color>();
 
             var gridScreenshot = GetGridScreenshot();

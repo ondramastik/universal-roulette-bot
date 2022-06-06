@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models.Rules
@@ -8,28 +9,41 @@ namespace RouletteBot.Models.Rules
         public string RuleName { get; set; }
         public bool Fulfilled { get; set; }
 
-        protected Bet[] Bets;
-        protected int RepeatTimes { get; set; }
+        protected readonly BetEvaluationConfig EvaluationConfig;
 
-        protected int RepeatedTimes { get; set; }
+        private IReadOnlyCollection<Bet> _bets;
 
-        protected Rule(Bet[] bets, int repeatTimes = 0)
+        private readonly int _repeatTimes;
+
+        private int _repeatedTimes;
+
+
+        protected Rule(BetEvaluationConfig evaluationConfig, int repeatTimes = 0)
         {
-            Bets = bets;
-            RepeatTimes = repeatTimes;
-            RepeatedTimes = 0;
+            _repeatTimes = repeatTimes;
+            _repeatedTimes = 0;
             Fulfilled = false;
+            EvaluationConfig = evaluationConfig;
         }
 
-        public abstract Bet[] GetBets(IReadOnlyCollection<int> numbers, int currentSpin, BetEvaluationConfig config);
+        public abstract bool IsApplicable(IReadOnlyCollection<int> numbers);
 
-        public void Evaluate(int lastNumber)
+        public IReadOnlyCollection<Bet> GetBets(IReadOnlyCollection<int> numbers)
         {
-            int win = 0;
-            foreach (var bet in Bets)
+            _bets = GenerateBets(numbers);
+            return _bets;
+        }
+
+        public void EvaluateBets(int lastNumber, int spin, Game game, IStatsLogger logger)
+        {
+            foreach (var bet in _bets)
             {
-                win += bet.CalculateBetResult(lastNumber);
+                logger.RecordBetResult(bet, bet.Multiplier, bet.CalculateBetResult(lastNumber), game.GameId, spin,
+                    lastNumber,
+                    game.RouletteType, RouletteHelper.GetLastOccurance(game.Numbers.ToArray(), lastNumber, true));
             }
+
+            var win = _bets.Sum(bet => bet.CalculateBetResult(lastNumber));
 
             if (win > 0)
             {
@@ -37,12 +51,14 @@ namespace RouletteBot.Models.Rules
                 return;
             }
 
-            if (RepeatedTimes >= RepeatTimes)
+            if (_repeatedTimes >= _repeatTimes)
             {
                 Fulfilled = true;
             }
 
-            RepeatedTimes++;
+            _repeatedTimes++;
         }
+
+        protected abstract IReadOnlyCollection<Bet> GenerateBets(IReadOnlyCollection<int> numbers);
     }
 }

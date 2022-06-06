@@ -227,24 +227,24 @@
   <ItemGroup>
     <Compile Include="Models\BetEvaluationConfig.cs" />
     <Compile Include="Models\BetEvaluationTestConfig.cs" />
-    <Compile Include="Models\MysqlStatsRecorder.cs" />
+    <Compile Include="Models\MysqlStatsLogger.cs" />
     <Compile Include="Models\MappingConfig.cs" />
     <Compile Include="Models\Bets\NumberBet.cs" />
     <Compile Include="Models\Bets\ColorBet.cs" />
     <Compile Include="Models\Bets\SixLineBet.cs" />
     <Compile Include="Models\Bets\Bet.cs" />
-    <Compile Include="Models\RulesEvaluator.cs" />
-    <Compile Include="Models\BetProcessor.cs" />
+    <Compile Include="Models\RulesGenerator.cs" />
     <Compile Include="Models\BetEvaluationFileConfig.cs" />
-    <Compile Include="Models\FileStatsRecorder.cs" />
+    <Compile Include="Models\FileStatsLogger.cs" />
     <Compile Include="Models\GameTableReader.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Controllers\IRouletteControls.cs" />
     <Compile Include="Controllers\Mocks\MockedRouletteControls.cs" />
     <Compile Include="Controllers\MouseRouletteControls.cs" />
-    <Compile Include="Models\IStatsRecorder.cs" />
+    <Compile Include="Models\IStatsLogger.cs" />
     <Compile Include="Models\RouletteHelper.cs" />
     <Compile Include="Models\Rules\Rule.cs" />
+    <Compile Include="Models\Rules\SameColorStreakAfterZeroRule.cs" />
     <Compile Include="Models\Rules\SixLineRule.cs" />
     <Compile Include="Views\BetEvaluationConfigurator.cs">
       <SubType>Form</SubType>

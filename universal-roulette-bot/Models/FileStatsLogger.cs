@@ -3,11 +3,11 @@ using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models
 {
-    public class FileStatsRecorder : IStatsRecorder
+    public class FileStatsLogger : IStatsLogger
     {
         private string fileName;
 
-        public FileStatsRecorder(string fileName)
+        public FileStatsLogger(string fileName)
         {
             this.fileName = fileName;
 

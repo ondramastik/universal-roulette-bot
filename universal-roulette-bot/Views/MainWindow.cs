@@ -32,9 +32,10 @@ namespace RouletteBot.Views
         {
             int[] num = null;
             var mappingConf = new MappingConfig();
+            IRouletteControls controls = new MouseRouletteControls(mappingConf);
             _game = new Game(
-                new MouseRouletteControls(mappingConf),
-                new MysqlStatsRecorder(),
+                controls,
+                new MysqlStatsLogger(),
                 new BetEvaluationFileConfig(),
                 GetRouletteType(mappingConf));
 
@@ -61,7 +62,7 @@ namespace RouletteBot.Views
                         numbersView.Invoke((MethodInvoker)delegate
                         {
                             numbersView.Text = string.Format("Hraje se {0}. kolo", counter) + "\r\n" +
-                                                    string.Join(", ", numbers);
+                                               string.Join(", ", numbers);
 
                             if (num != null && num.Length > 1)
                             {
@@ -93,7 +94,8 @@ namespace RouletteBot.Views
                         ready = _tableReader.IsRoundReady();
                     }
 
-                    num = getLongTimeNoSeeNumber(_game.PlayRound(number, counter));
+                    _game.Evaluate(number, counter);
+                    num = getLongTimeNoSeeNumber(_game.PlayRound(number));
 
                     while (ready)
                     {
@@ -111,7 +113,7 @@ namespace RouletteBot.Views
                             ready = _tableReader.IsSkipReady();
                         }
 
-                        _game.Spin();
+                        controls.spin();
                     }
 
                     counter++;

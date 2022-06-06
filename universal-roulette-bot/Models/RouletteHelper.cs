@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace RouletteBot.Models
 {
     public class RouletteHelper
     {
-        public static int[][] getNumbersGrid()
+        public static int[][] GetNumbersGrid()
         {
             int[] first = new int[13] { -1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
             int[] second = new int[13] { 0, 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
@@ -15,14 +16,19 @@ namespace RouletteBot.Models
             return new[] { first, second, third };
         }
 
-        public static int[] getRedNumbers()
+        public static IReadOnlyCollection<int> GetRedNumbers()
         {
-            return new int[18] { 3, 9, 12, 18, 21, 27, 30, 36, 5, 14, 23, 32, 1, 7, 16, 19, 25, 34 };
+            return new int[] { 3, 9, 12, 18, 21, 27, 30, 36, 5, 14, 23, 32, 1, 7, 16, 19, 25, 34 };
+        }
+
+        public static bool IsRed(int number)
+        {
+            return GetRedNumbers().Contains(number);
         }
 
         public static Point getNumberGridIndex(int number)
         {
-            var grid = getNumbersGrid();
+            var grid = GetNumbersGrid();
 
             for (int y = 0; y < grid.Length; y++)
             {
@@ -57,25 +63,25 @@ namespace RouletteBot.Models
 
         public static List<Point> FindIndexes(IEnumerable<int> numbers)
         {
-            var grid = getNumbersGrid();
+            return numbers.Select(FindIndex).ToList();
+        }
 
-            var indexes = new List<Point>();
+        public static Point FindIndex(int number)
+        {
+            var grid = GetNumbersGrid();
 
-            foreach (var number in numbers)
+            for (var y = 0; y < grid.Length; y++)
             {
-                for (var y = 0; y < grid.Length; y++)
+                for (var x = 0; x < grid[y].Length; x++)
                 {
-                    for (var x = 0; x < grid[y].Length; x++)
+                    if (grid[y][x] == number)
                     {
-                        if (grid[y][x] == number)
-                        {
-                            indexes.Add(new Point(x, y));
-                        }
+                        return new Point(x, y);
                     }
                 }
             }
 
-            return indexes;
+            return new Point(-1, -1);
         }
     }
 }

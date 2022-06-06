@@ -2,83 +2,64 @@
 using System.Collections.Generic;
 using System.Linq;
 using RouletteBot.Controllers;
-using RouletteBot.Models.Bets;
 using RouletteBot.Models.Rules;
 
 namespace RouletteBot.Models
 {
     public class Game
     {
-        private List<int> Numbers { get; }
+        private readonly IRouletteControls _rouletteControls;
 
-        private IRouletteControls rouletteControls;
+        private readonly IStatsLogger _statsLogger;
 
-        private IStatsRecorder statsRecorder;
+        private List<Rule> _activeRules;
 
-        private List<Rule> activeRules;
+        private readonly BetEvaluationFileConfig _evaluationConfig;
 
-        private IReadOnlyCollection<Bet> previousBets;
+        public List<int> Numbers { get; }
 
-        private string GameId;
+        public string GameId { get; }
 
-        private string RouletteType;
-
-        public BetEvaluationFileConfig EvaluationConfig { get; set; }
+        public string RouletteType { get; }
 
 
-        public Game(IRouletteControls rouletteControls, IStatsRecorder statsRecorder, BetEvaluationFileConfig config,
+        public Game(IRouletteControls rouletteControls, IStatsLogger statsLogger, BetEvaluationFileConfig config,
             string rouletteType)
         {
-            GameId = Guid.NewGuid().ToString();
-            this.rouletteControls = rouletteControls;
-            this.statsRecorder = statsRecorder;
-            activeRules = new List<Rule>();
-            previousBets = Array.Empty<Bet>();
+            _rouletteControls = rouletteControls;
+            _statsLogger = statsLogger;
+            _activeRules = new List<Rule>();
             Numbers = new List<int>();
-            EvaluationConfig = config;
+            _evaluationConfig = config;
             RouletteType = rouletteType;
+            GameId = Guid.NewGuid().ToString();
         }
 
-        public int[] PlayRound(int number, int spin)
+        public void Evaluate(int number, int spin)
+        {
+            _activeRules.ForEach(rule => rule.EvaluateBets(number, spin, this, _statsLogger));
+        }
+
+        public int[] PlayRound(int number)
         {
             if (number >= 0)
             {
                 Numbers.Add(number);
             }
 
-            foreach (var sb in previousBets)
+            var rulesGenerator = new RulesGenerator(_evaluationConfig);
+            var suggestedRules = rulesGenerator.GetEligibleRules(Numbers.ToArray());
+
+            _activeRules = _activeRules.Where(rule => !rule.Fulfilled).Concat(suggestedRules).ToList();
+
+            foreach (var bet in _activeRules.SelectMany(rule => rule.GetBets(Numbers)))
             {
-                statsRecorder.RecordBetResult(sb, sb.Multiplier, sb.CalculateBetResult(number), GameId, spin, number,
-                    RouletteType, RouletteHelper.GetLastOccurance(Numbers.ToArray(), number, true));
+                bet.Place(_rouletteControls);
             }
 
-            foreach (var rule in activeRules)
-            {
-                rule.Evaluate(number);
-            }
-
-            var rulesEvaluator = new RulesEvaluator(EvaluationConfig);
-            var suggestedRules = rulesEvaluator.GetEligibleRules(Numbers.ToArray());
-
-            activeRules = activeRules.Where(rule => !rule.Fulfilled).ToList();
-            activeRules.AddRange(suggestedRules);
-            
-            var suggestedBets = activeRules.SelectMany(rule => rule.GetBets(Numbers, spin, EvaluationConfig)).ToList();
-            suggestedBets.Add(new ColorBet(true) { RuleName = "NeutralBet" });
-            suggestedBets.Add(new ColorBet(false) { RuleName = "NeutralBet" });
-            
-            var betProcessor = new BetProcessor(rouletteControls);
-            betProcessor.ProcessBets(suggestedBets.ToArray());
-            rouletteControls.spin();
-            previousBets = suggestedBets;
+            _rouletteControls.spin();
 
             return Numbers.ToArray();
-        }
-
-        public bool Spin()
-        {
-            rouletteControls.spin();
-            return true;
         }
     }
 }

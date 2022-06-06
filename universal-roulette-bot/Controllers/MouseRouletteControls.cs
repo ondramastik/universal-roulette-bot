@@ -25,7 +25,7 @@ namespace RouletteBot.Controllers
             int numberTileWidth = (config.GridRightBottomCornerX - config.GridLeftTopCornerX) / 12;
             int numberTileHeight = (config.GridRightBottomCornerY - config.GridLeftTopCornerY) / 3;
 
-            var grid = RouletteHelper.getNumbersGrid();
+            var grid = RouletteHelper.GetNumbersGrid();
 
             for (int y = 0; y < grid.Length; y++)
             {

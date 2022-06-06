@@ -8,27 +8,77 @@ namespace RouletteBot.Models.Rules
 {
     public class SixLineRule : Rule
     {
-        private Point InitiatedOnNumber { get; }
+        private readonly Point _initiatedOnNumber;
 
-        private Bet[] CoreBets { get; set; }
-
-        public SixLineRule(Bet[] bets, Point initiatedOnNumber) : base(bets, 3)
+        public SixLineRule(Point initiatedOnNumber, BetEvaluationConfig evaluationConfig) : base(evaluationConfig, 3)
         {
             RuleName = "SixLine";
-            InitiatedOnNumber = initiatedOnNumber;
-            CoreBets = bets;
+            _initiatedOnNumber = initiatedOnNumber;
         }
 
-        public override Bet[] GetBets(IReadOnlyCollection<int> numbers, int currentSpin, BetEvaluationConfig config)
+        public override bool IsApplicable(IReadOnlyCollection<int> numbers)
         {
-            if (numbers.Count < 5) return Array.Empty<Bet>();
-            var grid = RouletteHelper.getNumbersGrid();
+            if (numbers.Count < 5) return false;
             var lastFive = numbers.Skip(Math.Max(0, numbers.Count - 5)).ToArray();
 
-            var result = new List<Bet>(CoreBets);
-            var numberBeforeMultiplier = config.SixLineBetNumberBeforeAmount;
+            var indexes = RouletteHelper.FindIndexes(lastFive);
+
+            var last = indexes.Last();
+            for (var i = 0; i < indexes.Count - 1; i++)
+            {
+                var checkX = last.X == 0 ? 1 : last.X;
+                if (indexes[i].X == checkX || indexes[i].X == checkX + 1 || indexes[i].X == checkX - 1)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        protected override IReadOnlyCollection<Bet> GenerateBets(IReadOnlyCollection<int> numbers)
+        {
+            var grid = RouletteHelper.GetNumbersGrid();
+            var lastFive = numbers.Skip(Math.Max(0, numbers.Count - 5)).ToArray();
+
+            var indexes = RouletteHelper.FindIndexes(lastFive);
+
+            var last = indexes.Last();
+            var result = new List<Bet>();
+            var multiplier = EvaluationConfig.SixLineBetAmount;
+
+            switch (last.X)
+            {
+                case 12:
+                    result.Add(new SixLineBet(last.X)
+                        { Multiplier = 2 * multiplier });
+                    break;
+                case 1:
+                case 0:
+                    result.Add(new NumberBet(0)
+                        { Multiplier = multiplier });
+                    result.Add(new SixLineBet(2)
+                        { Multiplier = multiplier * 2 });
+                    break;
+                case 2:
+                    result.Add(new NumberBet(0)
+                        { Multiplier = multiplier });
+                    result.Add(new SixLineBet(last.X)
+                        { Multiplier = multiplier });
+                    result.Add(new SixLineBet(last.X + 1)
+                        { Multiplier = multiplier });
+                    break;
+                default:
+                    result.Add(new SixLineBet(last.X)
+                        { Multiplier = multiplier });
+                    result.Add(new SixLineBet(last.X + 1)
+                        { Multiplier = multiplier });
+                    break;
+            }
+
+            var numberBeforeMultiplier = EvaluationConfig.SixLineBetNumberBeforeAmount;
             var numberToBet = lastFive[3];
-            for (var i = InitiatedOnNumber.X - 1; i <= InitiatedOnNumber.X + 1; i++)
+            for (var i = _initiatedOnNumber.X - 1; i <= _initiatedOnNumber.X + 1; i++)
             {
                 if (i < 0 || i >= grid[0].Length) continue;
                 for (var j = 0; j < 3; j++)
@@ -36,16 +86,15 @@ namespace RouletteBot.Models.Rules
                     if (grid[j][i] % 10 != numberToBet % 10) continue;
                     result.Add(new NumberBet(grid[j][i])
                     {
-                        Multiplier = (InitiatedOnNumber.X == 12 || InitiatedOnNumber.X == 1
+                        Multiplier = (_initiatedOnNumber.X == 12 || _initiatedOnNumber.X == 1
                             ? numberBeforeMultiplier * 2
                             : numberBeforeMultiplier)
                     });
                     break;
                 }
             }
-            Bets = result.ToArray();
-
-            return Bets;
+            
+            return result;
         }
     }
 }

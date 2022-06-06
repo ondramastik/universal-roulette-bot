@@ -39,7 +39,7 @@ namespace RouletteBot.Models
         }
     }
 
-    public class MysqlStatsRecorder : IStatsRecorder
+    public class MysqlStatsLogger : IStatsLogger
     {
         private string connString =
             "server=roulette-statistics.cqrjm7r3gxpp.us-east-1.rds.amazonaws.com;uid=naxmars;pwd=jrMXcKIRzgYBfVwso9m1;database=roulette_bot";
@@ -48,7 +48,7 @@ namespace RouletteBot.Models
 
         private List<BulkInsertRow> rows;
 
-        public MysqlStatsRecorder()
+        public MysqlStatsLogger()
         {
             rows = new List<BulkInsertRow>();
             try
