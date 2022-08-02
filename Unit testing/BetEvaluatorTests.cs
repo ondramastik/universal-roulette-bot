@@ -2,14 +2,13 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RouletteBot.Models;
-using RouletteBot.Models.Bets;
 
 namespace RouletteBotTests
 {
     [TestClass]
     public class BetEvaluatorTests
     {
-        private readonly RulesGenerator _rulesGenerator = new(new BetEvaluationTestConfig());
+        private readonly RulesFactory _rulesFactory = new(new BetEvaluationTestConfig());
 
         [TestMethod("Checks correct try SixLine bets for normal case")]
         public void SixLines_CorrectBetsAreCreated()
@@ -18,12 +17,13 @@ namespace RouletteBotTests
             var numbers = new[] { 1, 2, 3, 7, 15 };
 
             // Act
-            Bet[] bets = _rulesGenerator.GetEligibleRules(numbers);
+            var rules = _rulesFactory.GetApplicableRules(numbers);
 
             // Assert
-            Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
+            Assert.AreEqual(3, rules.Count, "There must be exactly 3 bets");
 
-            var sixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
+            var sixLineBetIndexes = rules.SelectMany(rule => rule.GetBets(numbers)
+                    .Where(bet => bet is SixLineBet))
                 .Select(bet => ((SixLineBet)bet).Index).ToArray();
 
             Assert.AreEqual(2, sixLineBetIndexes.Length, "There must be exactly 2 SixLine bets");
@@ -35,7 +35,8 @@ namespace RouletteBotTests
 
             Assert.IsTrue(lastNumberX == sixLineBetIndexes[0], "First SixLine bet index must be same as last number X");
 
-            var numberBetNumbers = Array.FindAll(bets, bet => bet is NumberBet)
+            var numberBetNumbers = rules.SelectMany(rule => rule.GetBets(numbers)
+                    .Where(bet => bet is NumberBet))
                 .Select(bet => ((NumberBet)bet).Number).ToArray();
 
             Assert.AreEqual(1, numberBetNumbers.Length, "There must be exactly 1 number bet");
@@ -49,12 +50,13 @@ namespace RouletteBotTests
             var numbers = new[] { 1, 2, 3, 7, 15, 3 };
 
             // Act
-            Bet[] bets = _rulesGenerator.GetEligibleRules(numbers);
+            var rules = _rulesFactory.GetApplicableRules(numbers);
 
             // Assert
-            Assert.AreEqual(3, bets.Length, "There must be exactly 3 bets");
+            Assert.AreEqual(3, rules.Count, "There must be exactly 3 bets");
 
-            var sixLineBetIndexes = Array.FindAll(bets, bet => bet is SixLineBet)
+            var sixLineBetIndexes = rules.SelectMany(rule => rule.GetBets(numbers)
+                    .Where(bet => bet is SixLineBet))
                 .Select(bet => ((SixLineBet)bet).Index).ToArray();
 
             Assert.AreEqual(2, sixLineBetIndexes.Length, "There must be exactly 3 SixLine bets");
@@ -78,12 +80,12 @@ namespace RouletteBotTests
                 var numbers = new[] { 20, 20, 22, 13, i };
 
                 // Act
-                Bet[] bets = _rulesGenerator.GetEligibleRules(numbers);
+                var rules = _rulesFactory.GetApplicableRules(numbers);
 
                 // Assert
-                Assert.AreEqual(4, bets.Length, "There must be exactly 4 bets");
+                Assert.AreEqual(4, rules.Count, "There must be exactly 4 bets");
 
-                var numberBets = bets.OfType<NumberBet>().ToArray();
+                var numberBets = rules.OfType<NumberBet>().ToArray();
 
                 if (i == 0)
                 {
@@ -94,9 +96,9 @@ namespace RouletteBotTests
                     Assert.AreEqual(1, numberBets.Length, "There must be exactly 1 number bet");
                 }
 
-                var sixLineBets = bets.OfType<SixLineBet>().ToArray();
+                var sixLineBets = rules.OfType<SixLineBet>().ToArray();
 
-                Assert.AreEqual(1, sixLineBets.Length, "There must be exactly 1 SixLine bet");
+                Assert.AreEqual(1, numberBets.Length, "There must be exactly 1 SixLine bet");
             }
         }
 
@@ -107,13 +109,13 @@ namespace RouletteBotTests
             var numbers = new[] { 3, 2, 1, 3 };
 
             // Act
-            Bet[] bets = _rulesGenerator.GetEligibleRules(numbers)
+            var rules = _rulesFactory.GetApplicableRules(numbers)
                 .Where(v => v.RuleName == "TwoColorsInRow").ToArray();
 
             // Assert
-            Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");
+            Assert.AreEqual(1, rules.Length, "There must be exactly 1 bet");
 
-            var colorBets = bets.OfType<ColorBet>().ToArray();
+            var colorBets = rules.OfType<ColorBet>().ToArray();
 
             Assert.AreEqual(1, colorBets.Length, "There must be exactly 1 color bet");
         }
@@ -125,11 +127,11 @@ namespace RouletteBotTests
             var numbers = new[] { 9, 12 };
 
             // Act
-            Bet[] bets = _rulesGenerator.GetEligibleRules(numbers)
+            var rules = _rulesFactory.GetApplicableRules(numbers)
                 .Where(v => v.RuleName == "TwoColorsInRow").ToArray();
 
             // Assert
-            Assert.AreEqual(0, bets.Length, "There must be no bet");
+            Assert.AreEqual(0, rules.Length, "There must be no bet");
         }
 
         [TestMethod("Checks correct switching colors bet")]
@@ -139,16 +141,16 @@ namespace RouletteBotTests
             var numbers = new[] { 1, 2, 3, 4, 5 };
 
             // Act
-            Bet[] bets = _rulesGenerator.GetEligibleRules(numbers)
+            var rules = _rulesFactory.GetApplicableRules(numbers)
                 .Where(v => v.RuleName == "ColorsSwitching").ToArray();
 
             // Assert
-            Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");
+            Assert.AreEqual(1, rules.Length, "There must be exactly 1 bet");
 
-            var colorBets = bets.OfType<ColorBet>().ToArray();
+            var colorRules = rules.OfType<ColorBet>().ToArray();
 
-            Assert.AreEqual(1, colorBets.Length, "There must be exactly 1 color bet");
-            Assert.IsFalse(colorBets[0].Red, $"Last color must be black after number {numbers[4]}");
+            Assert.AreEqual(1, colorRules.Length, "There must be exactly 1 color bet");
+            Assert.IsFalse(colorRules[0].Red, $"Last color must be black after number {numbers[4]}");
         }
 
         [TestMethod("Checks three of four bet")]
@@ -158,13 +160,14 @@ namespace RouletteBotTests
             var numbers = new[] { 3, 4, 3 };
 
             // Act
-            Bet[] bets = _rulesGenerator.GetEligibleRules(numbers)
+            var rules = _rulesFactory.GetApplicableRules(numbers)
                 .Where(v => v.RuleName == "ThreeOfFour").ToArray();
 
             // Assert
-            Assert.AreEqual(4, bets.Length, "There must be exactly 4 bets");
+            Assert.AreEqual(4, rules.Length, "There must be exactly 4 bets");
 
-            var numberBetsNumbers = bets.Where(bet => bet is NumberBet)
+            var numberBetsNumbers = rules.SelectMany(rule => rule.GetBets(numbers)
+                    .Where(bet => bet is NumberBet))
                 .Select(bet => ((NumberBet)bet).Number).ToArray();
 
             Assert.AreEqual(4, numberBetsNumbers.Length, "There must be exactly 4 number bets");
@@ -183,14 +186,16 @@ namespace RouletteBotTests
             var numbers = new[] { 1, 8, 9, 25, 12, 0, 9, 12 };
 
             // Act
-            Bet[] bets = _rulesGenerator.GetEligibleRules(numbers);
+            var rules = _rulesFactory.GetApplicableRules(numbers);
 
             // Assert
-            Assert.AreEqual(1, bets.Length, "There must be exactly 1 bet");
+            Assert.AreEqual(1, rules.Count, "There must be exactly 1 bet");
 
 
-            Assert.AreEqual(true, bets[0] is ColorBet, "The bet must be ColorBet");
-            Assert.AreEqual(true, ((ColorBet)bets[0]).Red, "The bet should be placed on red color");
+            Assert.AreEqual(true, rules.Single().GetBets(numbers).Any(bet => bet is ColorBet),
+                "The bet must be ColorBet");
+            Assert.AreEqual(true, ((ColorBet)rules.Single().GetBets(numbers).Single()).Red,
+                "The bet should be placed on red color");
         }
     }
 }

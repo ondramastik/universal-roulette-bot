@@ -19,7 +19,7 @@ namespace RouletteBot.Models.Rules
 
             var distinctValues = colorsAfterZero.Distinct().ToArray();
 
-            return colorsAfterZero.Count < 2 || distinctValues.Length != 1;
+            return distinctValues.Length == 1;
         }
 
         protected override IReadOnlyCollection<Bet> GenerateBets(IReadOnlyCollection<int> numbers)

@@ -6,19 +6,22 @@ using RouletteBot.Models.Rules;
 
 namespace RouletteBot.Models
 {
-    public class RulesGenerator
+    public class RulesFactory
     {
         private readonly BetEvaluationConfig _config;
 
-        public RulesGenerator(BetEvaluationConfig evaluationConfig = null)
+        public RulesFactory(BetEvaluationConfig evaluationConfig = null)
         {
             _config = evaluationConfig ?? new BetEvaluationFileConfig();
         }
 
-        public IReadOnlyCollection<Rule> GetEligibleRules(int[] numbers)
+        public IReadOnlyCollection<Rule> GetApplicableRules(int[] numbers)
         {
             var rules = new List<Rule>();
 
+            if (numbers.Length < 1) return rules;
+
+            var lastNumber = numbers[numbers.Length - 1];
             /*if (_config.ThreeOfFour)
                 bets.AddRange(GetThreeOfFourBet(numbers));
             if (_config.TwoColorsInRow)
@@ -28,7 +31,7 @@ namespace RouletteBot.Models
             if (_config.RedAfterZero)
                 bets.AddRange(GetAfterZeroBet(numbers));*/
             if (_config.SixLineBet)
-                rules.Add(new SixLineRule(RouletteHelper.FindIndex(numbers[numbers.Length - 1]), _config));
+                rules.Add(new SixLineRule(RouletteHelper.FindIndex(lastNumber), _config));
             /*if (_config.FirstFiveBlack)
                 bets.AddRange(GetFirstFiveBlackBet(numbers));*/
             if (_config.ColorStreakAfterZero)
@@ -44,7 +47,7 @@ namespace RouletteBot.Models
             }*/
 
 
-            return rules;
+            return rules.Where(rule => rule.IsApplicable(numbers)) as IReadOnlyCollection<Rule>;
         }
 
         private IEnumerable<Bet> GetFirstFiveBlackBet(IReadOnlyList<int> numbers)

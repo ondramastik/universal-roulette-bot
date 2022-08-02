@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RouletteBot.Controllers;
+using RouletteBot.Models.Bets;
 using RouletteBot.Models.Rules;
 
 namespace RouletteBot.Models
@@ -47,12 +48,13 @@ namespace RouletteBot.Models
                 Numbers.Add(number);
             }
 
-            var rulesGenerator = new RulesGenerator(_evaluationConfig);
-            var suggestedRules = rulesGenerator.GetEligibleRules(Numbers.ToArray());
+            var rulesGenerator = new RulesFactory(_evaluationConfig);
+            var suggestedRules = rulesGenerator.GetApplicableRules(Numbers.ToArray());
 
             _activeRules = _activeRules.Where(rule => !rule.Fulfilled).Concat(suggestedRules).ToList();
 
-            foreach (var bet in _activeRules.SelectMany(rule => rule.GetBets(Numbers)))
+            foreach (var bet in _activeRules.SelectMany(rule =>
+                         rule.IsApplicable(Numbers) ? rule.GetBets(Numbers) : new List<Bet>()))
             {
                 bet.Place(_rouletteControls);
             }

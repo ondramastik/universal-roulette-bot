@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -151,7 +150,7 @@ namespace RouletteBot.Models
                 {
                     if (grid[y][x] < 0) continue;
 
-                    if (Array.IndexOf(RouletteHelper.GetRedNumbers(), grid[y][x]) >= 0)
+                    if (RouletteHelper.GetRedNumbers().Contains(grid[y][x]))
                     {
                         colors.Add(grid[y][x], GetNumberColor(grid[y][x], gridScreenshotRedActive, x, y));
                     }

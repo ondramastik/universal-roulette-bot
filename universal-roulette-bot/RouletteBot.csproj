@@ -233,7 +233,7 @@
     <Compile Include="Models\Bets\ColorBet.cs" />
     <Compile Include="Models\Bets\SixLineBet.cs" />
     <Compile Include="Models\Bets\Bet.cs" />
-    <Compile Include="Models\RulesGenerator.cs" />
+    <Compile Include="Models\RulesFactory.cs" />
     <Compile Include="Models\BetEvaluationFileConfig.cs" />
     <Compile Include="Models\FileStatsLogger.cs" />
     <Compile Include="Models\GameTableReader.cs" />

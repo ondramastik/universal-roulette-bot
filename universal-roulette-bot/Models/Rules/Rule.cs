@@ -36,12 +36,15 @@ namespace RouletteBot.Models.Rules
 
         public void EvaluateBets(int lastNumber, int spin, Game game, IStatsLogger logger)
         {
+            if (_bets == null) return;
+
             foreach (var bet in _bets)
             {
                 logger.RecordBetResult(bet, bet.Multiplier, bet.CalculateBetResult(lastNumber), game.GameId, spin,
                     lastNumber,
                     game.RouletteType, RouletteHelper.GetLastOccurance(game.Numbers.ToArray(), lastNumber, true));
             }
+
 
             var win = _bets.Sum(bet => bet.CalculateBetResult(lastNumber));
 
