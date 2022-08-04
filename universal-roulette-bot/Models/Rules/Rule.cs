@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using RouletteBot.Controllers;
 using RouletteBot.Models.Bets;
 
 namespace RouletteBot.Models.Rules
@@ -34,15 +35,15 @@ namespace RouletteBot.Models.Rules
             return _bets;
         }
 
-        public void EvaluateBets(int lastNumber, int spin, Game game, IStatsLogger logger)
+        public void EvaluateBets(int lastNumber, int spin, GameController gameController, IStatsLogger logger) // TODO: Do not pass controller
         {
             if (_bets == null) return;
 
             foreach (var bet in _bets)
             {
-                logger.RecordBetResult(bet, bet.Multiplier, bet.CalculateBetResult(lastNumber), game.GameId, spin,
+                logger.RecordBetResult(bet, bet.Multiplier, bet.CalculateBetResult(lastNumber), gameController.GameId, spin,
                     lastNumber,
-                    game.RouletteType, RouletteHelper.GetLastOccurance(game.Numbers.ToArray(), lastNumber, true));
+                    gameController.RouletteType, RouletteHelper.GetLastOccurance(gameController.Numbers.ToArray(), lastNumber, true));
             }
 
 

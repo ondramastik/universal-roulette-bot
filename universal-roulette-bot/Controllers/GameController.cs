@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RouletteBot.Controllers;
-using RouletteBot.Models.Bets;
+using RouletteBot.Models;
 using RouletteBot.Models.Rules;
 
-namespace RouletteBot.Models
+namespace RouletteBot.Controllers
 {
-    public class Game
+    public class GameController
     {
         private readonly IRouletteControls _rouletteControls;
 
@@ -24,7 +23,8 @@ namespace RouletteBot.Models
         public string RouletteType { get; }
 
 
-        public Game(IRouletteControls rouletteControls, IStatsLogger statsLogger, BetEvaluationFileConfig config,
+        public GameController(IRouletteControls rouletteControls, IStatsLogger statsLogger,
+            BetEvaluationFileConfig config,
             string rouletteType)
         {
             _rouletteControls = rouletteControls;
@@ -43,18 +43,22 @@ namespace RouletteBot.Models
 
         public int[] PlayRound(int number)
         {
-            if (number >= 0)
-            {
-                Numbers.Add(number);
-            }
+            Numbers.Add(number);
 
-            var rulesGenerator = new RulesFactory(_evaluationConfig);
-            var suggestedRules = rulesGenerator.GetApplicableRules(Numbers.ToArray());
+            var rulesFactory = new RulesFactory(_evaluationConfig);
+            var suggestedRules = rulesFactory.GetApplicableRules(Numbers.ToArray());
 
             _activeRules = _activeRules.Where(rule => !rule.Fulfilled).Concat(suggestedRules).ToList();
 
-            foreach (var bet in _activeRules.SelectMany(rule =>
-                         rule.IsApplicable(Numbers) ? rule.GetBets(Numbers) : new List<Bet>()))
+            var bets = _activeRules.SelectMany(rule => rule.GetBets(Numbers));
+
+            if (!bets.Any() && _evaluationConfig.EnableNeutralBet)
+            {
+                new ColorBet(true) { RuleName = "NeutralBet", IsVirtualBet = false }.Place(_rouletteControls);
+                new ColorBet(false) { RuleName = "NeutralBet", IsVirtualBet = false }.Place(_rouletteControls);
+            }
+
+            foreach (var bet in bets)
             {
                 bet.Place(_rouletteControls);
             }

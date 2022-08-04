@@ -10,7 +10,7 @@ namespace RouletteBot.Views
 {
     public partial class MainWindow : Form
     {
-        private Game _game;
+        private GameController _gameController;
 
         private GameTableReader _tableReader;
 
@@ -21,7 +21,7 @@ namespace RouletteBot.Views
 
         private static string GetRouletteType(MappingConfig config)
         {
-            string result = config.IsMulti ? "multi" : "platinum";
+            var result = config.IsMulti ? "multi" : "platinum";
 
             result += config.IsDemo ? "-demo" : "-real";
 
@@ -33,7 +33,7 @@ namespace RouletteBot.Views
             int[] num = null;
             var mappingConf = new MappingConfig();
             IRouletteControls controls = new MouseRouletteControls(mappingConf);
-            _game = new Game(
+            _gameController = new GameController(
                 controls,
                 new MysqlStatsLogger(),
                 new BetEvaluationFileConfig(),
@@ -94,8 +94,8 @@ namespace RouletteBot.Views
                         ready = _tableReader.IsRoundReady();
                     }
 
-                    _game.Evaluate(number, counter);
-                    num = getLongTimeNoSeeNumber(_game.PlayRound(number));
+                    _gameController.Evaluate(number, counter);
+                    num = getLongTimeNoSeeNumber(_gameController.PlayRound(number));
 
                     while (ready)
                     {

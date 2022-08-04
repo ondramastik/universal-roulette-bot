@@ -51,28 +51,28 @@ namespace RouletteBot.Models.Rules
             {
                 case 12:
                     result.Add(new SixLineBet(last.X)
-                        { Multiplier = 2 * multiplier });
+                        { RuleName = RuleName, Multiplier = 2 * multiplier });
                     break;
                 case 1:
                 case 0:
                     result.Add(new NumberBet(0)
-                        { Multiplier = multiplier });
+                        { RuleName = RuleName, Multiplier = multiplier });
                     result.Add(new SixLineBet(2)
-                        { Multiplier = multiplier * 2 });
+                        { RuleName = RuleName, Multiplier = multiplier * 2 });
                     break;
                 case 2:
                     result.Add(new NumberBet(0)
-                        { Multiplier = multiplier });
+                        { RuleName = RuleName, Multiplier = multiplier });
                     result.Add(new SixLineBet(last.X)
-                        { Multiplier = multiplier });
+                        { RuleName = RuleName, Multiplier = multiplier });
                     result.Add(new SixLineBet(last.X + 1)
-                        { Multiplier = multiplier });
+                        { RuleName = RuleName, Multiplier = multiplier });
                     break;
                 default:
                     result.Add(new SixLineBet(last.X)
-                        { Multiplier = multiplier });
+                        { RuleName = RuleName, Multiplier = multiplier });
                     result.Add(new SixLineBet(last.X + 1)
-                        { Multiplier = multiplier });
+                        { RuleName = RuleName, Multiplier = multiplier });
                     break;
             }
 
@@ -86,6 +86,7 @@ namespace RouletteBot.Models.Rules
                     if (grid[j][i] % 10 != numberToBet % 10) continue;
                     result.Add(new NumberBet(grid[j][i])
                     {
+                        RuleName = RuleName,
                         Multiplier = (_initiatedOnNumber.X == 12 || _initiatedOnNumber.X == 1
                             ? numberBeforeMultiplier * 2
                             : numberBeforeMultiplier)
@@ -93,7 +94,7 @@ namespace RouletteBot.Models.Rules
                     break;
                 }
             }
-            
+
             return result;
         }
     }

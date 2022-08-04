@@ -32,7 +32,7 @@ namespace RouletteBot.Models.Rules
             {
                 new ColorBet(distinctValues[0])
                 {
-                    RuleName = "SameColorStreakAfterZero", Multiplier = EvaluationConfig.ColorStreakAfterZeroAmount
+                    RuleName = RuleName, Multiplier = EvaluationConfig.ColorStreakAfterZeroAmount
                 }
             };
         }

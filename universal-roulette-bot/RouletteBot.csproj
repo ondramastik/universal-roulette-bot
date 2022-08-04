@@ -225,6 +225,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Models\BetEvaluationConfig.cs" />
     <Compile Include="Models\BetEvaluationTestConfig.cs" />
     <Compile Include="Models\MysqlStatsLogger.cs" />
@@ -237,15 +238,19 @@
     <Compile Include="Models\BetEvaluationFileConfig.cs" />
     <Compile Include="Models\FileStatsLogger.cs" />
     <Compile Include="Models\GameTableReader.cs" />
-    <Compile Include="Models\Game.cs" />
     <Compile Include="Controllers\IRouletteControls.cs" />
     <Compile Include="Controllers\Mocks\MockedRouletteControls.cs" />
     <Compile Include="Controllers\MouseRouletteControls.cs" />
     <Compile Include="Models\IStatsLogger.cs" />
     <Compile Include="Models\RouletteHelper.cs" />
+    <Compile Include="Models\Rules\FirstFiveBlackRule.cs" />
+    <Compile Include="Models\Rules\RedAfterZeroRule.cs" />
+    <Compile Include="Models\Rules\ColorsSwitchingRule.cs" />
     <Compile Include="Models\Rules\Rule.cs" />
     <Compile Include="Models\Rules\SameColorStreakAfterZeroRule.cs" />
     <Compile Include="Models\Rules\SixLineRule.cs" />
+    <Compile Include="Models\Rules\ThreeOfFourRule.cs" />
+    <Compile Include="Models\Rules\TwoColorsInRowRule.cs" />
     <Compile Include="Views\BetEvaluationConfigurator.cs">
       <SubType>Form</SubType>
     </Compile>
