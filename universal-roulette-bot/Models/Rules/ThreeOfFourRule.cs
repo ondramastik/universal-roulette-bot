@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RouletteBot.Models.Bets;
 
@@ -14,15 +15,18 @@ namespace RouletteBot.Models.Rules
         public override bool IsApplicable(IReadOnlyCollection<int> numbers)
         {
             if (numbers.Count < 2) return false;
+            
+            var lastThree = numbers.Skip(Math.Max(0, numbers.Count - 3)).ToArray();
 
-            var counts = GetCounts(numbers);
+            var counts = GetCounts(lastThree);
 
             return counts.Any(count => count > 1);
         }
 
         protected override IReadOnlyCollection<Bet> GenerateBets(IReadOnlyCollection<int> numbers)
         {
-            var counts = GetCounts(numbers);
+            var lastThree = numbers.Skip(Math.Max(0, numbers.Count - 3)).ToArray();
+            var counts = GetCounts(lastThree);
             var bets = new List<Bet>();
 
 

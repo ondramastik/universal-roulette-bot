@@ -19,7 +19,7 @@ namespace RouletteBot.Models.Rules
         private int _repeatedTimes;
 
 
-        protected Rule(BetEvaluationConfig evaluationConfig, int repeatTimes = 0)
+        protected Rule(BetEvaluationConfig evaluationConfig, int repeatTimes = 1)
         {
             _repeatTimes = repeatTimes;
             _repeatedTimes = 0;
@@ -55,12 +55,12 @@ namespace RouletteBot.Models.Rules
                 return;
             }
 
+            _repeatedTimes++;
+
             if (_repeatedTimes >= _repeatTimes)
             {
                 Fulfilled = true;
             }
-
-            _repeatedTimes++;
         }
 
         protected abstract IReadOnlyCollection<Bet> GenerateBets(IReadOnlyCollection<int> numbers);

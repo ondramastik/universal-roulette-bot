@@ -41,16 +41,13 @@ namespace RouletteBot.Models.Rules
             var grid = RouletteHelper.GetNumbersGrid();
             var lastFive = numbers.Skip(Math.Max(0, numbers.Count - 5)).ToArray();
 
-            var indexes = RouletteHelper.FindIndexes(lastFive);
-
-            var last = indexes.Last();
             var result = new List<Bet>();
             var multiplier = EvaluationConfig.SixLineBetAmount;
 
-            switch (last.X)
+            switch (_initiatedOnNumber.X)
             {
                 case 12:
-                    result.Add(new SixLineBet(last.X)
+                    result.Add(new SixLineBet(_initiatedOnNumber.X)
                         { RuleName = RuleName, Multiplier = 2 * multiplier });
                     break;
                 case 1:
@@ -63,15 +60,15 @@ namespace RouletteBot.Models.Rules
                 case 2:
                     result.Add(new NumberBet(0)
                         { RuleName = RuleName, Multiplier = multiplier });
-                    result.Add(new SixLineBet(last.X)
+                    result.Add(new SixLineBet(_initiatedOnNumber.X)
                         { RuleName = RuleName, Multiplier = multiplier });
-                    result.Add(new SixLineBet(last.X + 1)
+                    result.Add(new SixLineBet(_initiatedOnNumber.X + 1)
                         { RuleName = RuleName, Multiplier = multiplier });
                     break;
                 default:
-                    result.Add(new SixLineBet(last.X)
+                    result.Add(new SixLineBet(_initiatedOnNumber.X)
                         { RuleName = RuleName, Multiplier = multiplier });
-                    result.Add(new SixLineBet(last.X + 1)
+                    result.Add(new SixLineBet(_initiatedOnNumber.X + 1)
                         { RuleName = RuleName, Multiplier = multiplier });
                     break;
             }

@@ -42,7 +42,7 @@ namespace RouletteBot.Models
     public class MysqlStatsLogger : IStatsLogger
     {
         private string connString =
-            "server=roulette-statistics.cqrjm7r3gxpp.us-east-1.rds.amazonaws.com;uid=naxmars;pwd=jrMXcKIRzgYBfVwso9m1;database=roulette_bot";
+            "server=roulette-statistics.cqrjm7r3gxpp.us-east-1.rds.amazonaws.com;uid=naxmars;pwd=jrMXcKIRzgYBfVwso9m2;database=roulette_bot";
 
         MySqlConnection conn;
 

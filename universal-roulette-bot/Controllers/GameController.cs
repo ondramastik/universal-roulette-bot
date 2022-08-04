@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RouletteBot.Models;
+using RouletteBot.Models.Bets;
 using RouletteBot.Models.Rules;
 
 namespace RouletteBot.Controllers
@@ -43,7 +44,10 @@ namespace RouletteBot.Controllers
 
         public int[] PlayRound(int number)
         {
-            Numbers.Add(number);
+            if (number >= 0)
+            {
+                Numbers.Add(number);
+            }
 
             var rulesFactory = new RulesFactory(_evaluationConfig);
             var suggestedRules = rulesFactory.GetApplicableRules(Numbers.ToArray());

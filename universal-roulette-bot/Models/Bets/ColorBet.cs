@@ -2,7 +2,7 @@
 using RouletteBot.Controllers;
 using RouletteBot.Models.Bets;
 
-namespace RouletteBot.Models
+namespace RouletteBot.Models.Bets
 {
     public class ColorBet : Bet
     {

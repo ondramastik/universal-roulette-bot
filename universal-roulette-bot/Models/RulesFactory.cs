@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using RouletteBot.Models.Bets;
 using RouletteBot.Models.Rules;
 
 namespace RouletteBot.Models
@@ -15,7 +13,7 @@ namespace RouletteBot.Models
             _config = evaluationConfig ?? new BetEvaluationFileConfig();
         }
 
-        public IReadOnlyCollection<Rule> GetApplicableRules(int[] numbers)
+        public IEnumerable<Rule> GetApplicableRules(int[] numbers)
         {
             var rules = new List<Rule>();
 
@@ -38,7 +36,7 @@ namespace RouletteBot.Models
                 rules.Add(new FirstFiveBlackRule(_config));
 
 
-            return rules.Where(rule => rule.IsApplicable(numbers)) as IReadOnlyCollection<Rule>;
+            return rules.Where(rule => rule.IsApplicable(numbers));
         }
     }
 }
